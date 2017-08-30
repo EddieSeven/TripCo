@@ -1,6 +1,6 @@
-package edu.csu2017fa314.DTR25;
-import edu.csu2017fa314.DTR25.Model.*;
-import edu.csu2017fa314.DTR25.View.*;
+package edu.csu2017fa314.T25;
+import edu.csu2017fa314.T25.Model.*;
+import edu.csu2017fa314.T25.View.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import junit.framework.JUnit4TestAdapter;
