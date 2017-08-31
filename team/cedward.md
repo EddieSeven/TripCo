@@ -1,6 +1,7 @@
 Charles Culpepper
+-----
+### Personality Type: ENTP-A
 
-Personality Type: ENTP-A
 
 1. Is it generally easier to reach you by text, email, vmail or something else? What
 hours? Email.
