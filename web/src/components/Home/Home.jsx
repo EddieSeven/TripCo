@@ -1,9 +1,30 @@
+/*
+    CS314 - Team25 
+    Due: 10 PM MST, September 7, 2017
+*/
+
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
 
 class Home extends React.Component {
     render() {
-        let total = 0; //update the total here
+        let total = 0;
+        
+        /* Sprint 1 Work - Algorithm/Pseudo:
+         - Create a list of objects called data
+             - If there's something in data
+                 - Loop through each object
+                 - Take the distance from each
+                 - Add to total 
+        */
+        let data = this.props.pairs;
+        if (data.length !== 0){
+            for(let i =0; i < data.length; i++){
+                let distance = data[i].props.dist;
+                console.log(distance); // For testing, otherwise
+                total += distance;     // Can be done on 1 line
+            }
+        }
         return <div className="home-container">
             <div className="inner">
                 <h1>TripCo</h1>
