@@ -6,7 +6,9 @@ class Home extends React.Component {
         let total = 0; //update the total here
         return <div className="home-container">
             <div className="inner">
-                <h3>Itinerary</h3>
+                <h1>TripCo</h1>
+                <h2>T25</h2>
+                <h3>Travel Itinerary</h3>
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
