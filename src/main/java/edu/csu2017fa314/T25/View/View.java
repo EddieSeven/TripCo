@@ -25,11 +25,7 @@ public class View
    public void writeJSON(ArrayList<String> compDistances /*[TODO] Replace with actual data structure*/) throws IOException {
       Gson gsonObj = new Gson();
 
-
       FileWriter writer = new FileWriter("itinerary.json");
       gsonObj.toJson(computedDistances, writer);
-
-
    }
-
 }
