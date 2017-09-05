@@ -8,7 +8,7 @@
 
 Sprint # | Model - Data | Model - Itinerary | View - Server | View - Client
 ------------ | ------------- | ------------- | ------------- | -------------
-1 | Will | Leif | Michael | Charles  
+1 | Leif | Will | Michael | Charles  
 2 |  |  |  |  
 3 |  |  |  |  
 4 |  |  |  |  
