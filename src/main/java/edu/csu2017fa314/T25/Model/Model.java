@@ -115,14 +115,3 @@ class Point {
 
 	}
 }
-
-class TripLeg {
-	String start, finish;
-	int distance;
-
-	public TripLeg(String start, String finish, int dist) {
-		this.start = start;
-		this.finish = finish;
-		distance = dist;
-	}
-}
