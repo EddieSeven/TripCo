@@ -30,19 +30,50 @@ public class Model
 
     public static void readCSV(String csvLocation) throws FileNotFoundException {
          Scanner scanner = new Scanner(new File(csvLocation));
-         scanner.nextLine();
-         scanner.useDelimiter("\n");
+		 String[] firstline = scanner.next().split(",");
+		 scanner.useDelimiter("\n");
+
+		 int iD = 0;
+		 int name = 0;
+		 int lat = 0;
+		 int longi = 0;
+		 int elev = 0;
+		 int city = 0;
+
+		 for(int i = 0; i < firstline.length;i++){
+		 	if(firstline[i].toLowerCase().contains("longi")){
+		 		longi = i;
+			}
+			if(firstline[i].toLowerCase().contains("lati")){
+				lat = i;
+			}
+			if(firstline[i].toLowerCase().contains("id")){
+				iD = i;
+			}
+			if(firstline[i].toLowerCase().contains("name")){
+				name = i;
+			}
+			if(firstline[i].toLowerCase().contains("elev")){
+				elev = i;
+			}
+			if(firstline[i].toLowerCase().contains("city")){
+				 city = i;
+			}
+
+		 }
+		 scanner.nextLine();
          while (scanner.hasNext()) {
-             Model brewery = new Model();
-             String[] values = scanner.next().split(",");
-             brewery.studentID = values[0];
-             brewery.name = values[1];
-             brewery.city = values[2];
-             brewery.latitude = values[3];
-             brewery.longitude = values[4];
-             brewery.elevation = Integer.parseInt(values[5]);
-             breweriesList.add(brewery);
-         }
+			 Model brewery = new Model();
+			 String[] values = scanner.next().split(",");
+			 brewery.studentID = values[iD];
+			 brewery.name = values[name];
+			 brewery.city = values[city];
+			 brewery.latitude = values[lat];
+			 brewery.longitude = values[longi];
+			 String elevStrConv = values[elev].trim();
+			 brewery.elevation = Integer.parseInt(elevStrConv);
+			 breweriesList.add(brewery);
+		 }
          scanner.close();
     }
 
