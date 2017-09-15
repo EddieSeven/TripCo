@@ -69,8 +69,10 @@ public class Model
 			 brewery.city = values[city];
 			 brewery.latitude = values[lat];
 			 brewery.longitude = values[longi];
-			 String elevStrConv = values[elev].trim();
-			 brewery.elevation = Integer.parseInt(elevStrConv);
+			 if(elev != 0) {//avoid parsing if elevation is not present
+                 String elevStrConv = values[elev].trim();
+                 brewery.elevation = Integer.parseInt(elevStrConv);
+             }
 			 breweriesList.add(brewery);
 		 }
          scanner.close();
