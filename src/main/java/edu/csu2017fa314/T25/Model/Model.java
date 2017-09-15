@@ -30,8 +30,8 @@ public class Model
 
     public static void readCSV(String csvLocation) throws FileNotFoundException {
          Scanner scanner = new Scanner(new File(csvLocation));
-		 String[] firstline = scanner.next().split(",");
 		 scanner.useDelimiter("\n");
+		 String[] firstline = scanner.next().split(",");
 
 		 int iD = 0;
 		 int name = 0;
@@ -59,7 +59,6 @@ public class Model
 			if(firstline[i].toLowerCase().contains("city")){
 				 city = i;
 			}
-
 		 }
 		 scanner.nextLine();
          while (scanner.hasNext()) {
