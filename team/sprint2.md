@@ -1,4 +1,4 @@
-# Sprint 2 - *T99* - *teamname*
+# Sprint 2 - *T25* - *NO NAME GROUP*
 
 ## Goal
 
@@ -25,15 +25,15 @@
 
 ## Plan 
 
-User stories (epics) in the Sprint Backlog: *#8, #9, #10, #12, #11, #14*.  
+User stories (epics) in the Sprint Backlog: * #38, #39, #40, #41, #42, #43, #44, #45, #46, #47, #48, #49, #50*.  
 
-Total planned tasks / issues in the Sprint Backlog: *99* 
+Total planned tasks / issues in the Sprint Backlog: *25* 
 
 ## Daily Scrums
 
 Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 :--- | :--- | :--- | :--- | :---
-*Sep 14* | Dave *#27, #28* | Dave *#30* | *None* | *High*
+ | | | | 
  | | | | 
  | | | | 
 
