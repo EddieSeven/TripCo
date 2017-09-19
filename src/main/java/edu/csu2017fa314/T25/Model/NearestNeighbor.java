@@ -3,7 +3,6 @@ package edu.csu2017fa314.T25.Model;
 import java.util.ArrayList;
 
 
-
 public class NearestNeighbor {
     ArrayList<Node> unvisited = new ArrayList<Node>();
 
