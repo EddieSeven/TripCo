@@ -12,7 +12,7 @@ public class NearestNeighbor {
      * INPUT: current node
      * OUTPUT: nearest node
      * */
-    private Node computeNearestNeighbor(Pair legPair){
+    private Node computeNearestNeighbor(Node current){
         return null;
     }
 
