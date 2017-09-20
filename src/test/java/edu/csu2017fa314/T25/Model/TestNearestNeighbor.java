@@ -2,6 +2,7 @@ package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
 
+import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,6 @@ public class TestNearestNeighbor {
         testNN = new NearestNeighbor();
         testDM = new DistanceMap();
     }
-
 
     @Test
     public void testComputeNearestNeighbor(){
@@ -33,6 +33,11 @@ public class TestNearestNeighbor {
 
     @Test
     public void testWrite(){
+        Node a = new Node("a", 32.0, 42.0);
+        Node b = new Node("b", 44.3, 62.0);
+        Pair ab = new Pair(a, b);
+        testDM.write(ab, 300);
+        assertEquals(testDM.getDistance(a, b), 300.0, 0);
 
     }
 }

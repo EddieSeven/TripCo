@@ -27,7 +27,16 @@ public class NearestNeighbor {
 }
 
 class Node {
+    // Container class for trip legs [TODO] Only has the basic 3 fields required for computation
+    String id;
+    double latitude;
+    double longitude;
 
+    public Node(String id, double latitude, double longitude){
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }
 
 class DistanceMap {
@@ -39,7 +48,7 @@ class DistanceMap {
      * OUTPUT: the distance between the two nodes, or -1.0 if it hasn't been computed yet [TODO] More elegant solution?
      * COMPLEXITY: constant
      */
-    private double getDistance(Node a, Node b){
+    public double getDistance(Node a, Node b){
         Pair ab = new Pair(a, b);
         Pair ba = new Pair(b, a);
 
@@ -57,7 +66,7 @@ class DistanceMap {
      * INPUT: pair of nodes, distance in double form
      * EFFECT: adds newly computed distance to map
      */
-    private void write(Pair<Node, Node> pair, double distance){
+    public void write(Pair<Node, Node> pair, double distance){
         distanceMap.put(pair, distance);
     }
 
