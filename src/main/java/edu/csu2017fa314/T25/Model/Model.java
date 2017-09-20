@@ -8,6 +8,7 @@ import java.lang.Math;
 public class Model
 {
     public static ArrayList<Model> breweriesList = new ArrayList<Model>();
+    public static ArrayList<Model> itinerary = new ArrayList<Model>();
 
     public String studentID = "";
     public String name = "";
@@ -17,7 +18,8 @@ public class Model
     public int elevation = 0;
 
     public Model(){}
-
+    
+    // The data may have fewer or less categories than in sprint 1
     public Model(String stuID,String brewName,String brewCi,String brewLat,String brewLong,int brewElev){
         studentID = stuID;
         name = brewName;
@@ -77,7 +79,8 @@ public class Model
 		 }
          scanner.close();
     }
-
+    
+//    
 	public static ArrayList<TripLeg> calculateDistances() {
 		if (breweriesList.isEmpty()) {
 			return null;
@@ -88,7 +91,7 @@ public class Model
 			Model endB = breweriesList.get(i+1);
 			Point start = new Point(startB.latitude, startB.longitude);
 			Point end = new Point(endB.latitude, endB.longitude);
-			legs.add(new TripLeg(startB.studentID, endB.studentID, distance(start, end)));
+			legs.add(new TripLeg(startB.studentID, endB.studentID, distance(start, end), startB.name, endB.name, startB.latitude, endB.latitude, startB.longitude, endB.longitude));
 		}
 		return legs;
 	}
