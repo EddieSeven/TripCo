@@ -33,7 +33,7 @@ Total planned tasks / issues in the Sprint Backlog: *25*
 
 Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 :--- | :--- | :--- | :--- | :---
- | | | | 
+9/18/2017 | Discussed task delegation and forthcoming issues during sprint| N/a| None|High 
  | | | | 
  | | | | 
 
