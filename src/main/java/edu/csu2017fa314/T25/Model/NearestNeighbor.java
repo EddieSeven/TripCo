@@ -31,23 +31,34 @@ class Node {
 }
 
 class DistanceMap {
-    HashMap<Pair, Double> distanceMap;
+    // Container class that adds functionality to check both permutations of a pair (ab, ba)
+    HashMap<Pair, Double> distanceMap = new HashMap<Pair, Double>();
 
     /**
      * INPUT: two nodes
-     * OUTPUT: the distance between the two nodes
+     * OUTPUT: the distance between the two nodes, or -1.0 if it hasn't been computed yet [TODO] More elegant solution?
      * COMPLEXITY: constant
      */
     private double getDistance(Node a, Node b){
-        return 3.14;
+        Pair ab = new Pair(a, b);
+        Pair ba = new Pair(b, a);
+
+        if (distanceMap.get(ab) != null){
+            return distanceMap.get(ab);
+        } else if (distanceMap.get(ba) != null){
+            return distanceMap.get(ba);
+        } else {
+            return -1.0;
+        }
+
     }
 
     /**
-     * INPUT: two nodes
-     * OUTPUT: true if the distance has already been computed
+     * INPUT: pair of nodes, distance in double form
+     * EFFECT: adds newly computed distance to map
      */
-    private boolean isComputed(Node a, Node b){
-        return false;
+    private void write(Pair<Node, Node> pair, double distance){
+        distanceMap.put(pair, distance);
     }
 
 }
