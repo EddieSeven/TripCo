@@ -35,10 +35,22 @@ export default class App extends React.Component {
             let start = file[i].start; //get start from file i
             let end = file[i].end; //get end from file i
             let dist = file[i].distance;
+            let startName = file[i].startName;
+            let endName = file[i].endName;
+            let startLat = file[i].startLat;
+            let endLat = file[i].endLat;
+            let startLong = file[i].startLong;
+            let endLong = file[i].endLong;
             let p = { //create object with start, end, and dist variable
                 start: start,
                 end: end,
-                dist: dist
+                dist: dist,
+                startName: startName,
+                endName: endName,
+                startLat: startLat,
+                endLat: endLat,
+                startLong: startLong,
+                endLong: endLong
             };
             pairs.push(p); //add object to pairs array
             console.log("Pushing pair: ", p); //log to console
