@@ -91,12 +91,12 @@ public class Model
 			Model endB = breweriesList.get(i+1);
 			Point start = new Point(startB.latitude, startB.longitude);
 			Point end = new Point(endB.latitude, endB.longitude);
-			legs.add(new TripLeg(startB.studentID, endB.studentID, computedistance(start, end), startB.name, endB.name, startB.latitude, endB.latitude, startB.longitude, endB.longitude));
+			legs.add(new TripLeg(startB.studentID, endB.studentID, computeDistance(start, end), startB.name, endB.name, startB.latitude, endB.latitude, startB.longitude, endB.longitude));
 		}
 		return legs;
 	}
 
-	public static int computedistance(Point start, Point finish) {
+	public static int computeDistance(Point start, Point finish) {
 		final double RADIUS_MILES = 3958.7613;
 		final double RADIUS_KILOMETERS = 6371.0088;
 
