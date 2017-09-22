@@ -6,7 +6,11 @@ import java.util.HashMap;
 
 
 public class NearestNeighbor {
+    int problemSize;
     ArrayList<Node> unvisited = new ArrayList<Node>();
+    ArrayList<Node> nodes = new ArrayList<Node>();
+
+
 
     /**
      * INPUT: current node
