@@ -91,12 +91,12 @@ public class Model
 			Model endB = breweriesList.get(i+1);
 			Point start = new Point(startB.latitude, startB.longitude);
 			Point end = new Point(endB.latitude, endB.longitude);
-			legs.add(new TripLeg(startB.studentID, endB.studentID, distance(start, end), startB.name, endB.name, startB.latitude, endB.latitude, startB.longitude, endB.longitude));
+			legs.add(new TripLeg(startB.studentID, endB.studentID, computedistance(start, end), startB.name, endB.name, startB.latitude, endB.latitude, startB.longitude, endB.longitude));
 		}
 		return legs;
 	}
 
-	public static int distance(Point start, Point finish) {
+	public static int computedistance(Point start, Point finish) {
 		final double RADIUS_MILES = 3958.7613;
 		final double RADIUS_KILOMETERS = 6371.0088;
 
@@ -111,13 +111,14 @@ public class Model
 
 		double numerator = Math.pow(cosP2 * sindY, 2) + Math.pow((cosP1 * sinP2) - (sinP1*cosP2*cosdY),2);
 		double denominator = (sinP1 * sinP2) + (cosP1 * cosP2 * cosdY);
-		double dS = Math.atan(Math.sqrt(numerator) / denominator); //[TODO] atan2?
+		double dS = Math.atan2(Math.sqrt(numerator) , denominator);
 		return (int)(Math.round(RADIUS_MILES * dS));
 	}
 
 }
 
 class Point {
+	// [TODO] Account for east and south in lat and long
 	double lat, lon;
 	public Point(String slat, String slon) {
 		String newSlat = trimNonNumeric(slat.replace(" ", "")).trim();
