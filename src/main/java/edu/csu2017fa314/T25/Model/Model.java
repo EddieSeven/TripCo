@@ -98,6 +98,7 @@ public class Model
 
 	public static int distance(Point start, Point finish) {
 		final double RADIUS_MILES = 3958.7613;
+		final double RADIUS_KILOMETERS = 6371.0088;
 
 		double dP = Math.abs(start.lat - finish.lat);
 		double dY = Math.abs(start.lon - finish.lon);
@@ -110,7 +111,7 @@ public class Model
 
 		double numerator = Math.pow(cosP2 * sindY, 2) + Math.pow((cosP1 * sinP2) - (sinP1*cosP2*cosdY),2);
 		double denominator = (sinP1 * sinP2) + (cosP1 * cosP2 * cosdY);
-		double dS = Math.atan(Math.sqrt(numerator) / denominator);
+		double dS = Math.atan(Math.sqrt(numerator) / denominator); //[TODO] atan2?
 		return (int)(Math.round(RADIUS_MILES * dS));
 	}
 
