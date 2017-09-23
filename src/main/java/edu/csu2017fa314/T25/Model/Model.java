@@ -8,6 +8,8 @@ import java.lang.Math;
 public class Model {
     public static ArrayList<Model> breweriesList = new ArrayList<Model>();
     public static ArrayList<Model> itinerary = new ArrayList<Model>();
+    public static ArrayList<String> modelCategories = new ArrayList<String>();
+    public static ArrayList<ArrayList<String>> modelData = new ArrayList<ArrayList<String>>();
 
     public String studentID = "";
     public String name = "";
@@ -28,12 +30,18 @@ public class Model {
         elevation = brewElev;
     }
 
+    public Model(ArrayList<String> categories){
+    	Model.modelCategories = categories;
+    }
+    
+    public static void addToModel(ArrayList<String> data){
+    	modelData.add(data);
+    }
 
     public static void readCSV(String csvLocation) throws FileNotFoundException {
-         Scanner scanner = new Scanner(new File(csvLocation));
+        Scanner scanner = new Scanner(new File(csvLocation));
 		 scanner.useDelimiter("\n");
 		 String[] firstline = scanner.next().split(",");
-
 		 int iD = 0;
 		 int name = 0;
 		 int lat = 0;
@@ -42,6 +50,7 @@ public class Model {
 		 int city = 0;
 
 		 for(int i = 0; i < firstline.length;i++){
+			modelCategories.add(firstline[i].toLowerCase());
 		 	if(firstline[i].toLowerCase().contains("longi")){
 		 		longi = i;
 			}
@@ -62,42 +71,75 @@ public class Model {
 			}
 		 }
 		 scanner.nextLine();
-         while (scanner.hasNext()) {
+        while (scanner.hasNext()) {
 			 Model brewery = new Model();
+			 ArrayList<String> temp = new ArrayList<String>();
 			 String[] values = scanner.next().split(",");
+			 for(int j = 0; j < values.length; ++j){
+				 temp.add(values[j]);
+				 if(values[j].contains("elev")){
+					 
+				 }
+			 }
 			 brewery.studentID = values[iD];
 			 brewery.name = values[name];
 			 brewery.city = values[city];
 			 brewery.latitude = values[lat];
 			 brewery.longitude = values[longi];
 			 if(elev != 0) {//avoid parsing if elevation is not present
-                 String elevStrConv = values[elev].trim();
-                 brewery.elevation = Integer.parseInt(elevStrConv);
-             }
+                String elevStrConv = values[elev].trim();
+                brewery.elevation = Integer.parseInt(elevStrConv);
+            }
 			 breweriesList.add(brewery);
+			 addToModel(temp);
 		 }
-         scanner.close();
-    }
-    
-//    
-	public static ArrayList<TripLeg> calculateDistances() {
-		Model model = new Model();
-
-    	if (breweriesList.isEmpty()) {
+        scanner.close();
+   }
+     
+    public static ArrayList<TripLeg> calculateDistances() {
+		int latIndex = 0;
+		int longIndex = 0;
+		int nameIndex = 0;
+		int idIndex = 0;
+		
+		if (modelData.isEmpty()) {
 			return null;
 		}
 		ArrayList<TripLeg> legs = new ArrayList<TripLeg>();
-		for (int i = 0; i < breweriesList.size()-1;i++) {
-			Model startB = breweriesList.get(i);
-			Model endB = breweriesList.get(i+1);
-			Point start = new Point(startB.latitude, startB.longitude);
-			Point end = new Point(endB.latitude, endB.longitude);
-			legs.add(new TripLeg(startB.studentID, endB.studentID, model.computeDistance(start, end), startB.name, endB.name, startB.latitude, endB.latitude, startB.longitude, endB.longitude));
+		
+		for (int i = 0; i < modelCategories.size(); ++i) {
+			if(modelCategories.get(i).toLowerCase().equals("latitude")){
+				latIndex = i;
+			}
+			if (modelCategories.get(i).toLowerCase().equals("longitude")){
+				longIndex = i;
+			}
+			if (modelCategories.get(i).toLowerCase().equals("name")){
+				nameIndex = i;
+			}
+			if (modelCategories.get(i).toLowerCase().equals("id")){
+				idIndex = i;
+			}
 		}
+		
+		for (int j = 0; j < modelData.size()-1; ++j) {
+			String startId = modelData.get(j).get(idIndex);
+			String endId = modelData.get(j+1).get(idIndex);
+			String startName = modelData.get(j).get(nameIndex);
+			String endName = modelData.get(j+1).get(nameIndex);
+			String startLat = modelData.get(j).get(latIndex);
+			String startLong = modelData.get(j).get(longIndex);
+			String endLat = modelData.get(j+1).get(latIndex);
+			String endLong = modelData.get(j+1).get(longIndex);
+			Point start = new Point(startLat, startLong);
+			Point end = new Point(endLat, endLong);
+			
+			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, modelData, modelCategories));
+		}	
 		return legs;
 	}
 
-	public int computeDistance(Point start, Point finish) {
+	public static int computeDistance(Point start, Point finish) {
 		final double RADIUS_MILES = 3958.7613;
 		final double RADIUS_KILOMETERS = 6371.0088;
 
