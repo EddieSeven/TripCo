@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class View {
 
@@ -40,7 +41,7 @@ public class View {
 
    }
 
-   public void convertCoordinates(ArrayList<Model> breweriesList, String SVGPath) throws FileNotFoundException{
+   public void convertCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws FileNotFoundException{
       double svgWidth = 0.0;
       double svgHeight = 0.0;
       double padX = 0.0;
@@ -56,27 +57,27 @@ public class View {
       Boolean foundPathX = false;
       while(scanner.hasNextLine()){
          String line = scanner.nextLine();
-         if(line.contains("path49") && foundPathX == false){
+         if(line.contains("path49") && !foundPathX){
             foundPathX = true;
          }
-         if(line.contains("polyline45") && foundpolyY ==  false){
+         if(line.contains("polyline45") && !foundpolyY){
             foundpolyY = true;
          }
-         if(line.contains("points=") && foundpolyY ==  false){
+         if(line.contains("points=") && !foundpolyY){
             pathPolylineY = line;
          }
-         if(line.contains("d=") && foundPathX == false){
+         if(line.contains("d=") && !foundPathX){
             path49X = line;
          }
-         if(line.contains("width") && foundWidth == false){// create escape sequence for width and height
+         if(line.contains("width") && !foundWidth){// create escape sequence for width and height
             svgWidth = Double.parseDouble(line.substring(10,line.length()-1));
             foundWidth = true;
          }
-         if(line.contains("height") && foundHeight == false){
+         if(line.contains("height") && !foundHeight){
             svgHeight = Double.parseDouble(line.substring(11,line.length()-1));
             foundWidth = true;
          }
-         if(foundHeight == true && foundWidth == true && foundPathX == true && foundpolyY == true){
+         if(foundHeight && foundWidth && foundPathX && foundpolyY){
             //exit while loop after pad has been found
             break;
          }
@@ -84,40 +85,35 @@ public class View {
       scanner.close();
       padX = Double.parseDouble(path49X.substring(path49X.indexOf("M ") + 2,path49X.indexOf(".") + 6));
       padY = Double.parseDouble(pathPolylineY.substring(pathPolylineY.lastIndexOf(",") + 1,pathPolylineY.lastIndexOf(".") + 6));
-
-
-//      System.out.println("SVG size");
-//      System.out.println("Width: " +svgWidth);
-//      System.out.println("Height " +svgHeight);
-//      System.out.println();
-//      System.out.println("Pad of X and Y");
-//      System.out.println("X " +padX);
-//      System.out.println("Y " +padY);
-//      System.out.println();
-//      System.out.println("Breweries lat and long");
-//
-//      System.out.println(breweriesList.get(4).latitude);
-//      System.out.println(breweriesList.get(4).longitude);
-
-      double svgXcoordinate = (-109 - Double.parseDouble(breweriesList.get(4).longitude)) / -7;
-
-      svgXcoordinate = (svgXcoordinate * svgWidth) + padX;
-
-      double svgYcoordinate = ((41 - Double.parseDouble(breweriesList.get(4).latitude)) / 4);
-
-      svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
-//      System.out.println();
-//      System.out.println();
-      String coordinate = svgXcoordinate + " " + svgYcoordinate;
-
-//      System.out.println(coordinate);
-
-
+      insertSVG(breweriesList,svgWidth,svgHeight,padX,padY);
       //x1 is at path49
       //y1 is at polyline45
    }
 
-   public void insertSVG(){
+   public void insertSVG(ArrayList<Model> breweriesList,double svgWidth, double svgHeight, double padX, double padY){
+      DecimalFormat decimalF = new DecimalFormat("0.00");
+      String coordinates = "";
+      for(int i = 0; i < breweriesList.size(); i++) {
+         double svgXcoordinate = (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / -7;
+
+         svgXcoordinate = (svgXcoordinate * svgWidth) + padX;
+
+         //decimalF.format(svgXcoordinate);
+
+         double svgYcoordinate = (41 - Double.parseDouble(breweriesList.get(i).latitude)) / 4;
+
+         svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
+
+         if(i == 0) {
+            coordinates += "<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
+         }
+         else {
+            coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
+         }
+      }
+      coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
+      //System.out.println(coordinates);
+
 
    }
 
