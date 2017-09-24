@@ -27,8 +27,9 @@ public class View {
    }
 
 
-   // Takes in a data structure consisting of a collection of data with three fields: id for one point, id for another point, and the distance between the two.
-   // Uses the gson class to turn the data object into JSON form, and then writes that to a local JSON file "itinerary.json" that is used to show the end user the trip. [TODO] Give credit for GSON
+   // INPUT: ArrayList<TripLeg> object
+   // OUTPUT: JSON file "itinerary.json"
+   // POSSIBLE ERRORS: I/O and incorrect ArrayList<TripLeg>
    public void writeJSON(ArrayList<TripLeg> computedDistances) throws IOException {
       Gson gsonObj = new Gson();
 

@@ -1,15 +1,9 @@
-/*
-    CS314 - Team25 
-    Due: 10 PM MST, September 7, 2017
-*/
-
+﻿/*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
-
 class Home extends React.Component {
     render() {
         let total = 0;
-        
         /* Sprint 1 Work - Algorithm/Pseudo:
          - Create a list of objects called data
              - If there's something in data
@@ -34,10 +28,41 @@ class Home extends React.Component {
                     <button>Open JSON File</button>
                 </Dropzone>
                 <table className="pair-table">
+                    <thead>
+                        <tr>
+                                <th>
+                                    <h5>Origin</h5>
+                                </th>
+                                 <th>
+                                    <h5>Start ID</h5>
+                                </th>
+                                 <th>
+                                    <h5>Starting Latitiude</h5>
+                                </th>
+                                 <th>
+                                    <h5>Starting Longitude</h5>
+                                </th>
+                                <th>
+                                    <h5>Destination</h5>
+                                </th>
+                                 <th>
+                                    <h5>Dest. ID</h5>
+                                </th>
+                                 <th>
+                                    <h5>Dest. Latitude</h5>
+                                </th>
+                                 <th>
+                                    <h5>Dest. Longitude</h5>
+                                </th>
+                                <th>
+                                    <h5>Distance Between</h5>
+                                </th>
+                        </tr>
+                    </thead>
                     {this.props.pairs}
                     <tbody>
                         <tr>
-                            <td colSpan="2">Total:</td>
+                            <td colSpan="8">Total Distance Traversed in Itinerary:</td>
                             <td>{total}</td>
                         </tr>
                     </tbody>
@@ -45,9 +70,7 @@ class Home extends React.Component {
 
             </div>
         </div>
-    }
-    /*<img src="../data/col.svg" ></img>*/
-    drop(acceptedFiles) {
+    }    drop(acceptedFiles) {
         console.log("Accepting drop");
         acceptedFiles.forEach(file => {
             console.log("Filename:", file.name, "File:", file);
@@ -60,10 +83,7 @@ class Home extends React.Component {
                     this.props.browseFile(JsonObj);
                 };
             })(file).bind(this);
-
             fr.readAsText(file);
         });
     }
-
-
 }export default Home
