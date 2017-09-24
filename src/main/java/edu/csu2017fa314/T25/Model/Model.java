@@ -163,10 +163,14 @@ public class Model {
 class Point {
 	// [TODO] Account for east and south in lat and long
 	String id;
+	String DMSlatitude;
+	String DMSlongitude;
 	double latitude;
 	double longitude;
 
 	public Point(String slat, String slon) {
+		DMSlatitude = slat;
+		DMSlongitude = slon;
 		String newSlat = trimNonNumeric(slat.replace(" ", "")).trim();
 		String newSlon = trimNonNumeric(slon.replace(" ", "")).trim();
 		String [] latPieces = newSlat.split(" ");
@@ -196,6 +200,5 @@ class Point {
 			}
 		}
 		return ret;
-
 	}
 }
