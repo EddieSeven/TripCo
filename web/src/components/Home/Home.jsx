@@ -19,7 +19,7 @@ class Home extends React.Component {
         */
         let data = this.props.pairs;
         if (data.length !== 0){
-            for(let i =0; i < data.length; i++){
+            for(let i =0; i < data.length; i++) {
                 let distance = data[i].props.dist;
                 console.log(distance); // For testing, otherwise
                 total += distance;     // Can be done on 1 line
@@ -33,6 +33,7 @@ class Home extends React.Component {
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
+                <object type="image/svg+xml" data="/data/col.svg"> </object>
                 <table className="pair-table">
                     {this.props.pairs}
                     <tbody>
@@ -42,10 +43,11 @@ class Home extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
     }
-
+    /*<img src="../data/col.svg" ></img>*/
     drop(acceptedFiles) {
         console.log("Accepting drop");
         acceptedFiles.forEach(file => {
@@ -63,6 +65,11 @@ class Home extends React.Component {
             fr.readAsText(file);
         });
     }
+
+    mapdisplay(){
+
+    }
+
 }
 
 export default Home

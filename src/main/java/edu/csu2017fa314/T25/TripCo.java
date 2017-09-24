@@ -44,8 +44,10 @@ public class TripCo
 
        trips = model.calculateDistances();
 
+
        try {
            viewer.writeJSON(trips);
+           viewer.convertCoordinates(model.breweriesList, args[1]);
        } catch (IOException e) {
            e.printStackTrace();
        }
