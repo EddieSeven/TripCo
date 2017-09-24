@@ -33,7 +33,6 @@ class Home extends React.Component {
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
-                <object type="image/svg+xml" data="/data/col.svg"> </object>
                 <table className="pair-table">
                     {this.props.pairs}
                     <tbody>
