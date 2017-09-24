@@ -75,7 +75,7 @@ public class View {
          }
          if(line.contains("height") && !foundHeight){
             svgHeight = Double.parseDouble(line.substring(11,line.length()-1));
-            foundWidth = true;
+            foundHeight = true;
          }
          if(foundHeight && foundWidth && foundPathX && foundpolyY){
             //exit while loop after pad has been found
@@ -91,19 +91,12 @@ public class View {
    }
 
    public void insertSVG(ArrayList<Model> breweriesList,double svgWidth, double svgHeight, double padX, double padY){
-      DecimalFormat decimalF = new DecimalFormat("0.00");
       String coordinates = "";
       for(int i = 0; i < breweriesList.size(); i++) {
          double svgXcoordinate = (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / -7;
-
          svgXcoordinate = (svgXcoordinate * svgWidth) + padX;
-
-         //decimalF.format(svgXcoordinate);
-
          double svgYcoordinate = (41 - Double.parseDouble(breweriesList.get(i).latitude)) / 4;
-
          svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
-
          if(i == 0) {
             coordinates += "<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
@@ -113,10 +106,6 @@ public class View {
       }
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
       //System.out.println(coordinates);
-
-
    }
-
-
 
 }
