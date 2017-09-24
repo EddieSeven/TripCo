@@ -65,9 +65,6 @@ class Home extends React.Component {
         });
     }
 
-    mapdisplay(){
-
-    }
 
 }
 
