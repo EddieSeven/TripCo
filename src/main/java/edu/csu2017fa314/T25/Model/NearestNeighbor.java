@@ -37,13 +37,11 @@ public class NearestNeighbor {
         return indexLowest;
     }
 
-
-
     /**
     * INPUT: data structure containing all the stops in the trip
     * OUTPUT: either that same data structure or a path through all of the nodes
     * */
-    private ArrayList<Point> computeShortestPath(){
+    public ArrayList<Point> computeShortestPath(){
         ArrayList<Point> shortestPath= new ArrayList<>();
 
         for (int i = 0; i < problemSize; i++){
@@ -122,3 +120,23 @@ class DistanceMap {
 
 }
 
+class Path {
+    private ArrayList<Point> path = new ArrayList<>();
+    private int totalCost = 0;
+
+    public void addCost(int cost){
+        totalCost += cost;
+    }
+
+    public int getCost(){
+        return totalCost;
+    }
+
+    public ArrayList<Point> getPath() {
+        return path;
+    }
+
+    public void addPoint(Point point){
+        path.add(point);
+    }
+}
