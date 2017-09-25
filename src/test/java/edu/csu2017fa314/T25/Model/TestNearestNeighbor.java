@@ -2,7 +2,6 @@ package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
 
-import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 

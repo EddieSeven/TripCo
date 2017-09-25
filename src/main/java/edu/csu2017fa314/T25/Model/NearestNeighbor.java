@@ -1,8 +1,8 @@
 package edu.csu2017fa314.T25.Model;
 
-import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.javatuples.Pair;
 
 
 public class NearestNeighbor {
