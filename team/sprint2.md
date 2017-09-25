@@ -35,7 +35,7 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 :--- | :--- | :--- | :--- | :---
 9/18/2017 | Discussed task delegation and forthcoming issues during sprint| N/a| None|High 
 9/20/2017 | Discussed hurdles with nearest neighbor path, grid calculations, column placement| Prepare for midterm| None|High 
- | | | | 
+9/25/2017 | | | | 
 
 ## Review
 
