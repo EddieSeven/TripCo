@@ -35,6 +35,10 @@ public class TestNearestNeighbor {
 
     }
 
+    public void testComputeShortestPath(){
+
+    }
+
     @Test
     public void testGetDistance(){
 

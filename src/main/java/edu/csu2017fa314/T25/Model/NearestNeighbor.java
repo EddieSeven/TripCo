@@ -6,12 +6,12 @@ import org.javatuples.Pair;
 
 
 public class NearestNeighbor {
-    int problemSize;
-    ArrayList<Point> points = new ArrayList<>();
-    DistanceMap distanceMap = new DistanceMap();
+    private int problemSize;
+    private ArrayList<Point> points = new ArrayList<>();
+    private DistanceMap distanceMap = new DistanceMap();
 
-    public NearestNeighbor(ArrayList<Point> points, int n){
-        problemSize = n;
+    public NearestNeighbor(ArrayList<Point> points, int problemSize){
+        this.problemSize = problemSize;
         this.points = points;
     }
 
@@ -103,11 +103,7 @@ class DistanceMap {
     }
 
     public boolean containsPair(Pair<Point, Point> pair){
-        if (distanceMap.get(pair) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return (distanceMap.get(pair) != null);
     }
 
     /**
