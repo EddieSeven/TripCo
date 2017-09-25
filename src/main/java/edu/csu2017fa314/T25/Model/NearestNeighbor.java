@@ -1,5 +1,6 @@
 package edu.csu2017fa314.T25.Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.javatuples.Pair;
@@ -7,8 +8,7 @@ import org.javatuples.Pair;
 
 public class NearestNeighbor {
     int problemSize;
-    ArrayList<Point> unvisited = new ArrayList<Point>();
-    ArrayList<Point> points = new ArrayList<Point>();
+    ArrayList<Point> points = new ArrayList<>();
     DistanceMap distanceMap = new DistanceMap();
 
     public NearestNeighbor(ArrayList<Point> points, int n){
@@ -20,7 +20,7 @@ public class NearestNeighbor {
      * INPUT: current node
      * OUTPUT: nearest nodes index in the points arrayList
      * */
-    public int computeNearestNeighbor(int index){
+    private int computeNearestNeighbor(int index){
         Point current = points.get(index);
 
         int indexLowest = 0;
@@ -37,12 +37,38 @@ public class NearestNeighbor {
         return indexLowest;
     }
 
+
+
     /**
     * INPUT: data structure containing all the stops in the trip
     * OUTPUT: either that same data structure or a path through all of the nodes
     * */
-    private ArrayList<Point> computePath(){
-        return null;
+    private ArrayList<Point> computeShortestPath(){
+        ArrayList<Point> shortestPath= new ArrayList<>();
+
+        for (int i = 0; i < problemSize; i++){
+            computePath(i);
+        }
+
+        return shortestPath;
+    }
+
+    private ArrayList<Point> computePath(int start){
+        ArrayList<Point> unvisited = points;
+        ArrayList<Point> path = new ArrayList<>();
+
+        int current = start;
+        int next;
+        path.add(points.get(start));
+        while (!unvisited.isEmpty()){
+            next = computeNearestNeighbor(current);
+            path.add(points.get(next));
+            unvisited.remove(next);
+            current = next;
+        }
+        path.add(points.get(start));
+
+        return path;
     }
 
 }
@@ -95,3 +121,4 @@ class DistanceMap {
     }
 
 }
+
