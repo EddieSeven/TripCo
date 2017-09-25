@@ -41,7 +41,7 @@ public class View {
 
    }
 
-   public void convertCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws FileNotFoundException{
+   public void getCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws FileNotFoundException{
       double svgWidth = 0.0;
       double svgHeight = 0.0;
       double padX = 0.0;

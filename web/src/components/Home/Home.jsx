@@ -24,6 +24,7 @@ class Home extends React.Component {
                 <h1>TripCo</h1>
                 <h2>T25</h2>
                 <h3>Travel Itinerary</h3>
+                {/*<img src="../../../../data/col.svg" type="image/svg+xml"></img>*/}
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
