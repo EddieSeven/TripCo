@@ -1,6 +1,5 @@
 package edu.csu2017fa314.T25.Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.javatuples.Pair;
@@ -20,7 +19,7 @@ public class NearestNeighbor {
      * INPUT: current node
      * OUTPUT: nearest nodes index in the points arrayList
      * */
-    private int computeNearestNeighbor(int index){
+    private int computeNearestNeighbor(int index, Path path){
         Point current = points.get(index);
 
         int indexLowest = 0;
@@ -34,6 +33,8 @@ public class NearestNeighbor {
             }
         }
 
+        path.addCost(lowestDistance);
+
         return indexLowest;
     }
 
@@ -41,25 +42,30 @@ public class NearestNeighbor {
     * INPUT: data structure containing all the stops in the trip
     * OUTPUT: either that same data structure or a path through all of the nodes
     * */
-    public ArrayList<Point> computeShortestPath(){
-        ArrayList<Point> shortestPath= new ArrayList<>();
+    public Path computeShortestPath(){
+        Path shortestPath= new Path();
 
+        Path current;
         for (int i = 0; i < problemSize; i++){
-            computePath(i);
+            current = computePath(i);
+
+            if (current.getCost() < shortestPath.getCost()) {
+                shortestPath = current;
+            }
         }
 
         return shortestPath;
     }
 
-    private ArrayList<Point> computePath(int start){
+    private Path computePath(int start){
+        Path path = new Path();
         ArrayList<Point> unvisited = points;
-        ArrayList<Point> path = new ArrayList<>();
 
         int current = start;
         int next;
         path.add(points.get(start));
         while (!unvisited.isEmpty()){
-            next = computeNearestNeighbor(current);
+            next = computeNearestNeighbor(current, path);
             path.add(points.get(next));
             unvisited.remove(next);
             current = next;
@@ -68,7 +74,6 @@ public class NearestNeighbor {
 
         return path;
     }
-
 }
 
 class DistanceMap {
@@ -122,7 +127,9 @@ class DistanceMap {
 
 class Path {
     private ArrayList<Point> path = new ArrayList<>();
-    private int totalCost = 0;
+    private int totalCost = Integer.MAX_VALUE;
+
+    public Path(){}
 
     public void addCost(int cost){
         totalCost += cost;
@@ -136,7 +143,12 @@ class Path {
         return path;
     }
 
-    public void addPoint(Point point){
+    public void add(Point point){
         path.add(point);
+    }
+
+    public Path(Path obj){
+        this.totalCost = obj.totalCost;
+        this.path = obj.path;
     }
 }
