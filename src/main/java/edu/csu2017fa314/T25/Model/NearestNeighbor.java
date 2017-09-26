@@ -60,25 +60,35 @@ public class NearestNeighbor {
         return shortestPath;
     }
 
-    private Path computePath(int start){
+    private Path computePath(int startIndex){
         Path path = new Path();
         ArrayList<Point> unvisited = (ArrayList<Point>)points.clone();
-        int current = start;
-        int nextIndex;
+        int current = startIndex;
         Point next;
-        path.add(points.get(start));
 
-
+        path.add(points.get(startIndex));
+        unvisited.remove(points.get(startIndex));
         while (!unvisited.isEmpty()){
-            nextIndex = computeNearestNeighbor(current, path, unvisited);
+            int nextIndex = computeNearestNeighbor(current, path, unvisited);
             next = points.get(nextIndex);
             path.add(next);
             unvisited.remove(next);
             current = nextIndex;
         }
-        path.add(points.get(start));
+        returnHome(path, startIndex);
 
         return path;
+    }
+
+    private void returnHome(Path path, int startIndex){
+        int pathSize = path.size();
+        Point startPoint = points.get(startIndex);
+        Point endPoint = path.getPoint(pathSize - 1);
+        int distance = distanceMap.getDistance(startPoint, endPoint);
+
+
+        path.add(points.get(startIndex));
+        path.addCost(distance);
     }
 }
 
@@ -146,6 +156,14 @@ class Path {
 
     public void add(Point point){
         path.add(point);
+    }
+
+    public Point getPoint(int index){
+        return path.get(index);
+    }
+
+    public int size(){
+        return path.size();
     }
 
     public Path(Path obj){
