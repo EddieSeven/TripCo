@@ -31,11 +31,14 @@ Total planned tasks / issues in the Sprint Backlog: *25*
 
 ## Daily Scrums
 
-Date | Tasks done this time | Tasks done next time | Impediments | Confidence
-:--- | :--- | :--- | :--- | :---
-9/18/2017 | Discussed task delegation and forthcoming issues during sprint| N/a| None|High 
-9/20/2017 | Discussed hurdles with nearest neighbor path, grid calculations, column placement| Prepare for midterm| None|High 
-9/25/2017 | | | | 
+Team Member | Date | Tasks done this time | Tasks done next time | Impediments | Confidence
+| :--- | :--- | :--- | :--- | :--- | :---
+N/A |9/18/2017 | Discussed task delegation and forthcoming issues during sprint| N/A | None|High 
+N/A |9/20/2017 | Discussed hurdles with nearest neighbor path, grid calculations, column placement| Prepare for midterm| None|High 
+Michael | 9/25/2017 | Finished #56, and spent some time fixing maven issues | Finish nearest neighbor Algorithm | Time; we're winding down in this sprint | High
+member | 9/25/2017 | issues done | issues to do | impediments | confidence
+member | 9/25/2017 | issues done | issues to do | impediments | confidence
+member | 9/25/2017 | issues done | issues to do | impediments | confidence
 
 ## Review
 
