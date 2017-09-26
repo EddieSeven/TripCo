@@ -10,11 +10,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.text.DecimalFormat;
 
 public class View {
 
    private int totalDistance;
+   public String outputSVG = "";
    public Model modeldata;
 
    public void setTotalDistance(int distance) 
@@ -41,7 +41,7 @@ public class View {
 
    }
 
-   public void getCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws FileNotFoundException{
+   public void getCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws FileNotFoundException, IOException{
       double svgWidth = 0.0;
       double svgHeight = 0.0;
       double padX = 0.0;
@@ -55,33 +55,38 @@ public class View {
       Boolean foundHeight = false;
       Boolean foundpolyY = false;
       Boolean foundPathX = false;
-      while(scanner.hasNextLine()){
+      while(scanner.hasNextLine()) {
          String line = scanner.nextLine();
-         if(line.contains("path49") && !foundPathX){
+         if (line.contains("path49") && !foundPathX) {
             foundPathX = true;
          }
-         if(line.contains("polyline45") && !foundpolyY){
+         if (line.contains("polyline45") && !foundpolyY) {
             foundpolyY = true;
          }
-         if(line.contains("points=") && !foundpolyY){
+         if (line.contains("points=") && !foundpolyY) {
             pathPolylineY = line;
          }
-         if(line.contains("d=") && !foundPathX){
+         if (line.contains("d=") && !foundPathX) {
             path49X = line;
          }
-         if(line.contains("width") && !foundWidth){// create escape sequence for width and height
-            svgWidth = Double.parseDouble(line.substring(10,line.length()-1));
+         if (line.contains("width") && !foundWidth) {// create escape sequence for width and height
+            svgWidth = Double.parseDouble(line.substring(10, line.length() - 1));
             foundWidth = true;
          }
-         if(line.contains("height") && !foundHeight){
-            svgHeight = Double.parseDouble(line.substring(11,line.length()-1));
+         if (line.contains("height") && !foundHeight) {
+            svgHeight = Double.parseDouble(line.substring(11, line.length() - 1));
             foundHeight = true;
          }
-         if(foundHeight && foundWidth && foundPathX && foundpolyY){
-            //exit while loop after pad has been found
+
+         if (line.contains("path181")) {
+            outputSVG += "   id=\"path181\" />\n";
             break;
+
          }
+         outputSVG += line + "\n";
+         //else add to string for file output
       }
+
       scanner.close();
       padX = Double.parseDouble(path49X.substring(path49X.indexOf("M ") + 2,path49X.indexOf(".") + 6));
       padY = Double.parseDouble(pathPolylineY.substring(pathPolylineY.lastIndexOf(",") + 1,pathPolylineY.lastIndexOf(".") + 6));
@@ -90,7 +95,7 @@ public class View {
       //y1 is at polyline45
    }
 
-   public void insertSVG(ArrayList<Model> breweriesList,double svgWidth, double svgHeight, double padX, double padY){
+   public void insertSVG(ArrayList<Model> breweriesList,double svgWidth, double svgHeight, double padX, double padY) throws IOException{
       String coordinates = "";
       for(int i = 0; i < breweriesList.size(); i++) {
          double svgXcoordinate = (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / -7;
@@ -98,14 +103,27 @@ public class View {
          double svgYcoordinate = (41 - Double.parseDouble(breweriesList.get(i).latitude)) / 4;
          svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
          if(i == 0) {
-            coordinates += "<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
+            coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
          else {
             coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
       }
+
+
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
+
+      outputSVG += coordinates;
+      outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
+      //System.out.println(outputSVG);
+
+      //      File file = new File("../../web/output.svg"); fix me
+      //      FileWriter fw = new FileWriter(file.getAbsoluteFile());
+      //      BufferedWriter bw = new BufferedWriter(fw);
+      //      bw.write(outputSVG);
+      //      bw.close();
+      //      System.out.println(outputSVG);
+
       //System.out.println(coordinates);
    }
-
 }
