@@ -1,4 +1,4 @@
-﻿/*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
+/*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
 class Home extends React.Component {
