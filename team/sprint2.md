@@ -40,9 +40,9 @@ Leif | 9/25/2017 | Fixed SVG file output | Fix Cartesian to SVG equation, replac
 member | 9/25/2017 | issues done | issues to do | impediments | confidence
 member | 9/25/2017 | issues done | issues to do | impediments | confidence
 Leif | 9/27/2017 | Fixed SVG path, per charles reccomendation | use modeldata instead of brewries list | None | High
-member | 9/25/2017 | issues done | issues to do | impediments | confidence
-member | 9/25/2017 | issues done | issues to do | impediments | confidence
-member | 9/25/2017 | issues done | issues to do | impediments | confidence
+Michael | 9/27/2017 | Finished algorithm implementation | Construct more thorough tests, review and finalize | Time | High
+member | 9/27/2017 | issues done | issues to do | impediments | confidence
+member | 9/27/2017 | issues done | issues to do | impediments | confidence
 
 ## Review
 
