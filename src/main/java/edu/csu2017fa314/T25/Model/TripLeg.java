@@ -2,7 +2,8 @@ package edu.csu2017fa314.T25.Model;
 import java.util.ArrayList;
 
 public class TripLeg {
-    String start, end, startName, endName, startLat, endLat, startLong, endLong;
+    String start, end, startName, endName, startLat, endLat, startLong, endLong, categories;
+    String [] data;
     int distance;
 
     public TripLeg(String start, 
@@ -14,8 +15,8 @@ public class TripLeg {
     			   String endLat, 
     			   String startLong, 
     			   String endLong, 
-    			   ArrayList<ArrayList<String>> data, 
-    			   ArrayList<String> categories) 
+    			   String [] data, 
+    			   String categories) 
     {
         this.start = start;
         this.end = finish;
@@ -26,5 +27,7 @@ public class TripLeg {
         this.endLat = endLat;
         this.startLong = startLong;
         this.endLong = endLong;
+        this.data = data;
+        this.categories = categories;
     }
 }

@@ -10,7 +10,9 @@ public class Model {
     public static ArrayList<Model> itinerary = new ArrayList<Model>();
     public static ArrayList<String> modelCategories = new ArrayList<String>();
     public static ArrayList<ArrayList<String>> modelData = new ArrayList<ArrayList<String>>();
-
+    public static String [] jsData;
+    public static String jsArrayCode;
+    
     public String studentID = "";
     public String name = "";
     public String city = "";
@@ -37,6 +39,35 @@ public class Model {
     public static void addToModel(ArrayList<String> data){
     	modelData.add(data);
     }
+    
+    public static String stringForJavascriptArray(ArrayList<String> categories){
+        StringBuffer sb = new StringBuffer();
+        // sb.append("[");
+        for(int i = 0; i < categories.size(); ++i){
+            sb.append("\"").append(categories.get(i)).append("\"");
+            if(i+1 < categories.size()){
+                sb.append(",");
+            }
+        }
+        // sb.append("]");
+        return sb.toString();
+    }
+    
+    public static String [] dataForJavascriptArray(ArrayList<ArrayList<String>> data){
+        jsData = new String[data.size()];
+        StringBuffer sb = new StringBuffer();
+    	for(int j = 0; j <data.size(); ++j){ 
+            for(int i = 0; i < data.get(j).size(); ++i){
+                sb.append("\"").append(data.get(j).get(i)).append("\"");
+                if(i+1 < data.get(j).size()){
+                    sb.append(",");
+                }
+            }
+            jsData[j] = sb.toString();
+            sb.delete(0, sb.length());
+        }
+        return jsData;
+    }
 
     public static void readCSV(String csvLocation) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(csvLocation));
@@ -48,6 +79,7 @@ public class Model {
 		 int longi = 0;
 		 int elev = 0;
 		 int city = 0;
+		 
 
 		 for(int i = 0; i < firstline.length;i++){
 			modelCategories.add(firstline[i].toLowerCase());
@@ -70,8 +102,10 @@ public class Model {
 				 city = i;
 			}
 		 }
+		 jsArrayCode = stringForJavascriptArray(modelCategories);
+		 
 		 scanner.nextLine();
-        while (scanner.hasNext()) {
+         while (scanner.hasNext()) {
 			 Model brewery = new Model();
 			 ArrayList<String> temp = new ArrayList<String>();
 			 String[] values = scanner.next().split(",");
@@ -94,6 +128,7 @@ public class Model {
 			 addToModel(temp);
 		 }
         scanner.close();
+        jsData = dataForJavascriptArray(modelData);
    }
      
     public static ArrayList<TripLeg> calculateDistances() {
@@ -134,7 +169,7 @@ public class Model {
 			Point start = new Point(startLat, startLong);
 			Point end = new Point(endLat, endLong);
 			
-			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, modelData, modelCategories));
+			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
 		}	
 		return legs;
 	}

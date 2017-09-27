@@ -1,5 +1,5 @@
 ﻿import React, {Component} from 'react';
-let Pair = ({startName, start, startLat, startLong, endName, end, endLat, endLong, dist,}) => <tbody
+let Pair = ({startName, start, startLat, startLong, endName, end, endLat, endLong, dist, allCategories, allData}) => <tbody
     className="pair">
     <tr>
         <td>
