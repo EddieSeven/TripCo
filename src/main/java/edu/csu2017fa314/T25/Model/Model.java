@@ -79,7 +79,6 @@ public class Model {
 		 int longi = 0;
 		 int elev = 0;
 		 int city = 0;
-		 
 
 		 for(int i = 0; i < firstline.length;i++){
 			modelCategories.add(firstline[i].toLowerCase());
@@ -132,7 +131,9 @@ public class Model {
    }
      
     public static ArrayList<TripLeg> calculateDistances() {
-		int latIndex = 0;
+		ArrayList<Point> points = new ArrayList<>();
+        NearestNeighbor algorithm;
+        int latIndex = 0;
 		int longIndex = 0;
 		int nameIndex = 0;
 		int idIndex = 0;
@@ -140,7 +141,7 @@ public class Model {
 		if (modelData.isEmpty()) {
 			return null;
 		}
-		ArrayList<TripLeg> legs = new ArrayList<TripLeg>();
+		ArrayList<TripLeg> legs = new ArrayList<>();
 		
 		for (int i = 0; i < modelCategories.size(); ++i) {
 			if(modelCategories.get(i).toLowerCase().equals("latitude")){
@@ -156,7 +157,26 @@ public class Model {
 				idIndex = i;
 			}
 		}
-		
+
+		for (int j = 0; j < modelData.size(); j++){
+		    String latitude = modelData.get(j).get(latIndex);
+		    String longitude = modelData.get(j).get(longIndex);
+		    String id = modelData.get(j).get(idIndex);
+		    String name = modelData.get(j).get(nameIndex);
+
+			Point point = new Point(latitude, longitude);
+		    point.id = id;
+		    point.name = name;
+            point.data = modelData.get(j);
+
+			points.add(point);
+		}
+
+		algorithm = new NearestNeighbor(points);
+        algorithm.computeShortestPath();
+        // todo turn path returned by NN into tripLeg data structure
+
+        /* todo delete later
 		for (int j = 0; j < modelData.size()-1; ++j) {
 			String startId = modelData.get(j).get(idIndex);
 			String endId = modelData.get(j+1).get(idIndex);
@@ -170,7 +190,9 @@ public class Model {
 			Point end = new Point(endLat, endLong);
 			
 			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
-		}	
+		}
+		*/
+
 		return legs;
 	}
 
@@ -193,47 +215,4 @@ public class Model {
 		return (int)(Math.round(RADIUS_MILES * dS));
 	}
 
-}
-
-class Point {
-	// [TODO] Account for east and south in lat and long
-	String id;
-	String DMSlatitude;
-	String DMSlongitude;
-	double latitude;
-	double longitude;
-
-	public Point(String slat, String slon) {
-		DMSlatitude = slat;
-		DMSlongitude = slon;
-		String newSlat = trimNonNumeric(slat.replace(" ", "")).trim();
-		String newSlon = trimNonNumeric(slon.replace(" ", "")).trim();
-		String [] latPieces = newSlat.split(" ");
-		String [] lonPieces = newSlon.split(" ");
-
-		double dlat = 0.0;
-		double dlon = 0.0;
-		for (int i = 0; i < latPieces.length; i++) {
-			dlat += Double.parseDouble(latPieces[i]) / Math.pow(60, i);
-		}
-		for (int i = 0; i < lonPieces.length; i++) {
-			dlon += Double.parseDouble(lonPieces[i]) / Math.pow(60, i);
-		}
-		latitude = Math.toRadians(dlat);
-		longitude = Math.toRadians(dlon);
-
-	}
-
-	public String trimNonNumeric(String s) {
-		String ret = "";
-		for (int c = 0; c < s.length(); c++) {
-			char ch = s.charAt(c);
-			if (ch == ' ' || ch == '.' || (ch >= '0' && ch <= '9')) {
-				ret += ch;
-			} else {
-				ret += ' ';
-			}
-		}
-		return ret;
-	}
 }
