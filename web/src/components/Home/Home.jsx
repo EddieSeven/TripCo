@@ -27,34 +27,43 @@ class Home extends React.Component {
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
+				<input type="checkbox" checked onchange="toggleColumn('origin')"/> Origin
+				<input type="checkbox" checked onchange="toggleColumn('start-id')"/> Start Id
+				<input type="checkbox" checked onchange="toggleColumn('start-lat')"/> Starting Latitude
+				<input type="checkbox" checked onchange="toggleColumn('start-lon')"/> Starting Longitude
+				<input type="checkbox" checked onchange="toggleColumn('dest')"/> Destination
+				<input type="checkbox" checked onchange="toggleColumn('dest-id')"/> Dest. ID
+				<input type="checkbox" checked onchange="toggleColumn('dest-lat')"/> Dest. Latitude
+				<input type="checkbox" checked onchange="toggleColumn('dest-lon')"/> Dest. Longitude
+				<input type="checkbox" checked onchange="toggleColumn('dist')"/> Distance Between
                 <table className="pair-table">
                     <thead>
                         <tr>
-                                <th>
+                                <th id="origin">
                                     <h5>Origin</h5>
                                 </th>
-                                 <th>
+                                 <th id="start-id">
                                     <h5>Start ID</h5>
                                 </th>
-                                 <th>
+                                 <th id="start-lat">
                                     <h5>Starting Latitiude</h5>
                                 </th>
-                                 <th>
+                                 <th id="start-lon">
                                     <h5>Starting Longitude</h5>
                                 </th>
-                                <th>
+                                <th id="dest">
                                     <h5>Destination</h5>
                                 </th>
-                                 <th>
+                                 <th id="dest-id">
                                     <h5>Dest. ID</h5>
                                 </th>
-                                 <th>
+                                 <th id="dest-lat">
                                     <h5>Dest. Latitude</h5>
                                 </th>
-                                 <th>
+                                 <th id="dest-lon">
                                     <h5>Dest. Longitude</h5>
                                 </th>
-                                <th>
+                                <th id="dist">
                                     <h5>Distance Between</h5>
                                 </th>
                         </tr>
@@ -86,4 +95,12 @@ class Home extends React.Component {
             fr.readAsText(file);
         });
     }
+	toggleColumn(colName) {
+		column = document.getElementById(colName);
+		if (column.style.display == "block") {
+			column.style.display = "none"
+		} else {
+			column.style.display = "block"
+		}
+	}
 }export default Home
