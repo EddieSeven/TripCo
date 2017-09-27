@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,7 +42,7 @@ public class View {
 
    }
 
-   public void getCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws FileNotFoundException, IOException{
+   public void getCoordinates(ArrayList<Model> breweriesList,String SVGPath) throws IOException{
       double svgWidth = 0.0;
       double svgHeight = 0.0;
       double padX = 0.0;
@@ -98,10 +99,13 @@ public class View {
    public void insertSVG(ArrayList<Model> breweriesList,double svgWidth, double svgHeight, double padX, double padY) throws IOException{
       String coordinates = "";
       for(int i = 0; i < breweriesList.size(); i++) {
-         double svgXcoordinate = (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / -7;
-         svgXcoordinate = (svgXcoordinate * svgWidth) + padX;
-         double svgYcoordinate = (41 - Double.parseDouble(breweriesList.get(i).latitude)) / 4;
-         svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
+
+         double svgXcoordinate = ((svgWidth - padX) * (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / (-109 + 102));
+
+         double svgYcoordinate = ((svgHeight - padY) * (41 - Double.parseDouble(breweriesList.get(i).latitude)) / (41 - 37));
+         //svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
+         //System.out.println(svgXcoordinate + "  " + svgYcoordinate);
+         
          if(i == 0) {
             coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
@@ -109,21 +113,16 @@ public class View {
             coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
       }
-
-
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
-
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
+
+      File file = new File("web/output.svg");
+      FileWriter fw = new FileWriter(file.getAbsoluteFile());
+      BufferedWriter bw = new BufferedWriter(fw);
+      bw.write(outputSVG);
+      bw.close();
       //System.out.println(outputSVG);
-
-      //      File file = new File("../../web/output.svg"); fix me
-      //      FileWriter fw = new FileWriter(file.getAbsoluteFile());
-      //      BufferedWriter bw = new BufferedWriter(fw);
-      //      bw.write(outputSVG);
-      //      bw.close();
-      //      System.out.println(outputSVG);
-
       //System.out.println(coordinates);
    }
 }
