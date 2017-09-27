@@ -13,16 +13,18 @@ public class TestNearestNeighbor {
     @Before
     public void setup(){
         ArrayList<Point> points = new ArrayList<>();
-        Point a = new Point("37°20'56.9\" N","108°35'47.3\" W");
-        Point b = new Point("37°21'10.9\" N","108°32'56.5\" W");
-        Point c = new Point("19°35'35.9\" N","99°06'58.2\" W");
-        Point d = new Point("11°44'34.4\" N","70°13'35.0\" W");
+        Point a = new Point("37°20'32.9\" N","108°35'10.5\" W");
+        Point b = new Point("40°34'18.9\" N","105°07'18.4\" W");
+        Point c = new Point("28°43'45.0\" N","81°08'43.3\" W");
+        Point d = new Point("60°03'54.7\" N","151°30'34.6\" W");
+        Point e = new Point("35°07'53.0\" N","119°10'55.0\" W");
         points.add(a);
         points.add(b);
         points.add(c);
         points.add(d);
+        points.add(e);
 
-        testNN = new NearestNeighbor(points, 4);
+        testNN = new NearestNeighbor(points);
     }
 
     @Test
@@ -33,6 +35,11 @@ public class TestNearestNeighbor {
     @Test
     public void testComputePath(){
 
+    }
+
+    @Test
+    public void testComputeShortestPath(){
+        testNN.computeShortestPath();
     }
 
     @Test
