@@ -100,12 +100,13 @@ public class View {
       String coordinates = "";
       for(int i = 0; i < breweriesList.size(); i++) {
 
-         double svgXcoordinate = ((svgWidth - padX) * (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / (-109 + 102));
-
-         double svgYcoordinate = ((svgHeight - padY) * (41 - Double.parseDouble(breweriesList.get(i).latitude)) / (41 - 37));
+         double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 - Double.parseDouble(breweriesList.get(i).longitude)) / (-109 + 102));
+         svgXcoordinate += padX;
+         double svgYcoordinate = ((svgHeight - (padY * 2)) * (41 - Double.parseDouble(breweriesList.get(i).latitude)) / (41 - 37));
+         svgYcoordinate += padY;
          //svgYcoordinate = (svgYcoordinate * svgHeight) + padY;
          //System.out.println(svgXcoordinate + "  " + svgYcoordinate);
-         
+
          if(i == 0) {
             coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
