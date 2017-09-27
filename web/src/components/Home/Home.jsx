@@ -24,7 +24,7 @@ class Home extends React.Component {
                 <h1>TripCo</h1>
                 <h2>T25</h2>
                 <h3>Travel Itinerary</h3>
-                <img src="../../../col.svg"/>
+                <img src="../../../output.svg"/>
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
@@ -68,7 +68,6 @@ class Home extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
     }    drop(acceptedFiles) {
