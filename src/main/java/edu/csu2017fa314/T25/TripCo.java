@@ -11,43 +11,19 @@ import java.util.ArrayList;
 public class TripCo
 {
 
-   private String name = "";
-
-   public String getName()
-   {
-      return name;
-   }
-
-   public String getMessage()
-   {
-      if (name == "")
-      {
-         return "Hello!";
-      }
-      else
-      {
-         return "Hello " + name + "!";
-      }
-   }
-
-   public void setName(String name)
-   {
-      this.name = name;
-   }
-
    public static void main(String[] args)throws FileNotFoundException {
        Model model = new Model();
        View viewer = new View();
        model.readCSV(args[0]);
 
-       ArrayList<TripLeg> trips = new ArrayList<>();
+       ArrayList<TripLeg> trips;
 
        trips = model.calculateDistances();
 
 
        try {
            viewer.writeJSON(trips);
-           viewer.convertCoordinates(model.breweriesList, args[1]);
+           viewer.getCoordinates(model.breweriesList, args[1]);
        } catch (IOException e) {
            e.printStackTrace();
        }
