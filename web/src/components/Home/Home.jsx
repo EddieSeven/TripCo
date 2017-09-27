@@ -1,4 +1,4 @@
-﻿/*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
+/*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
 class Home extends React.Component {
@@ -24,6 +24,7 @@ class Home extends React.Component {
                 <h1>TripCo</h1>
                 <h2>T25</h2>
                 <h3>Travel Itinerary</h3>
+                <img src="../../../col.svg"/>
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
