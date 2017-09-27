@@ -13,10 +13,18 @@ class Home extends React.Component {
         */
         let data = this.props.pairs;
         if (data.length !== 0){
+			checks = document.getElementById("checkboxes");
+			headers = document.getElementById("table-headers");
+			// Add all the checkboxes and table headers
+			for(let i=0; i < data[0].props.allCategories.length; i++) {	
+				let catName = data[0].props.allCategories[i];
+				checks.innerHTML = checks.innerHTML + "<input type=\"checkbox\" checked onchange=\"toggleColumn('" + catName + "'\"/>" + catName + " <\\br>";
+			}
             for(let i =0; i < data.length; i++) {
                 let distance = data[i].props.dist;
                 console.log(distance); // For testing, otherwise
                 total += distance;     // Can be done on 1 line
+
             }
         }
         return <div className="home-container">
@@ -28,43 +36,45 @@ class Home extends React.Component {
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
-				<input type="checkbox" checked onchange="toggleColumn('origin')"/> Origin
-				<input type="checkbox" checked onchange="toggleColumn('start-id')"/> Start Id
-				<input type="checkbox" checked onchange="toggleColumn('start-lat')"/> Starting Latitude
-				<input type="checkbox" checked onchange="toggleColumn('start-lon')"/> Starting Longitude
-				<input type="checkbox" checked onchange="toggleColumn('dest')"/> Destination
-				<input type="checkbox" checked onchange="toggleColumn('dest-id')"/> Dest. ID
-				<input type="checkbox" checked onchange="toggleColumn('dest-lat')"/> Dest. Latitude
-				<input type="checkbox" checked onchange="toggleColumn('dest-lon')"/> Dest. Longitude
-				<input type="checkbox" checked onchange="toggleColumn('dist')"/> Distance Between
+				<div id="checkboxes">
+					<input type="checkbox" checked onchange="toggleColumn('origin')"/> Origin <\br>
+					<input type="checkbox" checked onchange="toggleColumn('start-id')"/> Start Id<\br>
+					<input type="checkbox" checked onchange="toggleColumn('start-lat')"/> Starting Latitude<\br>
+					<input type="checkbox" checked onchange="toggleColumn('start-lon')"/> Starting Longitude<\br>
+					<input type="checkbox" checked onchange="toggleColumn('dest')"/> Destination<\br>
+					<input type="checkbox" checked onchange="toggleColumn('dest-id')"/> Dest. ID<\br>
+					<input type="checkbox" checked onchange="toggleColumn('dest-lat')"/> Dest. Latitude<\br>
+					<input type="checkbox" checked onchange="toggleColumn('dest-lon')"/> Dest. Longitude<\br>
+					<input type="checkbox" checked onchange="toggleColumn('dist')"/> Distance Between<\br>
+				</div>
                 <table className="pair-table">
                     <thead>
-                        <tr>
-                                <th id="origin">
+                        <tr id="table-headers">
+                                <th className="origin">
                                     <h5>Origin</h5>
                                 </th>
-                                 <th id="start-id">
+                                 <th className="start-id">
                                     <h5>Start ID</h5>
                                 </th>
-                                 <th id="start-lat">
+                                 <th className="start-lat">
                                     <h5>Starting Latitiude</h5>
                                 </th>
-                                 <th id="start-lon">
+                                 <th className="start-lon">
                                     <h5>Starting Longitude</h5>
                                 </th>
-                                <th id="dest">
+                                <th className="dest">
                                     <h5>Destination</h5>
                                 </th>
-                                 <th id="dest-id">
+                                 <th className="dest-id">
                                     <h5>Dest. ID</h5>
                                 </th>
-                                 <th id="dest-lat">
+                                 <th className="dest-lat">
                                     <h5>Dest. Latitude</h5>
                                 </th>
-                                 <th id="dest-lon">
+                                 <th className="dest-lon">
                                     <h5>Dest. Longitude</h5>
                                 </th>
-                                <th id="dist">
+                                <th className="dist">
                                     <h5>Distance Between</h5>
                                 </th>
                         </tr>
