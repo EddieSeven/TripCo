@@ -173,28 +173,35 @@ public class Model {
 		}
 
 		algorithm = new NearestNeighbor(points);
-        algorithm.computeShortestPath();
-        // todo turn path returned by NN into tripLeg data structure
+        Path shortestPath = algorithm.computeShortestPath();
+        ArrayList<ArrayList<String>> sortedData = new ArrayList<>();
+        reconstructData(shortestPath, sortedData);
 
-        /* todo delete later
-		for (int j = 0; j < modelData.size()-1; ++j) {
-			String startId = modelData.get(j).get(idIndex);
-			String endId = modelData.get(j+1).get(idIndex);
-			String startName = modelData.get(j).get(nameIndex);
-			String endName = modelData.get(j+1).get(nameIndex);
-			String startLat = modelData.get(j).get(latIndex);
-			String startLong = modelData.get(j).get(longIndex);
-			String endLat = modelData.get(j+1).get(latIndex);
-			String endLong = modelData.get(j+1).get(longIndex);
+		for (int j = 0; j < sortedData.size()-1; ++j) {
+			String startId = sortedData.get(j).get(idIndex);
+			String endId = sortedData.get(j+1).get(idIndex);
+			String startName = sortedData.get(j).get(nameIndex);
+			String endName = sortedData.get(j+1).get(nameIndex);
+			String startLat = sortedData.get(j).get(latIndex);
+			String startLong = sortedData.get(j).get(longIndex);
+			String endLat = sortedData.get(j+1).get(latIndex);
+			String endLong = sortedData.get(j+1).get(longIndex);
 			Point start = new Point(startLat, startLong);
 			Point end = new Point(endLat, endLong);
 			
 			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
 		}
-		*/
+
 
 		return legs;
 	}
+
+	private static void reconstructData(Path path, ArrayList<ArrayList<String>> sortedData){
+        for (int i = 0; i < path.size(); i++){
+            ArrayList<String> pointData = path.getPath().get(i).data;
+            sortedData.add(pointData);
+        }
+    }
 
 	public static int computeDistance(Point start, Point finish) {
 		final double RADIUS_MILES = 3958.7613;
