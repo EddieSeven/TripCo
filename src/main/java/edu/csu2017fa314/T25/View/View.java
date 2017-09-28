@@ -117,7 +117,7 @@ public class View {
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
 
-      File file = new File("web/output.svg");
+      File file = new File("./output.svg");
       FileWriter fw = new FileWriter(file.getAbsoluteFile());
       BufferedWriter bw = new BufferedWriter(fw);
       bw.write(outputSVG);
