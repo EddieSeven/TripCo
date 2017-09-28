@@ -15,11 +15,15 @@ public class NearestNeighbor {
         this.points = points;
     }
 
+    public ArrayList<Point> getPoints() {
+        return points;
+    }
+
     /**
      * INPUT: current node
      * OUTPUT: nearest nodes index in the points arrayList
      * */
-    private int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited){
+    public int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited){
         Point current = points.get(index);
 
         int indexLowest = 0;
@@ -60,7 +64,7 @@ public class NearestNeighbor {
         return shortestPath;
     }
 
-    private Path computePath(int startIndex){
+    public Path computePath(int startIndex){
         Path path = new Path();
         ArrayList<Point> unvisited = (ArrayList<Point>)points.clone();
         int current = startIndex;
@@ -170,4 +174,5 @@ class Path {
         this.totalCost = obj.totalCost;
         this.path = obj.path;
     }
+
 }
