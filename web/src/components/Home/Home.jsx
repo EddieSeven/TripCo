@@ -4,11 +4,7 @@ import Dropzone from 'react-dropzone'
 class Home extends React.Component {
 	constructor(props) {
 		super(props);
-		this.toggleColumn=this.toggleColumn.bind(this);
-		this.state = {categories: []};
-	}
-	addCategory(cName) {
-		this.setState(this.state.concat([cName]));
+		this.handleInputChange=this.handleInputChange.bind(this);
 	}
     render() {
         let total = 0;
@@ -21,11 +17,6 @@ class Home extends React.Component {
         */
         let data = this.props.pairs;
         if (data.length !== 0){
-		// Add all the checkboxes and table headers
-			for(let i=0; i < data[0].props.allCategories.length; i++) {
-				let catName = data[0].props.allCategories[i];
-				addCategory(catName);
-			}
             for(let i =0; i < data.length; i++) {
                 let distance = data[i].props.dist;
                 console.log(distance); // For testing, otherwise
@@ -43,22 +34,22 @@ class Home extends React.Component {
                     <button>Open JSON File</button>
                 </Dropzone>
 				<div id="checkboxes">
-					<input type="checkbox" onChange={this.toggleColumn('origin')} /> Origin <br/>
-					<input type="checkbox" onChange={this.toggleColumn('start-id')} /> Start Id<br/>
-					<input type="checkbox" onChange={this.toggleColumn('start-lat')} /> Starting Latitude<br/>
-					<input type="checkbox" onChange={this.toggleColumn('start-lon')} /> Starting Longitude<br/>
-					<input type="checkbox" onChange={this.toggleColumn('dest')} /> Destination<br/>
-					<input type="checkbox" onChange={this.toggleColumn('dest-id')} /> Dest. ID<br/>
-					<input type="checkbox" onChange={this.toggleColumn('dest-lat')} /> Dest. Latitude<br/>
-					<input type="checkbox" onChange={this.toggleColumn('dest-lon')} /> Dest. Longitude<br/>
-					<input type="checkbox" onChange={this.toggleColumn('dist')} /> Distance Between<br/>
-					{this.state.categories.map((name) =>(
-							<div><input type="checkbox" onChange={this.toggleColumn({name})}/> {name} <br/></div>
+					<input type="checkbox" name="origin" onChange={this.handleInputChange} /> Origin <br/>
+					<input type="checkbox" name="start-id" onChange={this.handleInputChange} /> Start Id<br/>
+					<input type="checkbox" name="start-lat" onChange={this.handleInputChange} /> Starting Latitude<br/>
+					<input type="checkbox" name="start-lon" onChange={this.handleInputChange} /> Starting Longitude<br/>
+					<input type="checkbox" name="dest" onChange={this.handleInputChange} /> Destination<br/>
+					<input type="checkbox" name="dest-id" onChange={this.handleInputChange} /> Dest. ID<br/>
+					<input type="checkbox" name="dest-lat" onChange={this.handleInputChange} /> Dest. Latitude<br/>
+					<input type="checkbox" name="dest-lon" onChange={this.handleInputChange} /> Dest. Longitude<br/>
+					<input type="checkbox" name="dist" onChange={this.handleInputChange} /> Distance Between<br/>
+					{this.props.allCg.map((name) =>(
+							<div><input type="checkbox" name={name} onChange={this.handleInputChange} /> {name} <br/></div>
 						))}
 				</div>
                 <table className="pair-table">
                     <thead>
-                        <tr id="table-headers">
+                        <tr>
                                 <th className="origin">
                                     <h5>Origin</h5>
                                 </th>
@@ -86,7 +77,7 @@ class Home extends React.Component {
                                 <th className="dist">
                                     <h5>Distance Between</h5>
                                 </th>
-								{this.state.categories.map((name) =>(
+								{this.props.allCg.map((name) =>(
 									<th className={name}><h5>{name}</h5></th>
 								))}
                         </tr>
@@ -94,7 +85,7 @@ class Home extends React.Component {
                     {this.props.pairs}
                     <tbody>
                         <tr>
-                            <td colSpan="8">Total Distance Traversed in Itinerary:</td>
+                            <td>Total Distance Traversed in Itinerary:</td>
                             <td>{total}</td>
                         </tr>
                     </tbody>
@@ -117,15 +108,18 @@ class Home extends React.Component {
             fr.readAsText(file);
         });
     }
-	toggleColumn(colName) {
-		console.log("toggle column")
+	handleInputChange(event) {
+		let target=event.target;
+		let disp = ""
+		if (target.checked) {
+			disp = "table-cell"
+		} else {
+			disp = "none"
+		}
+		let colName = target.name;
 		let columns = document.getElementsByClassName(colName);
 		for (let i =0; i < columns.length; i++) {
-			if (columns[i].style.display == "block") {
-				columns[i].style.display = "none";
-			} else {
-				columns[i].style.display = "block";
-			}
+			columns[i].style.display = disp;
 		}
 	}
 }export default Home

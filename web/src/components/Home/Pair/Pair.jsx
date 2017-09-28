@@ -29,6 +29,9 @@ let Pair = ({startName, start, startLat, startLong, endName, end, endLat, endLon
         <td className="dist">
             <h5>{dist}</h5>
         </td>
+		{allData.map((inf, index) => (
+			<td className={allCategories[{index}]}> <h5> {inf} </h5> </td>
+		))}
     </tr>
 </tbody>;
 export default Pair;
