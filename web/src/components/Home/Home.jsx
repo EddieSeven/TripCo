@@ -19,6 +19,7 @@ class Home extends React.Component {
 			for(let i=0; i < data[0].props.allCategories.length; i++) {	
 				let catName = data[0].props.allCategories[i];
 				checks.innerHTML = checks.innerHTML + "<input type=\"checkbox\" checked onchange=\"toggleColumn('" + catName + "'\"/>" + catName + " <\\br>";
+				headers.innerHTML = headers.innerHTML + "<th className=\""+catName+"\"> <h5> "+catName+"<\\h5><\\th>";
 			}
             for(let i =0; i < data.length; i++) {
                 let distance = data[i].props.dist;
