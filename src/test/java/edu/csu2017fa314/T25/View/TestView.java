@@ -2,7 +2,6 @@ package edu.csu2017fa314.T25.View;
 import static org.junit.Assert.*;
 
 import edu.csu2017fa314.T25.Model.Model;
-import javafx.scene.shape.SVGPath;
 import org.junit.Before;
 import org.junit.Test;
 
