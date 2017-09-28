@@ -175,23 +175,4 @@ class Path {
         this.path = obj.path;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // Written with help from artima.com
-
-        boolean result = true;
-
-        if (obj instanceof Path) {
-            Path other = (Path) obj;
-
-            for (int i = 0; i < path.size(); i++){
-                if (!this.path.get(i).id.equals(other.path.get(i).id));
-                    result = false;
-            }
-        } else {
-            result = false;
-        }
-
-        return result;
-    }
 }
