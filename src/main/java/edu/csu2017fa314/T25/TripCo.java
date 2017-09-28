@@ -23,7 +23,7 @@ public class TripCo
 
        try {
            viewer.writeJSON(trips);
-           viewer.getCoordinates(model.breweriesList, args[1]);
+           viewer.getCoordinates(args[1]);
        } catch (IOException e) {
            e.printStackTrace();
        }
