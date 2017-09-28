@@ -37,7 +37,7 @@ N/A |9/18/2017 | Discussed task delegation and forthcoming issues during sprint|
 N/A |9/20/2017 | Discussed hurdles with nearest neighbor path, grid calculations, column placement| Prepare for midterm| None|High 
 Michael | 9/25/2017 | Finished #56, and spent some time fixing maven issues | Finish nearest neighbor Algorithm | Time; we're winding down in this sprint | High
 Leif | 9/25/2017 | Fixed SVG file output | Fix Cartesian to SVG equation, replace brewrieslist with Point | None | High
-member | 9/25/2017 | issues done | issues to do | impediments | confidence
+Will | 9/25/2017 | None | Add checkboxes to website | None | High
 member | 9/25/2017 | issues done | issues to do | impediments | confidence
 Leif | 9/27/2017 | Fixed SVG path, per charles reccomendation | use modeldata instead of brewries list | None | High
 Michael | 9/27/2017 | Finished algorithm implementation | Construct more thorough tests, review and finalize | Time | High
