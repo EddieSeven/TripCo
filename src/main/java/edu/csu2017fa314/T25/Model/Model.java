@@ -1,4 +1,5 @@
 package edu.csu2017fa314.T25.Model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -12,6 +13,9 @@ public class Model {
     public static ArrayList<ArrayList<String>> modelData = new ArrayList<ArrayList<String>>();
     public static String [] jsData;
     public static String jsArrayCode;
+    public static ArrayList<Double> latcoordinates = new ArrayList<Double>();
+	public static ArrayList<Double> longcoordinates = new ArrayList<Double>();
+
     
     public String studentID = "";
     public String name = "";
@@ -188,11 +192,10 @@ public class Model {
 			String endLong = sortedData.get(j+1).get(longIndex);
 			Point start = new Point(startLat, startLong);
 			Point end = new Point(endLat, endLong);
-			
+			Model.latcoordinates.add(Double.parseDouble(endLat));
+			Model.longcoordinates.add(Double.parseDouble(endLong));
 			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
 		}
-
-
 		return legs;
 	}
 
