@@ -192,6 +192,8 @@ public class Model {
 			String endLong = sortedData.get(j+1).get(longIndex);
 			Point start = new Point(startLat, startLong);
 			Point end = new Point(endLat, endLong);
+			Model.latcoordinates.add(Double.parseDouble(endLat));
+			Model.longcoordinates.add(Double.parseDouble(endLong));
 			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
 		}
 		return legs;

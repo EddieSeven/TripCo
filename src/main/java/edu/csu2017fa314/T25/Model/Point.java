@@ -35,8 +35,6 @@ public class Point {
         if(isWest){
             dlon = -1 * dlon;
         }
-        Model.latcoordinates.add(dlat);
-        Model.longcoordinates.add(dlon);
         latitude = Math.toRadians(dlat);
         longitude = Math.toRadians(dlon);
     }

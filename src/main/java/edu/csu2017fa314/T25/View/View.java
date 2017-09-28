@@ -94,6 +94,7 @@ public class View {
 
    public void insertSVG(double svgWidth, double svgHeight, double padX, double padY) throws IOException{
       String coordinates = "";
+      String startcoordinate = "";
       int latIndex = 0;
       int longIndex = 0;
       for(int i = 0; i < model.latcoordinates.size(); i++){
@@ -103,11 +104,15 @@ public class View {
          svgYcoordinate += padY;
          if(i == 0) {
             coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
+            startcoordinate = "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
+
          }
          else {
             coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
+
       }
+      coordinates += startcoordinate;
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
