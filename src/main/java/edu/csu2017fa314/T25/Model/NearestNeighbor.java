@@ -15,11 +15,15 @@ public class NearestNeighbor {
         this.points = points;
     }
 
+    public ArrayList<Point> getPoints() {
+        return points;
+    }
+
     /**
      * INPUT: current node
      * OUTPUT: nearest nodes index in the points arrayList
      * */
-    private int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited){
+    public int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited){
         Point current = points.get(index);
 
         int indexLowest = 0;
@@ -60,7 +64,7 @@ public class NearestNeighbor {
         return shortestPath;
     }
 
-    private Path computePath(int startIndex){
+    public Path computePath(int startIndex){
         Path path = new Path();
         ArrayList<Point> unvisited = (ArrayList<Point>)points.clone();
         int current = startIndex;
@@ -169,5 +173,25 @@ class Path {
     public Path(Path obj){
         this.totalCost = obj.totalCost;
         this.path = obj.path;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Written with help from artima.com
+
+        boolean result = true;
+
+        if (obj instanceof Path) {
+            Path other = (Path) obj;
+
+            for (int i = 0; i < path.size(); i++){
+                if (!this.path.get(i).id.equals(other.path.get(i).id));
+                    result = false;
+            }
+        } else {
+            result = false;
+        }
+
+        return result;
     }
 }
