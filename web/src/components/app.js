@@ -8,7 +8,8 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             allPairs: [],
-            sysFile: []
+            sysFile: [],
+			allCat: []
         }
     };
 
@@ -22,6 +23,7 @@ export default class App extends React.Component {
                 <Home
                     browseFile={this.browseFile.bind(this)}
                     pairs={ps}
+					allCg={this.state.allCat}
                 />
             </div>
         )
@@ -67,7 +69,8 @@ export default class App extends React.Component {
         // Anything component (i.e. pairs) referencing it will be re-rendered
         this.setState({
             allPairs: pairs,
-            sysFile: file
+            sysFile: file,
+			allCat: pairs[0].allCategories
         });
     }
 }

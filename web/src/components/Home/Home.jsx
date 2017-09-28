@@ -2,6 +2,10 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
 class Home extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleInputChange=this.handleInputChange.bind(this);
+	}
     render() {
         let total = 0;
         /* Sprint 1 Work - Algorithm/Pseudo:
@@ -17,6 +21,7 @@ class Home extends React.Component {
                 let distance = data[i].props.dist;
                 console.log(distance); // For testing, otherwise
                 total += distance;     // Can be done on 1 line
+
             }
         }
         return <div className="home-container">
@@ -28,42 +33,59 @@ class Home extends React.Component {
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
+				<div id="checkboxes">
+					<input type="checkbox" name="origin" onChange={this.handleInputChange} /> Origin <br/>
+					<input type="checkbox" name="start-id" onChange={this.handleInputChange} /> Start Id<br/>
+					<input type="checkbox" name="start-lat" onChange={this.handleInputChange} /> Starting Latitude<br/>
+					<input type="checkbox" name="start-lon" onChange={this.handleInputChange} /> Starting Longitude<br/>
+					<input type="checkbox" name="dest" onChange={this.handleInputChange} /> Destination<br/>
+					<input type="checkbox" name="dest-id" onChange={this.handleInputChange} /> Dest. ID<br/>
+					<input type="checkbox" name="dest-lat" onChange={this.handleInputChange} /> Dest. Latitude<br/>
+					<input type="checkbox" name="dest-lon" onChange={this.handleInputChange} /> Dest. Longitude<br/>
+					<input type="checkbox" name="dist" onChange={this.handleInputChange} /> Distance Between<br/>
+					{this.props.allCg.map((name) =>(
+							<div><input type="checkbox" name={name} onChange={this.handleInputChange} /> {name} <br/></div>
+						))}
+				</div>
                 <table className="pair-table">
                     <thead>
                         <tr>
-                                <th>
+                                <th className="origin">
                                     <h5>Origin</h5>
                                 </th>
-                                 <th>
+                                 <th className="start-id">
                                     <h5>Start ID</h5>
                                 </th>
-                                 <th>
+                                 <th className="start-lat">
                                     <h5>Starting Latitiude</h5>
                                 </th>
-                                 <th>
+                                 <th className="start-lon">
                                     <h5>Starting Longitude</h5>
                                 </th>
-                                <th>
+                                <th className="dest">
                                     <h5>Destination</h5>
                                 </th>
-                                 <th>
+                                 <th className="dest-id">
                                     <h5>Dest. ID</h5>
                                 </th>
-                                 <th>
+                                 <th className="dest-lat">
                                     <h5>Dest. Latitude</h5>
                                 </th>
-                                 <th>
+                                 <th className="dest-lon">
                                     <h5>Dest. Longitude</h5>
                                 </th>
-                                <th>
+                                <th className="dist">
                                     <h5>Distance Between</h5>
                                 </th>
+								{this.props.allCg.map((name) =>(
+									<th className={name}><h5>{name}</h5></th>
+								))}
                         </tr>
                     </thead>
                     {this.props.pairs}
                     <tbody>
                         <tr>
-                            <td colSpan="8">Total Distance Traversed in Itinerary:</td>
+                            <td>Total Distance Traversed in Itinerary:</td>
                             <td>{total}</td>
                         </tr>
                     </tbody>
@@ -86,4 +108,18 @@ class Home extends React.Component {
             fr.readAsText(file);
         });
     }
+	handleInputChange(event) {
+		let target=event.target;
+		let disp = ""
+		if (target.checked) {
+			disp = "table-cell"
+		} else {
+			disp = "none"
+		}
+		let colName = target.name;
+		let columns = document.getElementsByClassName(colName);
+		for (let i =0; i < columns.length; i++) {
+			columns[i].style.display = disp;
+		}
+	}
 }export default Home
