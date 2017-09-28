@@ -13,8 +13,12 @@ public class Point {
     ArrayList<String> data;
 
     public Point(String slat, String slon) {
+        Boolean isWest = false;
         DMSlatitude = slat;
         DMSlongitude = slon;
+        if(DMSlongitude.contains("W")){
+            isWest = true;
+        }
         String newSlat = trimNonNumeric(slat.replace(" ", "")).trim();
         String newSlon = trimNonNumeric(slon.replace(" ", "")).trim();
         String [] latPieces = newSlat.split(" ");
@@ -28,9 +32,13 @@ public class Point {
         for (int i = 0; i < lonPieces.length; i++) {
             dlon += Double.parseDouble(lonPieces[i]) / Math.pow(60, i);
         }
+        if(isWest){
+            dlon = -1 * dlon;
+        }
+        Model.latcoordinates.add(dlat);
+        Model.longcoordinates.add(dlon);
         latitude = Math.toRadians(dlat);
         longitude = Math.toRadians(dlon);
-
     }
 
     public String trimNonNumeric(String s) {
