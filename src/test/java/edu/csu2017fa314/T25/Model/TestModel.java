@@ -33,4 +33,14 @@ public class TestModel {
 
     }
 
+    @Test
+    public void testPoint(){
+        Point form1 = new Point("33°23'23.23\" N","33°23'23.23\" W");
+        Point form2 = new Point("33°23.23' N","33°23.23' W");
+        Point form3 = new Point("33.23° N","33.23° W");
+        Point form4 = new Point("33.23", "-33.23");
+
+
+    }
+
 }
