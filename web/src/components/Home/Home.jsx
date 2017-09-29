@@ -81,6 +81,9 @@ class Home extends React.Component {
                                 <th className="dist">
                                     <h5>Distance Between</h5>
                                 </th>
+								<th className="cumulDist">
+									<h5>Cumulative Distance</h5>
+								</th>
 				{this.props.allCg.map((name) =>(
 					<th className={name}><h5>{name}</h5></th>
 				))}
