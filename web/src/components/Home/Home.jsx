@@ -1,4 +1,3 @@
-/*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
 setInterval(function() {
@@ -38,17 +37,17 @@ class Home extends React.Component {
                     <button>Open JSON File</button>
                 </Dropzone>
 				<div id="checkboxes">
-					<input type="checkbox" name="origin" onChange={this.handleInputChange} /> Origin <br/>
-					<input type="checkbox" name="start-id" onChange={this.handleInputChange} /> Start Id<br/>
-					<input type="checkbox" name="start-lat" onChange={this.handleInputChange} /> Starting Latitude<br/>
-					<input type="checkbox" name="start-lon" onChange={this.handleInputChange} /> Starting Longitude<br/>
-					<input type="checkbox" name="dest" onChange={this.handleInputChange} /> Destination<br/>
-					<input type="checkbox" name="dest-id" onChange={this.handleInputChange} /> Dest. ID<br/>
-					<input type="checkbox" name="dest-lat" onChange={this.handleInputChange} /> Dest. Latitude<br/>
-					<input type="checkbox" name="dest-lon" onChange={this.handleInputChange} /> Dest. Longitude<br/>
-					<input type="checkbox" name="dist" onChange={this.handleInputChange} /> Distance Between<br/>
+					<input type="checkbox" name="origin" defaultChecked onChange={this.handleInputChange} /> Origin <br/>
+					<input type="checkbox" name="start-id" defaultChecked onChange={this.handleInputChange} /> Start Id<br/>
+					<input type="checkbox" name="start-lat" defaultChecked onChange={this.handleInputChange} /> Starting Latitude<br/>
+					<input type="checkbox" name="start-lon" defaultChecked onChange={this.handleInputChange} /> Starting Longitude<br/>
+					<input type="checkbox" name="dest" defaultChecked onChange={this.handleInputChange} /> Destination<br/>
+					<input type="checkbox" name="dest-id" defaultChecked onChange={this.handleInputChange} /> Dest. ID<br/>
+					<input type="checkbox" name="dest-lat" defaultChecked onChange={this.handleInputChange} /> Dest. Latitude<br/>
+					<input type="checkbox" name="dest-lon" defaultChecked onChange={this.handleInputChange} /> Dest. Longitude<br/>
+					<input type="checkbox" name="dist" defaultChecked onChange={this.handleInputChange} /> Distance Between<br/>
 					{this.props.allCg.map((name) =>(
-							<div><input type="checkbox" name={name} onChange={this.handleInputChange} /> {name} <br/></div>
+							<div><label><input type="checkbox" name={name} defaultChecked onChange={this.handleInputChange} /> {eval(name)} </label><br/></div>
 						))}
 				</div>
                 <table className="pair-table">
@@ -81,9 +80,9 @@ class Home extends React.Component {
                                 <th className="dist">
                                     <h5>Distance Between</h5>
                                 </th>
-								{this.props.allCg.map((name) =>(
-									<th className={name}><h5>{name}</h5></th>
-								))}
+				{this.props.allCg.map((name) =>(
+					<th className={name}><h5>{name}</h5></th>
+				))}
                         </tr>
                     </thead>
                     {this.props.pairs}
