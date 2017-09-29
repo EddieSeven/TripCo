@@ -33,10 +33,12 @@ export default class App extends React.Component {
         console.log("Got file:", file);
         //For loop that goes through all pairs,
         let pairs = [];
+		let cumulDist = 0
         for (let i = 0; i < Object.values(file).length; i++) {
             let start = file[i].start; //get start from file i
             let end = file[i].end; //get end from file i
             let dist = file[i].distance;
+			cumulDist += dist;
             let startName = file[i].startName;
             let endName = file[i].endName;
             let startLat = file[i].startLat;
@@ -59,7 +61,8 @@ export default class App extends React.Component {
                 startLong: startLong,
                 endLong: endLong,
                 allCategories: allCategories,
-                allData: allData
+                allData: allData,
+				cumulDist: cumulDist
             };
             pairs.push(p); //add object to pairs array
             console.log("Pushing pair: ", p); //log to console

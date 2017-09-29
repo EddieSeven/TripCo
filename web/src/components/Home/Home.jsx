@@ -46,6 +46,7 @@ class Home extends React.Component {
 					<input type="checkbox" name="dest-lat" defaultChecked onChange={this.handleInputChange} /> Dest. Latitude<br/>
 					<input type="checkbox" name="dest-lon" defaultChecked onChange={this.handleInputChange} /> Dest. Longitude<br/>
 					<input type="checkbox" name="dist" defaultChecked onChange={this.handleInputChange} /> Distance Between<br/>
+					<input type="checkbox" name="cumulDist" defaultChecked onChange={this.handleInputChange} /> Cumulative Distance<br/>
 					{this.props.allCg.map((name) =>(
 							<div><label><input type="checkbox" name={name} defaultChecked onChange={this.handleInputChange} /> {eval(name)} </label><br/></div>
 						))}
@@ -80,6 +81,9 @@ class Home extends React.Component {
                                 <th className="dist">
                                     <h5>Distance Between</h5>
                                 </th>
+								<th className="cumulDist">
+									<h5>Cumulative Distance</h5>
+								</th>
 				{this.props.allCg.map((name) =>(
 					<th className={name}><h5>{name}</h5></th>
 				))}
