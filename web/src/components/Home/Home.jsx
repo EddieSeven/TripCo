@@ -1,6 +1,10 @@
 /*    CS314 - Team25     Due: 10 PM MST, September 7, 2017*/
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
+setInterval(function() {
+    var myImageElement = document.getElementById('myImage');
+    myImageElement.src = 'output.svg?rand=' + Math.random();
+}, 5000);
 class Home extends React.Component {
 	constructor(props) {
 		super(props);
@@ -29,7 +33,7 @@ class Home extends React.Component {
                 <h1>TripCo</h1>
                 <h2>T25</h2>
                 <h3>Travel Itinerary</h3>
-                <img src="../../../output.svg"/>
+                <img src="../../../output.svg" id="myImage" />
                 <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                     <button>Open JSON File</button>
                 </Dropzone>
@@ -98,6 +102,7 @@ class Home extends React.Component {
             console.log("Filename:", file.name, "File:", file);
             console.log(JSON.stringify(file));
             let fr = new FileReader();
+
             fr.onload = (function () {
                 return function (e) {
                     let JsonObj = JSON.parse(e.target.result);
