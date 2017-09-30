@@ -74,7 +74,7 @@ Completed *4* tasks / issues with these tasks
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time | We worked together more than last sprint |  |  
+What we will change this time | We worked together more than last sprint | We did do an overview of the project and all of its components, albeit it a bit late | More github activity 
 What we did well | Collaborating and communicating | Helped each other overcome development issues | Working under adverse conditions when demo computer failed
 What we need to work on |  Coming together to discuss the sprint earlier | More scrum involvment | Ensuring demo computer is double checked
-What we will change next time | Focus on Scrum and structure, andse better communication channels | Individually write more tests | Have two demo computers ready to go in case of tech failure
+What we will change next time | Focus on Scrum and structure, and better communication channels | Individually write more tests | Have two demo computers ready to go in case of tech failure
