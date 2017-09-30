@@ -47,16 +47,15 @@ member | 9/27/2017 | issues done | issues to do | impediments | confidence
 ## Review
 
 #### Completed user stories (epics) in Sprint Backlog 
-* *#8:  comments*
-* *#9*
-* *#10:  comments*
-* *#12*
-* *#11*
+* *#45* Cumulative distances
+* *#57* Compute nearest neighbor for any given leg
+* *#56* From starting ciy, compute nearest neighbor
+* *#47* 
 
-Completed *99* tasks / issues associated with these user stories.
+Completed *4* tasks / issues with these tasks
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* *#14*: *Explanation...*
+* *#46*: Dynanmic data doesn't relate to the column that it's in
 
 #### What went well
 * *something*
@@ -69,6 +68,6 @@ Completed *99* tasks / issues associated with these user stories.
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
 What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
+What we did well Collaborating and communicating |  |  | 
+What we need to work on |  Coming together to discuss the sprint earlier | More scrum involvment |
 What we will change next time |  |  | 
