@@ -58,16 +58,16 @@ Completed *4* tasks / issues with these tasks
 * *#46*: Dynanmic data doesn't relate to the column that it's in
 
 #### What went well
-* *something*
+* Constructive collaboration that ensured the success of the sprint.
 
 #### Problems encountered and resolutions
-* *something*
+* Demo computer gave issues, Charles acted quickly to resolve the situation with success
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well Collaborating and communicating |  |  | 
-What we need to work on |  Coming together to discuss the sprint earlier | More scrum involvment |
-What we will change next time |  |  | 
+What we will change this time |  |  |  
+What we did well | Collaborating and communicating |  | Working under adverse conditions when demo computer failed
+What we need to work on |  Coming together to discuss the sprint earlier | More scrum involvment | Ensuring demo computer is double checked
+What we will change next time |  |  | Have two demo computers ready to go in case of tech failure
