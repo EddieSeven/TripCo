@@ -16,7 +16,7 @@ public class Model {
     public static ArrayList<Double> latcoordinates = new ArrayList<Double>();
 	public static ArrayList<Double> longcoordinates = new ArrayList<Double>();
 
-    
+
     public String studentID = "";
     public String name = "";
     public String city = "";
@@ -25,7 +25,7 @@ public class Model {
     public int elevation = 0;
 
     public Model(){}
-    
+
     // The data may have fewer or less categories than in sprint 1
     public Model(String stuID,String brewName,String brewCi,String brewLat,String brewLong,int brewElev){
         studentID = stuID;
@@ -115,7 +115,7 @@ public class Model {
 			 for(int j = 0; j < values.length; ++j){
 				 temp.add(values[j]);
 				 if(values[j].contains("elev")){
-					 
+
 				 }
 			 }
 			 brewery.studentID = values[iD];

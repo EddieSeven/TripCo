@@ -44,10 +44,6 @@ public class NearestNeighbor {
         return indexLowest;
     }
 
-    /**
-    * INPUT: data structure containing all the stops in the trip
-    * OUTPUT: either that same data structure or a path through all of the nodes
-    * */
     public Path computeShortestPath(){
         Path shortestPath = new Path();
         shortestPath.addCost(Integer.MAX_VALUE);
@@ -98,16 +94,11 @@ public class NearestNeighbor {
 
 class DistanceMap {
     // Container class that adds functionality to check both permutations of a pair (ab, ba)
-    HashMap<Pair, Integer> distanceMap = new HashMap<>();
+    private HashMap<Pair, Integer> distanceMap = new HashMap<>();
 
-    /**
-     * INPUT: two nodes
-     * OUTPUT: the distance between the two nodes, or uses model to compute the distance
-     * COMPLEXITY: constant
-     */
     public int getDistance(Point a, Point b){
-        Pair ab = new Pair(a, b);
-        Pair ba = new Pair(b, a);
+        Pair<Point, Point> ab = new Pair<>(a, b);
+        Pair<Point, Point> ba = new Pair<>(b, a);
 
         if (distanceMap.get(ab) != null){
             return distanceMap.get(ab);
@@ -117,27 +108,20 @@ class DistanceMap {
             write(a, b, Model.computeDistance(a, b));
             return distanceMap.get(ab);
         }
-
-
     }
 
     public boolean containsPair(Pair<Point, Point> pair){
         return (distanceMap.get(pair) != null);
     }
 
-    /**
-     * INPUT: pair of nodes, distance in double form
-     * EFFECT: adds newly computed distance to map
-     */
     public void write(Point a, Point b, int distance){
-        Pair ab = new Pair(a, b);
-        Pair ba = new Pair(b, a);
+        Pair<Point, Point> ab = new Pair<>(a, b);
+        Pair<Point, Point> ba = new Pair<>(b, a);
 
-        if (!containsPair(ab) || !containsPair(ba)) {
+        if (!containsPair(ab) || !containsPair(ba)){
             distanceMap.put(ab, distance);
         }
     }
-
 }
 
 class Path {
@@ -174,5 +158,4 @@ class Path {
         this.totalCost = obj.totalCost;
         this.path = obj.path;
     }
-
 }
