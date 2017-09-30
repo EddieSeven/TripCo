@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.lang.Math;
 
 public class Model {
-    public static ArrayList<Model> breweriesList = new ArrayList<Model>();
-    public static ArrayList<Model> itinerary = new ArrayList<Model>();
     public static ArrayList<String> modelCategories = new ArrayList<String>();
     public static ArrayList<ArrayList<String>> modelData = new ArrayList<ArrayList<String>>();
     public static String [] jsData;
@@ -17,24 +15,7 @@ public class Model {
 	public static ArrayList<Double> longcoordinates = new ArrayList<Double>();
 
 
-    public String studentID = "";
-    public String name = "";
-    public String city = "";
-    public String latitude = "";
-    public String longitude = "";
-    public int elevation = 0;
-
     public Model(){}
-
-    // The data may have fewer or less categories than in sprint 1
-    public Model(String stuID,String brewName,String brewCi,String brewLat,String brewLong,int brewElev){
-        studentID = stuID;
-        name = brewName;
-        city = brewCi;
-        latitude = brewLat;
-        longitude = brewLong;
-        elevation = brewElev;
-    }
 
     public Model(ArrayList<String> categories){
     	Model.modelCategories = categories;
@@ -77,59 +58,24 @@ public class Model {
         Scanner scanner = new Scanner(new File(csvLocation));
 		 scanner.useDelimiter("\n");
 		 String[] firstline = scanner.next().split(",");
-		 int iD = 0;
-		 int name = 0;
-		 int lat = 0;
-		 int longi = 0;
-		 int elev = 0;
-		 int city = 0;
+
 
 		 for(int i = 0; i < firstline.length;i++){
 			modelCategories.add(firstline[i].toLowerCase());
-		 	if(firstline[i].toLowerCase().contains("longi")){
-		 		longi = i;
-			}
-			if(firstline[i].toLowerCase().contains("lati")){
-				lat = i;
-			}
-			if(firstline[i].toLowerCase().contains("id")){
-				iD = i;
-			}
-			if(firstline[i].toLowerCase().contains("name")){
-				name = i;
-			}
-			if(firstline[i].toLowerCase().contains("elev")){
-				elev = i;
-			}
-			if(firstline[i].toLowerCase().contains("city")){
-				 city = i;
-			}
 		 }
+
 		 jsArrayCode = stringForJavascriptArray(modelCategories);
 		 
 		 scanner.nextLine();
          while (scanner.hasNext()) {
-			 Model brewery = new Model();
-			 ArrayList<String> temp = new ArrayList<String>();
+			 ArrayList<String> temp = new ArrayList<>();
 			 String[] values = scanner.next().split(",");
 			 for(int j = 0; j < values.length; ++j){
 				 temp.add(values[j]);
-				 if(values[j].contains("elev")){
-
-				 }
 			 }
-			 brewery.studentID = values[iD];
-			 brewery.name = values[name];
-			 brewery.city = values[city];
-			 brewery.latitude = values[lat];
-			 brewery.longitude = values[longi];
-			 if(elev != 0) {//avoid parsing if elevation is not present
-                String elevStrConv = values[elev].trim();
-                brewery.elevation = Integer.parseInt(elevStrConv);
-            }
-			 breweriesList.add(brewery);
 			 addToModel(temp);
 		 }
+
         scanner.close();
         jsData = dataForJavascriptArray(modelData);
    }
@@ -196,6 +142,7 @@ public class Model {
 			Model.longcoordinates.add(Double.parseDouble(endLong));
 			legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
 		}
+
 		return legs;
 	}
 
