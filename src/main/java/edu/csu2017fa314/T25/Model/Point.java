@@ -16,13 +16,13 @@ public class Point {
         Boolean isWest = false;
         DMSlatitude = slat;
         DMSlongitude = slon;
-        if(DMSlongitude.contains("W")){
+        if (DMSlongitude.contains("W")) {
             isWest = true;
         }
         String newSlat = trimNonNumeric(slat.replace(" ", "")).trim();
         String newSlon = trimNonNumeric(slon.replace(" ", "")).trim();
-        String [] latPieces = newSlat.split(" ");
-        String [] lonPieces = newSlon.split(" ");
+        String[] latPieces = newSlat.split(" ");
+        String[] lonPieces = newSlon.split(" ");
 
         double dlat = 0.0;
         double dlon = 0.0;
@@ -32,7 +32,7 @@ public class Point {
         for (int i = 0; i < lonPieces.length; i++) {
             dlon += Double.parseDouble(lonPieces[i]) / Math.pow(60, i);
         }
-        if(isWest){
+        if (isWest) {
             dlon = -1 * dlon;
         }
         latitude = Math.toRadians(dlat);

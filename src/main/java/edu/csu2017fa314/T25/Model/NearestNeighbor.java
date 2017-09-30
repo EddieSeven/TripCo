@@ -2,15 +2,15 @@ package edu.csu2017fa314.T25.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.javatuples.Pair;
 
+import org.javatuples.Pair;
 
 public class NearestNeighbor {
     private int problemSize;
     private ArrayList<Point> points = new ArrayList<>();
     private DistanceMap distanceMap = new DistanceMap();
 
-    public NearestNeighbor(ArrayList<Point> points){
+    public NearestNeighbor(ArrayList<Point> points) {
         this.problemSize = points.size();
         this.points = points;
     }
@@ -19,21 +19,17 @@ public class NearestNeighbor {
         return points;
     }
 
-    /**
-     * INPUT: current node
-     * OUTPUT: nearest nodes index in the points arrayList
-     * */
-    public int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited){
+    public int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited) {
         Point current = points.get(index);
 
         int indexLowest = 0;
         int lowestDistance = Integer.MAX_VALUE;
 
-        for (int i = 0; i < points.size(); i++){
+        for (int i = 0; i < points.size(); i++) {
             Point newPoint = points.get(i);
             int currentDistance = distanceMap.getDistance(current, newPoint);
 
-            if (current != newPoint && currentDistance < lowestDistance && unvisited.contains(newPoint)){
+            if (current != newPoint && currentDistance < lowestDistance && unvisited.contains(newPoint)) {
                 indexLowest = i;
                 lowestDistance = currentDistance;
             }
@@ -44,16 +40,12 @@ public class NearestNeighbor {
         return indexLowest;
     }
 
-    /**
-    * INPUT: data structure containing all the stops in the trip
-    * OUTPUT: either that same data structure or a path through all of the nodes
-    * */
-    public Path computeShortestPath(){
+    public Path computeShortestPath() {
         Path shortestPath = new Path();
         shortestPath.addCost(Integer.MAX_VALUE);
 
         Path current;
-        for (int i = 0; i < problemSize; i++){
+        for (int i = 0; i < problemSize; i++) {
             current = computePath(i);
 
             if (current.getCost() < shortestPath.getCost()) {
@@ -64,15 +56,15 @@ public class NearestNeighbor {
         return shortestPath;
     }
 
-    public Path computePath(int startIndex){
+    public Path computePath(int startIndex) {
         Path path = new Path();
-        ArrayList<Point> unvisited = (ArrayList<Point>)points.clone();
+        ArrayList<Point> unvisited = (ArrayList<Point>) points.clone();
         int current = startIndex;
         Point next;
 
         path.add(points.get(startIndex));
         unvisited.remove(points.get(startIndex));
-        while (!unvisited.isEmpty()){
+        while (!unvisited.isEmpty()) {
             int nextIndex = computeNearestNeighbor(current, path, unvisited);
             next = points.get(nextIndex);
             path.add(next);
@@ -84,7 +76,7 @@ public class NearestNeighbor {
         return path;
     }
 
-    private void returnHome(Path path, int startIndex){
+    private void returnHome(Path path, int startIndex) {
         int pathSize = path.size();
         Point startPoint = points.get(startIndex);
         Point endPoint = path.getPoint(pathSize - 1);
@@ -98,59 +90,48 @@ public class NearestNeighbor {
 
 class DistanceMap {
     // Container class that adds functionality to check both permutations of a pair (ab, ba)
-    HashMap<Pair, Integer> distanceMap = new HashMap<>();
+    private HashMap<Pair, Integer> distanceMap = new HashMap<>();
 
-    /**
-     * INPUT: two nodes
-     * OUTPUT: the distance between the two nodes, or uses model to compute the distance
-     * COMPLEXITY: constant
-     */
-    public int getDistance(Point a, Point b){
-        Pair ab = new Pair(a, b);
-        Pair ba = new Pair(b, a);
+    public int getDistance(Point a, Point b) {
+        Pair<Point, Point> ab = new Pair<>(a, b);
+        Pair<Point, Point> ba = new Pair<>(b, a);
 
-        if (distanceMap.get(ab) != null){
+        if (distanceMap.get(ab) != null) {
             return distanceMap.get(ab);
-        } else if (distanceMap.get(ba) != null){
+        } else if (distanceMap.get(ba) != null) {
             return distanceMap.get(ba);
         } else {
             write(a, b, Model.computeDistance(a, b));
             return distanceMap.get(ab);
         }
-
-
     }
 
-    public boolean containsPair(Pair<Point, Point> pair){
+    public boolean containsPair(Pair<Point, Point> pair) {
         return (distanceMap.get(pair) != null);
     }
 
-    /**
-     * INPUT: pair of nodes, distance in double form
-     * EFFECT: adds newly computed distance to map
-     */
-    public void write(Point a, Point b, int distance){
-        Pair ab = new Pair(a, b);
-        Pair ba = new Pair(b, a);
+    public void write(Point a, Point b, int distance) {
+        Pair<Point, Point> ab = new Pair<>(a, b);
+        Pair<Point, Point> ba = new Pair<>(b, a);
 
         if (!containsPair(ab) || !containsPair(ba)) {
             distanceMap.put(ab, distance);
         }
     }
-
 }
 
 class Path {
     private ArrayList<Point> path = new ArrayList<>();
     private int totalCost = 0;
 
-    public Path(){}
+    public Path() {
+    }
 
-    public void addCost(int cost){
+    public void addCost(int cost) {
         totalCost += cost;
     }
 
-    public int getCost(){
+    public int getCost() {
         return totalCost;
     }
 
@@ -158,21 +139,20 @@ class Path {
         return path;
     }
 
-    public void add(Point point){
+    public void add(Point point) {
         path.add(point);
     }
 
-    public Point getPoint(int index){
+    public Point getPoint(int index) {
         return path.get(index);
     }
 
-    public int size(){
+    public int size() {
         return path.size();
     }
 
-    public Path(Path obj){
+    public Path(Path obj) {
         this.totalCost = obj.totalCost;
         this.path = obj.path;
     }
-
 }
