@@ -34,13 +34,18 @@ Total planned tasks / issues in the Sprint Backlog: *25*
 Team Member | Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 | :--- | :--- | :--- | :--- | :--- | :---
 N/A |9/18/2017 | Discussed task delegation and forthcoming issues during sprint| N/A | None|High 
-N/A |9/20/2017 | Discussed hurdles with nearest neighbor path, grid calculations, column placement| Prepare for midterm| None|High 
+N/A |9/20/2017 | Discussed hurdles with nearest neighbor path, grid calculations, column placement| Prepare for midterm| None|High
+Charles | 9/20/2017 | Displaying all relevant data in website | Passed data fields to create table from data in website | Time | High
+Charles | 9/23/2017 | Expanded data structures for javascript | Recognizes header categories from input CSV file | Time | High
 Michael | 9/25/2017 | Finished #56, and spent some time fixing maven issues | Finish nearest neighbor Algorithm | Time; we're winding down in this sprint | High
 Leif | 9/25/2017 | Fixed SVG file output | Fix Cartesian to SVG equation, replace brewrieslist with Point | None | High
 Will | 9/25/2017 | None | Add checkboxes to website | None | High
 member | 9/25/2017 | issues done | issues to do | impediments | confidence
+Charles | 9/26/2017 | Finished bringing data structures to javascript | Passing arraylists to js | Time | High
 Leif | 9/27/2017 | Fixed SVG path, per charles reccomendation | use modeldata instead of brewries list | None | High
 Michael | 9/27/2017 | Finished algorithm implementation | Construct more thorough tests, review and finalize | Time | High
+Charles | 9/27/2017 | Fixed dynamic column rendering and checkboxes | Made small adjustments to get it to render properly | Time | High
+Charles | 9/27/2017 | Fixed Absolute Path | Changed an absolute path to a relative one to fix some build errors | Time | High
 member | 9/27/2017 | issues done | issues to do | impediments | confidence
 member | 9/27/2017 | issues done | issues to do | impediments | confidence
 
@@ -51,6 +56,8 @@ member | 9/27/2017 | issues done | issues to do | impediments | confidence
 * *#57* Compute nearest neighbor for any given leg
 * *#56* From starting ciy, compute nearest neighbor
 * *#47* 
+* *#46* Useful Information in Itinerary
+* *#52* Data Structure for CSV
 
 Completed *4* tasks / issues with these tasks
 
@@ -67,7 +74,7 @@ Completed *4* tasks / issues with these tasks
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  |  
-What we did well | Collaborating and communicating |  | Working under adverse conditions when demo computer failed
+What we will change this time | We worked together more than last sprint |  |  
+What we did well | Collaborating and communicating | Helped each other overcome development issues | Working under adverse conditions when demo computer failed
 What we need to work on |  Coming together to discuss the sprint earlier | More scrum involvment | Ensuring demo computer is double checked
-What we will change next time |  |  | Have two demo computers ready to go in case of tech failure
+What we will change next time | Focus on Scrum and structure, andse better communication channels | Individually write more tests | Have two demo computers ready to go in case of tech failure
