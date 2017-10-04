@@ -36,11 +36,14 @@ public class TestModel {
     @Test
     public void testPoint(){
         Point form1 = new Point("33°23'23.23\" N","33°23'23.23\" W");
-        Point form2 = new Point("33°23.23' N","33°23.23' W");
-        Point form3 = new Point("33.23° N","33.23° W");
+        Point form2 = new Point("46°99.01' N","33°23.23' W");
+        Point form3 = new Point("89.23° N","33.23° W");
         Point form4 = new Point("33.23", "-33.23");
 
-
+        assertEquals(0.5828, form1.latitude, 0.01);
+        assertEquals(0.8317, form2.latitude, 0.01);
+        assertEquals(1.5574, form3.latitude, 0.01);
+        assertEquals(0.57997, form4.latitude, 0.01);
     }
 
 }
