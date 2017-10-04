@@ -11,7 +11,7 @@ public class TestModel {
     public void setUp() throws Exception { }
 
     @Test
-    public void testDistance() {
+    public void testComputeDistance() {
         Point a1 = new Point("37°20'32.9\" N","108°35'10.5\" W");
         Point a2 = new Point("40°34'18.9\" N", "105°07'18.4\" W");
         assertEquals(291, Model.computeDistance(a1, a2));
@@ -29,8 +29,6 @@ public class TestModel {
         // Point d2 = new Point("37°21'10.9\" N", "108°32'56.5\" W");
         // int res = Model.computeDistance(c1, c2);
         // assertEquals(3, Model.computeDistance(c1, c2));
-
-
     }
 
     @Test
