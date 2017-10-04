@@ -35,8 +35,12 @@ Total planned tasks / issues in the Sprint Backlog: *number of issues in backlog
 
 Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 :--- | :--- | :--- | :--- | :---
+*10/4/2017* | *No Plan* | *No Plan* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
- | | | | 
+*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
+*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
+*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
+*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
  
 
 ## Review
