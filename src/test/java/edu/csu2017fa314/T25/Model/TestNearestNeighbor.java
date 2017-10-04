@@ -33,13 +33,34 @@ public class TestNearestNeighbor {
     }
 
     @Test
-    public void testComputeNearestNeighbor(){
+    public void testComputeNearestNeighbor1(){
         Path dummy0 = new Path();
         ArrayList<Point> unvisited = testNN.getPoints();
 
         assertEquals(0, testNN.computeNearestNeighbor(1, dummy0, unvisited));
+    }
+
+    @Test
+    public void testComputeNearestNeighbor2(){
+        Path dummy0 = new Path();
+        ArrayList<Point> unvisited = testNN.getPoints();
+
         assertEquals(4, testNN.computeNearestNeighbor(3, dummy0, unvisited));
+    }
+
+    @Test
+    public void testComputeNearestNeighbor3(){
+        Path dummy0 = new Path();
+        ArrayList<Point> unvisited = testNN.getPoints();
+
         assertEquals(0, testNN.computeNearestNeighbor(4, dummy0, unvisited));
+    }
+
+    @Test
+    public void testComputeNearestNeighbor4(){
+        Path dummy0 = new Path();
+        ArrayList<Point> unvisited = testNN.getPoints();
+
         assertEquals(1, testNN.computeNearestNeighbor(2, dummy0, unvisited));
     }
 
