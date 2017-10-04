@@ -1,4 +1,4 @@
-# Sprint 3 - *your team number* - *your team name*
+# Sprint 3 - *T25* - *NO NAME GROUP*
 
 ## Goal
 
