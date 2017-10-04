@@ -41,8 +41,7 @@ public class NearestNeighbor {
     }
 
     public Path computeShortestPath() {
-        Path shortestPath = new Path();
-        shortestPath.addCost(Integer.MAX_VALUE);
+        Path shortestPath = new Path(Integer.MAX_VALUE);
 
         Path current;
         for (int i = 0; i < problemSize; i++) {
@@ -125,6 +124,10 @@ class Path {
     private int totalCost = 0;
 
     public Path() {
+    }
+
+    public Path(int initialCost){
+        totalCost = initialCost;
     }
 
     public void addCost(int cost) {
