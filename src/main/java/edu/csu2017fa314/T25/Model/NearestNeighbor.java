@@ -100,20 +100,26 @@ class DistanceMap {
         } else if (distanceMap.get(ba) != null) {
             return distanceMap.get(ba);
         } else {
-            write(a, b, Model.computeDistance(a, b));
+            // todo hardcoded as miles, for now
+            write(a, b, Model.computeDistance(a, b, true));
             return distanceMap.get(ab);
         }
     }
 
-    public boolean containsPair(Pair<Point, Point> pair) {
-        return (distanceMap.get(pair) != null);
+    public boolean contains(Point a, Point b) {
+        Pair<Point, Point> ab = new Pair<>(a, b);
+        Pair<Point, Point> ba = new Pair<>(b, a);
+
+        if (distanceMap.get(ab) != null || distanceMap.get(ba) != null)
+            return true;
+        else
+            return false;
     }
 
     public void write(Point a, Point b, int distance) {
         Pair<Point, Point> ab = new Pair<>(a, b);
-        Pair<Point, Point> ba = new Pair<>(b, a);
 
-        if (!containsPair(ab) || !containsPair(ba)) {
+        if (!contains(a, b)) {
             distanceMap.put(ab, distance);
         }
     }
