@@ -139,7 +139,8 @@ public class Model {
             Point end = new Point(endLat, endLong);
             Model.latcoordinates.add(Double.parseDouble(endLat));
             Model.longcoordinates.add(Double.parseDouble(endLong));
-            legs.add(new TripLeg(startId, endId, computeDistance(start, end), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
+            // FOR NOW HARDCODED AS MILES
+            legs.add(new TripLeg(startId, endId, computeDistance(start, end, true), startName, endName, startLat, endLat, startLong, endLong, jsData, jsArrayCode));
         }
 
         return legs;
@@ -152,11 +153,16 @@ public class Model {
         }
     }
 
-    public static int computeDistance(Point start, Point finish) {
+    public static int computeDistance(Point start, Point finish, boolean isMiles) {
         final double RADIUS_MILES = 3958.7613;
         final double RADIUS_KILOMETERS = 6371.0088;
+        double metric;
 
-        double dP = Math.abs(start.latitude - finish.latitude);
+        if (isMiles)
+            metric = RADIUS_MILES;
+        else
+            metric = RADIUS_KILOMETERS;
+
         double dY = Math.abs(start.longitude - finish.longitude);
         double cosP2 = Math.cos(finish.latitude);
         double sindY = Math.sin(dY);
@@ -168,7 +174,7 @@ public class Model {
         double numerator = Math.pow(cosP2 * sindY, 2) + Math.pow((cosP1 * sinP2) - (sinP1 * cosP2 * cosdY), 2);
         double denominator = (sinP1 * sinP2) + (cosP1 * cosP2 * cosdY);
         double dS = Math.atan2(Math.sqrt(numerator), denominator);
-        return (int) (Math.round(RADIUS_MILES * dS));
+        return (int) (Math.round(metric * dS));
     }
 
 }

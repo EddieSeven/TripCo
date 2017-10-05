@@ -33,7 +33,8 @@ public class TestNearestNeighbor {
     }
 
     @Test
-    public void testComputeNearestNeighbor(){
+    public void testComputeNearestNeighbor1(){
+        // Checks that given a point, its nearest neighbor is returned.
         Path dummy0 = new Path();
         ArrayList<Point> unvisited = testNN.getPoints();
 
@@ -45,6 +46,7 @@ public class TestNearestNeighbor {
 
     @Test
     public void testComputePath(){
+        // Given a small set of five point, checks that from a given starting point the path matches the expected path
         Point a = new Point("37°20'32.9\" N","108°35'10.5\" W");
         a.id = "a";
         Point b = new Point("40°34'18.9\" N","105°07'18.4\" W");
@@ -90,23 +92,30 @@ public class TestNearestNeighbor {
         testNN.computeShortestPath();
     }
 
-    @Test
-    public void testGetDistance(){
-
-    }
 
     @Test
     public void testWrite(){
+        // Checks the write function
         DistanceMap testDM = new DistanceMap();
         Point a1 = new Point("37°20'32.9\" N","108°35'10.5\" W");
         Point a2 = new Point("40°34'18.9\" N", "105°07'18.4\" W");
-        Point b1 = new Point("28°43'45.0\" N","81°08'43.3\" W");
-        Point b2 = new Point("60°03'54.7\" N", "151°30'34.6\" W");
 
         testDM.write(a1, a2, 345);
         assertEquals( 345, testDM.getDistance(a1, a2));
+    }
 
-        assertEquals(3848, testDM.getDistance(b1, b2));
+    @Test
+    public void testDistanceMap(){
+        // Checks that if ab are already in the distance, checking for ba returns true
+        DistanceMap testDM = new DistanceMap();
+        Point a = new Point("37°20'32.9\" N","108°35'10.5\" W");
+        a.id = "a";
+        Point b = new Point("40°34'18.9\" N", "105°07'18.4\" W");
+        b.id = "b";
 
+
+        testDM.write(a, b, 500);
+
+        assertEquals(true, testDM.contains(b, a));
     }
 }
