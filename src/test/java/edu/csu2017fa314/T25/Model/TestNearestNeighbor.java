@@ -29,7 +29,7 @@ public class TestNearestNeighbor {
         points.add(d);
         points.add(e);
 
-        testNN = new NearestNeighbor(points);
+        testNN = new NearestNeighbor(points, 5);
     }
 
     @Test
@@ -89,33 +89,5 @@ public class TestNearestNeighbor {
 
     @Test
     public void testComputeShortestPath(){
-        testNN.computeShortestPath();
-    }
-
-
-    @Test
-    public void testWrite(){
-        // Checks the write function
-        DistanceMap testDM = new DistanceMap();
-        Point a1 = new Point("37°20'32.9\" N","108°35'10.5\" W");
-        Point a2 = new Point("40°34'18.9\" N", "105°07'18.4\" W");
-
-        testDM.write(a1, a2, 345);
-        assertEquals( 345, testDM.getDistance(a1, a2));
-    }
-
-    @Test
-    public void testDistanceMap(){
-        // Checks that if ab are already in the distance, checking for ba returns true
-        DistanceMap testDM = new DistanceMap();
-        Point a = new Point("37°20'32.9\" N","108°35'10.5\" W");
-        a.id = "a";
-        Point b = new Point("40°34'18.9\" N", "105°07'18.4\" W");
-        b.id = "b";
-
-
-        testDM.write(a, b, 500);
-
-        assertEquals(true, testDM.contains(b, a));
     }
 }

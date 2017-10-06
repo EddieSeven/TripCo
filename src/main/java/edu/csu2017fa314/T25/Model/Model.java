@@ -121,7 +121,7 @@ public class Model {
             points.add(point);
         }
 
-        algorithm = new NearestNeighbor(points);
+        algorithm = new NearestNeighbor(points, points.size());
         Path shortestPath = algorithm.computeShortestPath();
         ArrayList<ArrayList<String>> sortedData = new ArrayList<>();
         reconstructData(shortestPath, sortedData);

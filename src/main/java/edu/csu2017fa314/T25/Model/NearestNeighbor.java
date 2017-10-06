@@ -1,18 +1,17 @@
 package edu.csu2017fa314.T25.Model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.javatuples.Pair;
 
 public class NearestNeighbor {
     private int problemSize;
     private ArrayList<Point> points = new ArrayList<>();
-    private DistanceMap distanceMap = new DistanceMap();
+    private int distanceMatrix[][];
 
-    public NearestNeighbor(ArrayList<Point> points) {
-        this.problemSize = points.size();
+    public NearestNeighbor(ArrayList<Point> points, int problemSize) {
+        this.problemSize = problemSize;
         this.points = points;
+        distanceMatrix = new int[problemSize][problemSize];
     }
 
     public ArrayList<Point> getPoints() {
@@ -27,7 +26,7 @@ public class NearestNeighbor {
 
         for (int i = 0; i < points.size(); i++) {
             Point newPoint = points.get(i);
-            int currentDistance = distanceMap.getDistance(current, newPoint);
+            int currentDistance = getDistance(index, i);
 
             if (current != newPoint && currentDistance < lowestDistance && unvisited.contains(newPoint)) {
                 indexLowest = i;
@@ -75,52 +74,23 @@ public class NearestNeighbor {
         return path;
     }
 
-    private void returnHome(Path path, int startIndex) {
+    private void returnHome(Path path, int start) {
         int pathSize = path.size();
-        Point startPoint = points.get(startIndex);
-        Point endPoint = path.getPoint(pathSize - 1);
-        int distance = distanceMap.getDistance(startPoint, endPoint);
+        int end = pathSize - 1;
+        int distance = getDistance(start, end);
 
-
-        path.add(points.get(startIndex));
+        path.add(points.get(start));
         path.addCost(distance);
     }
-}
 
-class DistanceMap {
-    // Container class that adds functionality to check both permutations of a pair (ab, ba)
-    private HashMap<Pair, Integer> distanceMap = new HashMap<>();
-
-    public int getDistance(Point a, Point b) {
-        Pair<Point, Point> ab = new Pair<>(a, b);
-        Pair<Point, Point> ba = new Pair<>(b, a);
-
-        if (distanceMap.get(ab) != null) {
-            return distanceMap.get(ab);
-        } else if (distanceMap.get(ba) != null) {
-            return distanceMap.get(ba);
-        } else {
-            // todo hardcoded as miles, for now
-            write(a, b, Model.computeDistance(a, b, true));
-            return distanceMap.get(ab);
-        }
-    }
-
-    public boolean contains(Point a, Point b) {
-        Pair<Point, Point> ab = new Pair<>(a, b);
-        Pair<Point, Point> ba = new Pair<>(b, a);
-
-        if (distanceMap.get(ab) != null || distanceMap.get(ba) != null)
-            return true;
-        else
-            return false;
-    }
-
-    public void write(Point a, Point b, int distance) {
-        Pair<Point, Point> ab = new Pair<>(a, b);
-
-        if (!contains(a, b)) {
-            distanceMap.put(ab, distance);
+    private int getDistance(int i, int j){
+        if (i == j)
+            return 0;
+        else if (distanceMatrix[i][j] != 0) // assumed to be zero if it hasn't been calculated yet
+            return distanceMatrix[i][j];
+        else {
+            distanceMatrix[i][j] = Model.computeDistance(points.get(i), points.get(j), true);
+            return distanceMatrix[i][j];
         }
     }
 }
