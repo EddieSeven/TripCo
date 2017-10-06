@@ -27,16 +27,16 @@
 
 ## Plan 
 
-User stories (epics) in the Sprint Backlog: *list the epics in your sprint backlog here*.  
+User stories (epics) in the Sprint Backlog: #92, #94, #102
 
-Total planned tasks / issues in the Sprint Backlog: *number of issues in backlog at start* 
+Total planned tasks / issues in the Sprint Backlog: #101, #105, #104, #103, #100, #99, #98, 
 
 ## Daily Scrums
 
 Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 :--- | :--- | :--- | :--- | :---
 *10/4/2017* | *No Plan* | *No Plan* | *None* | *High*
-*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
+*10/6/2017* | *None* | *#106* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
