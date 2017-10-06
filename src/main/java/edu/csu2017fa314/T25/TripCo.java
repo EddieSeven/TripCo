@@ -1,8 +1,12 @@
 package edu.csu2017fa314.T25;
 
+import edu.csu2017fa314.T25.Server.Server;
+
 import edu.csu2017fa314.T25.Model.Model;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import edu.csu2017fa314.T25.View.View;
+
+import static spark.Spark.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +23,7 @@ public class TripCo {
 
         trips = model.calculateDistances();
 
+        get("/hello", (req, res) -> "Hello World");
 
         try {
             viewer.writeJSON(trips);
@@ -28,6 +33,8 @@ public class TripCo {
         }
 
         System.out.println("Welcome to TripCo");
+        Server s = new Server();
+        s.serve();
     }
 
 }
