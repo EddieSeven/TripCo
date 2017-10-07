@@ -5,31 +5,29 @@ import java.util.ArrayList;
 
 public class NearestNeighbor {
     private int problemSize;
-    private ArrayList<Point> points = new ArrayList<>();
+    private Point points[];
     private int distanceMatrix[][];
 
-    public NearestNeighbor(ArrayList<Point> points, int problemSize) {
+    public NearestNeighbor(Point points[], int problemSize) {
         this.problemSize = problemSize;
         this.points = points;
         distanceMatrix = new int[problemSize][problemSize];
     }
 
-    public ArrayList<Point> getPoints() {
+    public Point[] getPoints() {
         return points;
     }
 
-    public int computeNearestNeighbor(int index, Path path, ArrayList<Point> unvisited) {
-        Point current = points.get(index);
+    public int computeNearestNeighbor(int i, Path path, boolean visited[]) {
 
         int indexLowest = 0;
         int lowestDistance = Integer.MAX_VALUE;
 
-        for (int i = 0; i < points.size(); i++) {
-            Point newPoint = points.get(i);
-            int currentDistance = getDistance(index, i);
+        for (int j = 0; j < problemSize; j++) {
+            int currentDistance = getDistance(i, j);
 
-            if (current != newPoint && currentDistance < lowestDistance && unvisited.contains(newPoint)) {
-                indexLowest = i;
+            if (i != j && currentDistance < lowestDistance && !visited[j]) {
+                indexLowest = j;
                 lowestDistance = currentDistance;
             }
         }
@@ -56,19 +54,20 @@ public class NearestNeighbor {
 
     public Path computePath(int startIndex) {
         Path path = new Path();
-        ArrayList<Point> unvisited = (ArrayList<Point>) points.clone();
-        int current = startIndex;
-        Point next;
+        boolean visited[] = new boolean[problemSize]; // All entries default to false
 
-        path.add(points.get(startIndex));
-        unvisited.remove(points.get(startIndex));
-        while (!unvisited.isEmpty()) {
-            int nextIndex = computeNearestNeighbor(current, path, unvisited);
-            next = points.get(nextIndex);
-            path.add(next);
-            unvisited.remove(next);
-            current = nextIndex;
+        int i = startIndex;
+        path.add(points[i]);
+
+        visited[i] = true;
+
+        for (int k = 0; k < problemSize - 1; k++){
+            int j = computeNearestNeighbor(i, path, visited);
+            path.add(points[j]);
+            visited[j] = true;
+            i = j;
         }
+
         returnHome(path, startIndex);
 
         return path;
@@ -79,7 +78,7 @@ public class NearestNeighbor {
         int end = pathSize - 1;
         int distance = getDistance(start, end);
 
-        path.add(points.get(start));
+        path.add(points[start]);
         path.addCost(distance);
     }
 
@@ -89,7 +88,7 @@ public class NearestNeighbor {
         else if (distanceMatrix[i][j] != 0) // assumed to be zero if it hasn't been calculated yet
             return distanceMatrix[i][j];
         else {
-            distanceMatrix[i][j] = Model.computeDistance(points.get(i), points.get(j), true);
+            distanceMatrix[i][j] = Model.computeDistance(points[i], points[j], true);
             return distanceMatrix[i][j];
         }
     }

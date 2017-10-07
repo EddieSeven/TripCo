@@ -1,18 +1,16 @@
 package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 
 public class TestNearestNeighbor {
     private NearestNeighbor testNN;
 
     @Before
     public void setup(){
-        ArrayList<Point> points = new ArrayList<>();
+        Point points[] = new Point[5];
         Point a = new Point("37°20'32.9\" N","108°35'10.5\" W");
         a.id = "a";
         Point b = new Point("40°34'18.9\" N","105°07'18.4\" W");
@@ -23,11 +21,12 @@ public class TestNearestNeighbor {
         d.id = "d";
         Point e = new Point("35°07'53.0\" N","119°10'55.0\" W");
         e.id = "e";
-        points.add(a);
-        points.add(b);
-        points.add(c);
-        points.add(d);
-        points.add(e);
+        points[0] = a;
+        points[1] = b;
+        points[2] = c;
+        points[3] = d;
+        points[4] = e;
+
 
         testNN = new NearestNeighbor(points, 5);
     }
@@ -36,12 +35,13 @@ public class TestNearestNeighbor {
     public void testComputeNearestNeighbor1(){
         // Checks that given a point, its nearest neighbor is returned.
         Path dummy0 = new Path();
-        ArrayList<Point> unvisited = testNN.getPoints();
+        boolean visited[] = new boolean[5];
 
-        assertEquals(0, testNN.computeNearestNeighbor(1, dummy0, unvisited));
-        assertEquals(4, testNN.computeNearestNeighbor(3, dummy0, unvisited));
-        assertEquals(0, testNN.computeNearestNeighbor(4, dummy0, unvisited));
-        assertEquals(1, testNN.computeNearestNeighbor(2, dummy0, unvisited));
+        assertEquals(0, testNN.computeNearestNeighbor(1, dummy0, visited));
+
+        assertEquals(4, testNN.computeNearestNeighbor(3, dummy0, visited));
+        assertEquals(0, testNN.computeNearestNeighbor(4, dummy0, visited));
+        assertEquals(1, testNN.computeNearestNeighbor(2, dummy0, visited));
     }
 
     @Test

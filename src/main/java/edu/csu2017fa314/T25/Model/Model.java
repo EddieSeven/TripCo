@@ -81,7 +81,6 @@ public class Model {
     }
 
     public static ArrayList<TripLeg> calculateDistances() {
-        ArrayList<Point> points = new ArrayList<>();
         NearestNeighbor algorithm;
         int latIndex = 0;
         int longIndex = 0;
@@ -108,6 +107,7 @@ public class Model {
             }
         }
 
+        Point points[] = new Point[modelData.size()];
         for (int j = 0; j < modelData.size(); j++) {
             String latitude = modelData.get(j).get(latIndex);
             String longitude = modelData.get(j).get(longIndex);
@@ -118,10 +118,10 @@ public class Model {
             point.id = id;
             point.name = name;
             point.data = modelData.get(j);
-            points.add(point);
+            points[j] = point;
         }
 
-        algorithm = new NearestNeighbor(points, points.size());
+        algorithm = new NearestNeighbor(points, modelData.size());
         Path shortestPath = algorithm.computeShortestPath();
         ArrayList<ArrayList<String>> sortedData = new ArrayList<>();
         reconstructData(shortestPath, sortedData);
