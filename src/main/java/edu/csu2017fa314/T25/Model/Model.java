@@ -148,7 +148,7 @@ public class Model {
 
     private static void reconstructData(Path path, ArrayList<ArrayList<String>> sortedData) {
         for (int i = 0; i < path.size(); i++) {
-            ArrayList<String> pointData = path.getPath().get(i).data;
+            ArrayList<String> pointData = path.getPoint(i).data;
             sortedData.add(pointData);
         }
     }

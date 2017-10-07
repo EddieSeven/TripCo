@@ -1,17 +1,15 @@
 package edu.csu2017fa314.T25.Model;
 
-import java.util.ArrayList;
-
 
 public class NearestNeighbor {
-    private int problemSize;
+    private int N;
     private Point points[];
     private int distanceMatrix[][];
 
-    public NearestNeighbor(Point points[], int problemSize) {
-        this.problemSize = problemSize;
+    public NearestNeighbor(Point points[], int N) {
+        this.N = N;
         this.points = points;
-        distanceMatrix = new int[problemSize][problemSize];
+        distanceMatrix = new int[N][N];
     }
 
     public Point[] getPoints() {
@@ -19,11 +17,10 @@ public class NearestNeighbor {
     }
 
     public int computeNearestNeighbor(int i, Path path, boolean visited[]) {
-
         int indexLowest = 0;
         int lowestDistance = Integer.MAX_VALUE;
 
-        for (int j = 0; j < problemSize; j++) {
+        for (int j = 0; j < N; j++) {
             int currentDistance = getDistance(i, j);
 
             if (i != j && currentDistance < lowestDistance && !visited[j]) {
@@ -38,10 +35,10 @@ public class NearestNeighbor {
     }
 
     public Path computeShortestPath() {
-        Path shortestPath = new Path(Integer.MAX_VALUE);
-
+        Path shortestPath = new Path();
         Path current;
-        for (int i = 0; i < problemSize; i++) {
+
+        for (int i = 0; i < N; i++) {
             current = computePath(i);
 
             if (current.getCost() < shortestPath.getCost()) {
@@ -53,15 +50,15 @@ public class NearestNeighbor {
     }
 
     public Path computePath(int startIndex) {
-        Path path = new Path();
-        boolean visited[] = new boolean[problemSize]; // All entries default to false
+        Path path = new Path(N);
+        boolean visited[] = new boolean[N]; // All entries default to false
 
         int i = startIndex;
         path.add(points[i]);
 
         visited[i] = true;
 
-        for (int k = 0; k < problemSize - 1; k++){
+        for (int k = 0; k < N - 1; k++){
             int j = computeNearestNeighbor(i, path, visited);
             path.add(points[j]);
             visited[j] = true;
@@ -75,7 +72,7 @@ public class NearestNeighbor {
 
     private void returnHome(Path path, int start) {
         int pathSize = path.size();
-        int end = pathSize - 1;
+        int end = pathSize - 2;
         int distance = getDistance(start, end);
 
         path.add(points[start]);
@@ -95,14 +92,18 @@ public class NearestNeighbor {
 }
 
 class Path {
-    private ArrayList<Point> path = new ArrayList<>();
+    private Point path[];
     private int totalCost = 0;
+    private int index = 0;
+    private int N;
 
-    public Path() {
+    public Path(int N){
+        this.N = N + 1;
+        path = new Point[this.N];
     }
 
-    public Path(int initialCost){
-        totalCost = initialCost;
+    public Path(){
+        totalCost = Integer.MAX_VALUE;
     }
 
     public void addCost(int cost) {
@@ -113,24 +114,21 @@ class Path {
         return totalCost;
     }
 
-    public ArrayList<Point> getPath() {
+    public Point[] getPath() {
         return path;
     }
 
     public void add(Point point) {
-        path.add(point);
+        path[index] = point;
+        index++;
     }
 
-    public Point getPoint(int index) {
-        return path.get(index);
+    public Point getPoint(int i) {
+        return path[i];
     }
 
     public int size() {
-        return path.size();
+        return N;
     }
 
-    public Path(Path obj) {
-        this.totalCost = obj.totalCost;
-        this.path = obj.path;
-    }
 }
