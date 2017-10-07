@@ -65,18 +65,9 @@ public class NearestNeighbor {
             i = j;
         }
 
-        returnHome(path, startIndex);
+        path.returnHome();
 
         return path;
-    }
-
-    private void returnHome(Path path, int start) {
-        int pathSize = path.size();
-        int end = pathSize - 2;
-        int distance = getDistance(start, end);
-
-        path.add(points[start]);
-        path.addCost(distance);
     }
 
     private int getDistance(int i, int j){
@@ -129,6 +120,15 @@ class Path {
 
     public int size() {
         return N;
+    }
+
+    public void returnHome(){
+        // todo hardcoded miles
+        path[index] = path[0];
+        index++;
+
+        int distance = Model.computeDistance(path[0], path[N - 1], true);
+        totalCost += distance;
     }
 
 }
