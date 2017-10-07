@@ -10,6 +10,7 @@ public class Point {
     String DMSlongitude;
     double latitude;
     double longitude;
+    // todo remove
     ArrayList<String> data;
 
     public Point(String slat, String slon) {
