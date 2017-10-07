@@ -127,7 +127,7 @@ class Path {
         path[index] = path[0];
         index++;
 
-        int distance = Model.computeDistance(path[0], path[N - 1], true);
+        int distance = Model.computeDistance(path[0], path[N - 2], true);
         totalCost += distance;
     }
 
