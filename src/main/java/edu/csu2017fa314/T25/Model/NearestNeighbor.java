@@ -58,7 +58,7 @@ public class NearestNeighbor {
 
         visited[i] = true;
 
-        for (int k = 0; k < N - 1; k++){
+        for (int k = 0; k < N - 1; k++) {
             int j = computeNearestNeighbor(i, path, visited);
             path.add(points[j]);
             visited[j] = true;
@@ -70,7 +70,7 @@ public class NearestNeighbor {
         return path;
     }
 
-    private int getDistance(int i, int j){
+    private int getDistance(int i, int j) {
         if (i == j)
             return 0;
         else if (distanceMatrix[i][j] != 0) // assumed to be zero if it hasn't been calculated yet
@@ -88,12 +88,12 @@ class Path {
     private int index = 0;
     private int N;
 
-    public Path(int N){
+    public Path(int N) {
         this.N = N + 1;
         path = new Point[this.N];
     }
 
-    public Path(){
+    public Path() {
         totalCost = Integer.MAX_VALUE;
     }
 
@@ -122,7 +122,7 @@ class Path {
         return N;
     }
 
-    public void returnHome(){
+    public void returnHome() {
         // todo hardcoded miles
         path[index] = path[0];
         index++;
