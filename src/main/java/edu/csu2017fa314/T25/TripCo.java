@@ -3,15 +3,17 @@ package edu.csu2017fa314.T25;
 import edu.csu2017fa314.T25.Model.Model;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import edu.csu2017fa314.T25.View.View;
+import edu.csu2017fa314.T25.View.Server;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import static spark.Spark.*;
 
 public class TripCo {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Model model = new Model();
+        /*Model model = new Model();
         View viewer = new View();
         model.readCSV(args[0]);
 
@@ -26,8 +28,11 @@ public class TripCo {
         } catch (IOException e) {
             e.printStackTrace();
         }
+		*/
 
         System.out.println("Welcome to TripCo");
+		
+		Server.serve(4444);
     }
 
 }
