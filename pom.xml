@@ -2,17 +2,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-         <properties>
-                  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                  <maven.compiler.target>1.8</maven.compiler.target>
-                  <maven.compiler.source>1.8</maven.compiler.source>
-         </properties>
-
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
          <modelVersion>4.0.0</modelVersion>
          <groupId>edu.csu2017fa314.T25</groupId>
          <artifactId>T25</artifactId>
          <packaging>jar</packaging>
-         <version>0.0.1-SNAPSHOT</version>
+         <version>3.0.0</version>
          <name>T25</name>
          <url>https://github.com/csu2017fa314/T25/</url>
          <build>
@@ -70,4 +69,4 @@
                  <version>2.6.0</version>
               </dependency>
          </dependencies>
-    </project>
+</project>

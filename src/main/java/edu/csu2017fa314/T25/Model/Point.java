@@ -3,13 +3,14 @@ package edu.csu2017fa314.T25.Model;
 import java.util.ArrayList;
 
 public class Point {
-    // [TODO] Account for east and south in lat and long (WEST IS NEGATIVE IN GEOGRAPHIC COORDINATES)
+    // TODO Account for east and south in lat and long (WEST IS NEGATIVE IN GEOGRAPHIC COORDINATES)
     String id;
     String name;
     String DMSlatitude;
     String DMSlongitude;
     double latitude;
     double longitude;
+    // todo remove
     ArrayList<String> data;
 
     public Point(String slat, String slon) {
