@@ -1,12 +1,13 @@
 package edu.csu2017fa314.T25.Model;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 
 public class DatabaseDriver {
     private String userName;
     private String password;
     private String searchString;
-    private String driver = "com.mysql.jdbc.Driver";
+    private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
     Connection connection;
@@ -26,7 +27,7 @@ public class DatabaseDriver {
         }
     }
 
-    private String formQuery(){
+    private String formQuery() {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
@@ -44,5 +45,4 @@ public class DatabaseDriver {
         ResultSet result = statement.executeQuery(query);
         return result;
     }
-
 }
