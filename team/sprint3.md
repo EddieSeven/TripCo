@@ -12,7 +12,6 @@
 * Version in pom.xml should be `<version>3.0.0</version>`.
 * Unit tests for all new features and public methods at a minimum.
 * Clean continuous integration build/test on master branch.
-* 
 
 ## Policies
 
@@ -37,7 +36,7 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 :--- | :--- | :--- | :--- | :---
 *10/4/2017* | *No Plan* | *No Plan* | *None* | *High*
 *10/6/2017* | *None* | *#106* | *None* | *High*
-*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
+*10/9/2017* | *#106* | *#103* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
