@@ -23,8 +23,6 @@ public class TripCo {
 
         trips = model.calculateDistances();
 
-        get("/hello", (req, res) -> "Hello World");
-
         try {
             viewer.writeJSON(trips);
             viewer.getCoordinates(args[1]);

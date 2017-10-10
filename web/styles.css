@@ -1,0 +1,8 @@
+body {
+    background: url("/src/images/joshua-earle-64814_optimized.jpg") no-repeat;
+    background-size: 100%;
+    background-position: 0px -180px;
+    overflow: fixed;
+    background-attachment:fixed;
+    font-family: 'Raleway', 'Montserrat', 'Manuale', sans-serif;
+}

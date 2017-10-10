@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from './Home/Home.jsx';
+import Table from './Home/Table/Table.jsx';
 import Pair from './Home/Pair/Pair.jsx';
 
 
@@ -20,10 +21,11 @@ export default class App extends React.Component {
         });
         return (
             <div className="app-container">
-                <Home
+                <Home />
+                <Table
                     browseFile={this.browseFile.bind(this)}
                     pairs={ps}
-					allCg={this.state.allCat}
+                    allCg={this.state.allCat}
                 />
             </div>
         )
