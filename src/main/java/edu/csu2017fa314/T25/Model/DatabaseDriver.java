@@ -6,7 +6,7 @@ public class DatabaseDriver {
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://faure.cs.colostate.edu/cs314";
+    private String url = "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"; // todo for my (michael) testing purposes right now.
 
 
     Connection connection;
@@ -16,6 +16,7 @@ public class DatabaseDriver {
         this.userName = userName;
         this.password = password;
         Class.forName(driver); // todo necessary?
+
 
         try {
             startConnection();
