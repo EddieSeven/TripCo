@@ -5,18 +5,18 @@ import java.sql.*;
 public class DatabaseDriver {
     private String userName;
     private String password;
-    private String searchString;
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://faure.cs.colostate.edu/cs314";
+    private String url = "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"; // todo for my (michael) testing purposes right now.
+
 
     Connection connection;
     Statement statement;
 
-    public DatabaseDriver(String userName, String password, String searchString) throws ClassNotFoundException {
+    public DatabaseDriver(String userName, String password) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
-        this.searchString = searchString;
         Class.forName(driver); // todo necessary?
+
 
         try {
             startConnection();
@@ -26,7 +26,7 @@ public class DatabaseDriver {
         }
     }
 
-    private String formQuery() {
+    private String formQuery(String searchString) {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
@@ -40,8 +40,21 @@ public class DatabaseDriver {
         statement = connection.createStatement();
     }
 
-    private ResultSet queryDatabase(String query) throws SQLException {
+    public ResultSet query(String searchString) throws SQLException {
+        String query = formQuery(searchString);
         ResultSet result = statement.executeQuery(query);
         return result;
+    }
+
+    public void printResults(ResultSet result) throws SQLException { //todo debug, possibly delete
+        String id;
+        String name;
+
+        while (result.next()){
+            id = result.getString("id");
+            name = result.getString("name");
+
+            System.out.printf("%s, %s\n", id, name);
+        }
     }
 }
