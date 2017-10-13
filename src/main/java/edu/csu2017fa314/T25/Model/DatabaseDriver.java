@@ -3,19 +3,21 @@ package edu.csu2017fa314.T25.Model;
 import java.sql.*;
 
 public class DatabaseDriver {
+    private final int MAX_QUERY_SIZE = 50;
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"; // todo for my (michael) testing purposes right now.
 
 
-    Connection connection;
-    Statement statement;
+    private Connection connection;
+    private Statement statement;
 
-    public DatabaseDriver(String userName, String password) throws ClassNotFoundException {
+    public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
-        Class.forName(driver); // todo necessary?
+        this.url = url;
+        Class.forName(driver);
 
 
         try {
@@ -43,7 +45,7 @@ public class DatabaseDriver {
 
         ResultSet result = statement.executeQuery(query);
 
-        int total = 0;
+        int total;
         result.next();
         total = result.getInt(1);
 
@@ -57,7 +59,7 @@ public class DatabaseDriver {
     }
 
     public Result query(String searchString)  {
-        int total = 0;
+        int total;
         Result result = null;
 
         try {
@@ -73,7 +75,7 @@ public class DatabaseDriver {
     }
 
     private Result constructResult(ResultSet resultSet, int total) throws SQLException {
-        String stringArray[][] = new String[50][3]; // todo 50 is limit on number of returned queries allowed
+        String stringArray[][] = new String[MAX_QUERY_SIZE][3];
 
         int counter = 0;
         String id;
@@ -95,18 +97,6 @@ public class DatabaseDriver {
         Result result = new Result(stringArray, total);
 
         return result;
-    }
-
-    public void printResults(ResultSet result) throws SQLException { //todo debug, possibly delete
-        String id;
-        String name;
-
-        while (result.next()){
-            id = result.getString("id");
-            name = result.getString("name");
-
-            System.out.printf("%s, %s\n", id, name);
-        }
     }
 }
 
