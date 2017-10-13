@@ -35,14 +35,65 @@ public class DatabaseDriver {
         return query;
     }
 
+    private int getTotal(String searchString) throws SQLException {
+        String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
+                searchString + "%' OR name LIKE '%" +
+                searchString + "%' OR municipality LIKE '%" +
+                searchString + "%';";
+
+        ResultSet result = statement.executeQuery(query);
+
+        int total = 0;
+        result.next();
+        total = result.getInt(1);
+
+
+        return total;
+    }
+
     private void startConnection() throws SQLException {
         connection = DriverManager.getConnection(url, userName, password);
         statement = connection.createStatement();
     }
 
-    public ResultSet query(String searchString) throws SQLException {
-        String query = formQuery(searchString);
-        ResultSet result = statement.executeQuery(query);
+    public Result query(String searchString)  {
+        int total = 0;
+        Result result = null;
+
+        try {
+            total = getTotal(searchString);
+            String query = formQuery(searchString);
+            ResultSet resultSet = statement.executeQuery(query);
+            result = constructResult(resultSet, total);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    private Result constructResult(ResultSet resultSet, int total) throws SQLException {
+        String stringArray[][] = new String[50][3]; // todo 50 is limit on number of returned queries allowed
+
+        int counter = 0;
+        String id;
+        String latitude;
+        String longitude;
+
+        while (resultSet.next() && counter < 50){
+            id = resultSet.getString("id");
+            latitude = resultSet.getString("latitude");
+            longitude = resultSet.getString("longitude");
+
+            stringArray[counter][0] = id;
+            stringArray[counter][1] = latitude;
+            stringArray[counter][2] = longitude;
+
+            counter++;
+        }
+
+        Result result = new Result(stringArray, total);
+
         return result;
     }
 
@@ -56,5 +107,15 @@ public class DatabaseDriver {
 
             System.out.printf("%s, %s\n", id, name);
         }
+    }
+}
+
+class Result {
+    String result[][];
+    int total;
+
+    public Result(String result[][], int total){
+        this.result = result;
+        this.total = total;
     }
 }
