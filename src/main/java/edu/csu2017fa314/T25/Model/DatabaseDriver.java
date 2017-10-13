@@ -3,19 +3,21 @@ package edu.csu2017fa314.T25.Model;
 import java.sql.*;
 
 public class DatabaseDriver {
+    private final int MAX_QUERY_SIZE = 50;
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"; // todo for my (michael) testing purposes right now.
+    private String url;
 
 
-    Connection connection;
-    Statement statement;
+    private Connection connection;
+    private Statement statement;
 
-    public DatabaseDriver(String userName, String password) throws ClassNotFoundException {
+    public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
-        Class.forName(driver); // todo necessary?
+        this.url = url;
+        Class.forName(driver);
 
 
         try {
@@ -30,7 +32,7 @@ public class DatabaseDriver {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
-                searchString + "%';";
+                searchString + "%' LIMIT " + MAX_QUERY_SIZE + ";";
 
         return query;
     }
@@ -43,7 +45,7 @@ public class DatabaseDriver {
 
         ResultSet result = statement.executeQuery(query);
 
-        int total = 0;
+        int total;
         result.next();
         total = result.getInt(1);
 
@@ -56,8 +58,8 @@ public class DatabaseDriver {
         statement = connection.createStatement();
     }
 
-    public Result query(String searchString)  {
-        int total = 0;
+    public Result query(String searchString) {
+        int total;
         Result result = null;
 
         try {
@@ -73,14 +75,14 @@ public class DatabaseDriver {
     }
 
     private Result constructResult(ResultSet resultSet, int total) throws SQLException {
-        String stringArray[][] = new String[50][3]; // todo 50 is limit on number of returned queries allowed
+        String stringArray[][] = new String[MAX_QUERY_SIZE][3];
 
         int counter = 0;
         String id;
         String latitude;
         String longitude;
 
-        while (resultSet.next() && counter < 50){
+        while (resultSet.next() && counter < 50) {
             id = resultSet.getString("id");
             latitude = resultSet.getString("latitude");
             longitude = resultSet.getString("longitude");
@@ -96,25 +98,13 @@ public class DatabaseDriver {
 
         return result;
     }
-
-    public void printResults(ResultSet result) throws SQLException { //todo debug, possibly delete
-        String id;
-        String name;
-
-        while (result.next()){
-            id = result.getString("id");
-            name = result.getString("name");
-
-            System.out.printf("%s, %s\n", id, name);
-        }
-    }
 }
 
 class Result {
     String result[][];
     int total;
 
-    public Result(String result[][], int total){
+    public Result(String result[][], int total) {
         this.result = result;
         this.total = total;
     }
