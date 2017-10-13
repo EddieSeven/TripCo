@@ -1,0 +1,13 @@
+id,type,name,latitude,longitude,elevation_ft,municipality,home_link,wikipedia_link
+KDEN,large_airport,Denver International Airport,39.86169815,-104.6729965,5431,Denver,http://www.flydenver.com/,http://en.wikipedia.org/wiki/Denver_International_Airport
+KCOS,large_airport,City of Colorado Springs Municipal Airport,38.80580139,-104.7009964,6187,Colorado Springs,https://flycos.coloradosprings.gov/,http://en.wikipedia.org/wiki/Colorado_Springs_Airport
+KRIL,medium_airport,Garfield County Regional Airport,39.52629852,-107.7269974,5548,Rifle,http://www.rifleairport.com/,https://en.wikipedia.org/wiki/Garfield_County_Regional_Airport
+KMTJ,medium_airport,Montrose Regional Airport,38.50979996,-107.8939972,5759,Montrose,,
+KGJT,medium_airport,Grand Junction Regional Airport,39.12239838,-108.5270004,4858,Grand Junction,http://www.gjairport.com/,http://en.wikipedia.org/wiki/Grand_Junction_Regional_Airport
+KFCS,medium_airport,Butts AAF (Fort Carson) Air Field,38.67839813,-104.7570038,5838,Fort Carson,,
+KEGE,medium_airport,Eagle County Regional Airport,39.64260101,-106.9179993,6548,Eagle,http://www.eaglecounty.us/airport/,http://en.wikipedia.org/wiki/Eagle_County_Regional_Airport
+KBJC,medium_airport,Rocky Mountain Metropolitan Airport,39.90879822,-105.1169968,5673,Denver,,http://en.wikipedia.org/wiki/Rocky_Mountain_Metropolitan_Airport
+KAPA,medium_airport,Centennial Airport,39.57009888,-104.848999,5885,Denver,,http://en.wikipedia.org/wiki/Centennial_Airport
+KBKF,medium_airport,Buckley Air Force Base,39.7016983,-104.7519989,5662,Aurora,,http://en.wikipedia.org/wiki/Buckley_Air_Force_Base
+KASE,medium_airport,Aspen-Pitkin Co/Sardy Field,39.22320175,-106.8690033,7820,Aspen,http://aspenairport.com/,http://en.wikipedia.org/wiki/Aspen%E2%80%93Pitkin_County_Airport
+KALS,medium_airport,San Luis Valley Regional Bergman Field,37.434898,-105.866997,7539,Alamosa,,https://en.wikipedia.org/wiki/San_Luis_Valley_Regional_Airport

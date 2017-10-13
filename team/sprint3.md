@@ -38,7 +38,7 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 *10/6/2017* | *None* | #106 | *None* | *High*
 *10/9/2017* | #106 | #103 | *None* | *High*
 *10/11/2017* | #103, #109 |  #104 | *Getting the plan right* | *High*
-*date* | *issue numbers only* | *issue numbers only* | *None* | *High*
+*10/13/2017* | *None* | #101, #94, #104, #105 | *None* | *High*
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
  
 
