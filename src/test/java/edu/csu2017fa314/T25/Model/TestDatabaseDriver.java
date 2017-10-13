@@ -8,7 +8,7 @@ public class TestDatabaseDriver {
 
     @Before
     public void setup() throws ClassNotFoundException {
-        test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql://localhost"); // won't work with travis
+        test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql:TripCo_Test"); // won't work with travis
     }
 
     @Test
