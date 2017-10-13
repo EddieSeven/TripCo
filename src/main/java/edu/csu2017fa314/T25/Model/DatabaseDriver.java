@@ -7,7 +7,7 @@ public class DatabaseDriver {
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"; // todo for my (michael) testing purposes right now.
+    private String url;
 
 
     private Connection connection;
@@ -32,7 +32,7 @@ public class DatabaseDriver {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
-                searchString + "%';";
+                searchString + "%' LIMIT " + MAX_QUERY_SIZE + ";";
 
         return query;
     }
@@ -58,7 +58,7 @@ public class DatabaseDriver {
         statement = connection.createStatement();
     }
 
-    public Result query(String searchString)  {
+    public Result query(String searchString) {
         int total;
         Result result = null;
 
@@ -82,7 +82,7 @@ public class DatabaseDriver {
         String latitude;
         String longitude;
 
-        while (resultSet.next() && counter < 50){
+        while (resultSet.next() && counter < 50) {
             id = resultSet.getString("id");
             latitude = resultSet.getString("latitude");
             longitude = resultSet.getString("longitude");
@@ -104,7 +104,7 @@ class Result {
     String result[][];
     int total;
 
-    public Result(String result[][], int total){
+    public Result(String result[][], int total) {
         this.result = result;
         this.total = total;
     }
