@@ -1,5 +1,7 @@
 package edu.csu2017fa314.T25.Model;
 
+import java.util.ArrayList;
+
 
 public class NearestNeighbor {
     private int N;
@@ -54,7 +56,7 @@ public class NearestNeighbor {
         boolean visited[] = new boolean[N]; // All entries default to false
 
         int i = startIndex;
-        path.add(points[i]);
+        path.add(points[i], 0);
 
         visited[i] = true;
 
@@ -154,7 +156,7 @@ class Path {
 
     public void returnHome() {
         // todo hardcoded miles
-        int distance = computeDistance(path[0], path[N - 2], true);
+        int distance = NearestNeighbor.computeDistance(path[0], path[N - 2], true);
 		add(path[0], distance);
     }
 

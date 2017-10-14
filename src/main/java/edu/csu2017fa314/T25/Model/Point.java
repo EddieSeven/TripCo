@@ -19,7 +19,7 @@ public class Point {
 		this.id = id;
 		this.type = type;
 		this.name = name;
-		latitude = Double.parseDoule(sLat);
+		latitude = Double.parseDouble(sLat);
 		longitude = Double.parseDouble(sLon);
 		elevation = Integer.parseInt(sElev);
 		municipality = munic;
@@ -39,7 +39,7 @@ public class Point {
 
         double dGeo = 0.0;
         for (int i = 0; i < pieces.length; i++) {
-            dGeo += Double.parseDouble(latPieces[i]) / Math.pow(60, i);
+            dGeo += Double.parseDouble(pieces[i]) / Math.pow(60, i);
         }
         if (isWest) {
             dGeo = -1 * dGeo;
