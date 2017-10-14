@@ -58,45 +58,54 @@ public class DatabaseDriver {
         statement = connection.createStatement();
     }
 
-    public Result query(String searchString) {
+    public ArrayList<Point> query(String searchString) {
         int total;
-        Result result = null;
+		ArrayList<Point> points;
 
         try {
             total = getTotal(searchString);
             String query = formQuery(searchString);
             ResultSet resultSet = statement.executeQuery(query);
-            result = constructResult(resultSet, total);
+            points = constructResult(resultSet, total);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return result;
+		points.trimToSize();
+        return points;
     }
 
-    private Result constructResult(ResultSet resultSet, int total) throws SQLException {
-        String stringArray[][] = new String[MAX_QUERY_SIZE][3];
+    private ArrayList<Point> constructResult(ResultSet resultSet, int total) throws SQLException {
+		ArrayList<Point> points;
 
         int counter = 0;
         String id;
+		String type;
+		String name;
         String latitude;
         String longitude;
+		String elevation;
+		String municipality;
+		String home_link;
+		String wikipedia_link;
 
-        while (resultSet.next() && counter < 50) {
+        while (resultSet.next() && counter < MAX_QUERY_SIZE) {
             id = resultSet.getString("id");
+            type = resultSet.getString("type");
+            name = resultSet.getString("name");
             latitude = resultSet.getString("latitude");
             longitude = resultSet.getString("longitude");
+            elevation = resultSet.getString("elevation");
+            municipality = resultSet.getString("municipality");
+            home_link = resultSet.getString("home_link");
+            wikipedia_link = resultSet.getString("wikipedia_link");
 
-            stringArray[counter][0] = id;
-            stringArray[counter][1] = latitude;
-            stringArray[counter][2] = longitude;
+			points.add(new Point(id, type, name, latitude, longitude, elevation, municipality, home_link, wikipedia_link);
 
             counter++;
         }
 
-        Result result = new Result(stringArray, total);
-
-        return result;
+        return points;
     }
 }
 
