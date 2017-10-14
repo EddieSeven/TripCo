@@ -3,19 +3,21 @@ package edu.csu2017fa314.T25.Model;
 import java.sql.*;
 
 public class DatabaseDriver {
+    private final int MAX_QUERY_SIZE = 50;
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"; // todo for my (michael) testing purposes right now.
+    private String url;
 
 
-    Connection connection;
-    Statement statement;
+    private Connection connection;
+    private Statement statement;
 
-    public DatabaseDriver(String userName, String password) throws ClassNotFoundException {
+    public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
-        Class.forName(driver); // todo necessary?
+        this.url = url;
+        Class.forName(driver);
 
 
         try {
@@ -30,9 +32,25 @@ public class DatabaseDriver {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
-                searchString + "%';";
+                searchString + "%' LIMIT " + MAX_QUERY_SIZE + ";";
 
         return query;
+    }
+
+    private int getTotal(String searchString) throws SQLException {
+        String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
+                searchString + "%' OR name LIKE '%" +
+                searchString + "%' OR municipality LIKE '%" +
+                searchString + "%';";
+
+        ResultSet result = statement.executeQuery(query);
+
+        int total;
+        result.next();
+        total = result.getInt(1);
+
+
+        return total;
     }
 
     private void startConnection() throws SQLException {
@@ -40,21 +58,54 @@ public class DatabaseDriver {
         statement = connection.createStatement();
     }
 
-    public ResultSet query(String searchString) throws SQLException {
-        String query = formQuery(searchString);
-        ResultSet result = statement.executeQuery(query);
+    public Result query(String searchString) {
+        int total;
+        Result result = null;
+
+        try {
+            total = getTotal(searchString);
+            String query = formQuery(searchString);
+            ResultSet resultSet = statement.executeQuery(query);
+            result = constructResult(resultSet, total);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return result;
     }
 
-    public void printResults(ResultSet result) throws SQLException { //todo debug, possibly delete
+    private Result constructResult(ResultSet resultSet, int total) throws SQLException {
+        String stringArray[][] = new String[MAX_QUERY_SIZE][3];
+
+        int counter = 0;
         String id;
-        String name;
+        String latitude;
+        String longitude;
 
-        while (result.next()){
-            id = result.getString("id");
-            name = result.getString("name");
+        while (resultSet.next() && counter < 50) {
+            id = resultSet.getString("id");
+            latitude = resultSet.getString("latitude");
+            longitude = resultSet.getString("longitude");
 
-            System.out.printf("%s, %s\n", id, name);
+            stringArray[counter][0] = id;
+            stringArray[counter][1] = latitude;
+            stringArray[counter][2] = longitude;
+
+            counter++;
         }
+
+        Result result = new Result(stringArray, total);
+
+        return result;
+    }
+}
+
+class Result {
+    String result[][];
+    int total;
+
+    public Result(String result[][], int total) {
+        this.result = result;
+        this.total = total;
     }
 }
