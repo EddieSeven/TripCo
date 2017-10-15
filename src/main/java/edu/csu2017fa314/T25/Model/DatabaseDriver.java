@@ -1,6 +1,7 @@
 package edu.csu2017fa314.T25.Model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseDriver {
     private final int MAX_QUERY_SIZE = 50;
@@ -60,7 +61,7 @@ public class DatabaseDriver {
 
     public ArrayList<Point> query(String searchString) {
         int total;
-		ArrayList<Point> points;
+		ArrayList<Point> points = null;
 
         try {
             total = getTotal(searchString);
@@ -76,7 +77,7 @@ public class DatabaseDriver {
     }
 
     private ArrayList<Point> constructResult(ResultSet resultSet, int total) throws SQLException {
-		ArrayList<Point> points;
+		ArrayList<Point> points = new ArrayList<Point>();
 
         int counter = 0;
         String id;
@@ -100,7 +101,7 @@ public class DatabaseDriver {
             home_link = resultSet.getString("home_link");
             wikipedia_link = resultSet.getString("wikipedia_link");
 
-			points.add(new Point(id, type, name, latitude, longitude, elevation, municipality, home_link, wikipedia_link);
+			points.add(new Point(id, type, name, latitude, longitude, elevation, municipality, home_link, wikipedia_link));
 
             counter++;
         }

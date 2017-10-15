@@ -146,6 +146,11 @@ class Path {
         index++;
     }
 
+	public void addPoint(Point p) {
+		path[index] = p;
+		index++;
+	}
+
     public Point getPoint(int i) {
         return path[i];
     }

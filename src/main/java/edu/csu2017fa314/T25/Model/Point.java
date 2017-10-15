@@ -26,6 +26,12 @@ public class Point {
 		home_link = homeL;
 		wikipedia_link = wikiL;
     }
+	
+	// This is mostly needed for test purposes.
+	public Point(double lat, double lon) {
+		latitude = lat;
+		longitude = lon;
+	}
 
 	// This method is no longer in use because the database stores
 	// these as plain doubles, but is saved just in case.
