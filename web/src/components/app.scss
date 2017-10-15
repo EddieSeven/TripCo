@@ -1,5 +1,14 @@
 @import "Home/Home";
+@import "Home/SearchBar/SearchBar";
+@import "Home/Table/Table";
 @import "Home/Pair/Pair";
 
 .app-container {
+    height: 800px;
+    overflow: scroll;
+    display: inline;
+}
+
+.header{
+text-align: center;
 }
