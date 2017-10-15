@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
 
-import edu.csu2017fa314.T25.Model.Model;
+import edu.csu2017fa314.T25.Model.NearestNeighbor;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import edu.csu2017fa314.T25.Model.DatabaseDriver;
 import edu.csu2017fa314.T25.Model.Point;
@@ -36,11 +36,14 @@ public class Server {
 		SearchQuery sq = g.fromJson(je, SearchQuery.class);
 		System.out.println("Querying for " + sq.getQuery());
 
-		Point[] points = dbDriver.query(sq.getQuery())
+		ArrayList<Point> pts = dbDriver.query(sq.getQuery());
+		Point[] points = new Point[pts.size()];
+		points = pts.toArray(points);
 		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
 		
 		// Get itinerary from database
-		return g.toJson(itinerary, ArrayList.class);
+		return g.toJson(legs, ArrayList.class);
 
 	}
 
