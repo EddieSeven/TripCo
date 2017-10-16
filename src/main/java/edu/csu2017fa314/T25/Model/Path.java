@@ -1,5 +1,7 @@
 package edu.csu2017fa314.T25.Model;
 
+import java.util.ArrayList;
+
 public class Path {
     private Point path[];
 	private ArrayList<TripLeg> legs;
