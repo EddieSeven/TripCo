@@ -136,13 +136,3 @@ public class DatabaseDriver {
         return result;
     }
 }
-
-class Result {
-    String result[][];
-    int total;
-
-    public Result(String result[][], int total) {
-        this.result = result;
-        this.total = total;
-    }
-}
