@@ -8,8 +8,8 @@ public class Point {
     String id;
 	String type;
     String name;
-    double latitude;
-    double longitude;
+    public double latitude;
+    public double longitude;
 	int elevation;
 	String municipality;
 	String home_link;
