@@ -11,10 +11,10 @@ import java.util.ArrayList;
 public class TestDatabaseDriver {
     private DatabaseDriver test;
 
-    /*
+
     @Before
     public void setup() throws ClassNotFoundException {
-           test = new DatabaseDriver("travis", "", "jdbc:mysql://TripCoTestDB"); // todo Doesn't work with travis
+           test = new DatabaseDriver("travis", "", "jdbc:mysql://TripCoTestDB");
     }
 
     @Test
@@ -55,5 +55,4 @@ public class TestDatabaseDriver {
         result = test.queryAlgorithm(idList);
         assertEquals(null, result);
     }
-    */
 }
