@@ -6,5 +6,5 @@ addons:
   mariadb: '10.2'
 before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS TripCoTestDB'
-  - CREATE TABLE airports (id int, latitude varchar(1000), longitude varchar(1000));
+  - mysql  TripCoTestDB < CREATE TABLE airports (id int, latitude varchar(1000), longitude varchar(1000)); >
 
