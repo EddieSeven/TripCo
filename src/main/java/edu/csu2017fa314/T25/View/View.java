@@ -1,7 +1,6 @@
 package edu.csu2017fa314.T25.View;
 
 import com.google.gson.Gson;
-import edu.csu2017fa314.T25.Model.Model;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,7 +12,10 @@ import java.util.Scanner;
 public class View {
    private int totalDistance;
    public String outputSVG = "";
-   public Model model;
+   public double svgWidth = 0.0;
+   public double svgHeight = 0.0;
+   public double padX = 0.0;
+   public double padY = 0.0;
 
    public void setTotalDistance(int distance) 
    {
@@ -39,11 +41,7 @@ public class View {
 
    }
 
-   public void getCoordinates(String SVGPath) throws IOException{
-      double svgWidth = 0.0;
-      double svgHeight = 0.0;
-      double padX = 0.0;
-      double padY = 0.0;
+   public void getCoordinates(String SVGPath, ArrayList<TripLeg> path) throws IOException{
       Scanner scanner = new Scanner(new File(SVGPath));
 
       //grab the SVG file height and width
@@ -87,20 +85,21 @@ public class View {
       scanner.close();
       padX = Double.parseDouble(path49X.substring(path49X.indexOf("M ") + 2,path49X.indexOf(".") + 6));
       padY = Double.parseDouble(pathPolylineY.substring(pathPolylineY.lastIndexOf(",") + 1,pathPolylineY.lastIndexOf(".") + 6));
-      insertSVG(svgWidth,svgHeight,padX,padY);
+      //insertSVG(svgWidth,svgHeight,padX,padY, path);
       //x1 is at path49
       //y1 is at polyline45
    }
 
-   public void insertSVG(double svgWidth, double svgHeight, double padX, double padY) throws IOException{
+   public String insertSVG(ArrayList<TripLeg> path) throws IOException{
       String coordinates = "";
       String startcoordinate = "";
       int latIndex = 0;
       int longIndex = 0;
-      for(int i = 0; i < model.latcoordinates.size(); i++){
-         double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 + Math.abs(model.longcoordinates.get(i))) / (-109 + 102));
+      for(int i = 0; i < path.size(); i++){
+		 TripLeg leg = path.get(i);
+         double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 + Math.abs(leg.start.longitude) / (-109 + 102)));
          svgXcoordinate += padX;
-         double svgYcoordinate = ((svgHeight - (padY * 2)) * (41 - model.latcoordinates.get(i)) / (41 - 37));
+         double svgYcoordinate = ((svgHeight - (padY * 2)) * (41 - leg.start.latitude) / (41 - 37));
          svgYcoordinate += padY;
          if(i == 0) {
             coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
@@ -116,13 +115,6 @@ public class View {
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
-
-      File file = new File("./web/output.svg");
-      FileWriter fw = new FileWriter(file.getAbsoluteFile());
-      BufferedWriter bw = new BufferedWriter(fw);
-      bw.write(outputSVG);
-      bw.close();
-      //System.out.println(outputSVG);
-      //System.out.println(coordinates);
+      return outputSVG;
    }
 }

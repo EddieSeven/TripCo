@@ -7,7 +7,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.csu2017fa314.T25</groupId>
     <artifactId>T25</artifactId>
@@ -63,5 +62,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.6</version>
         </dependency>
+		<dependency>
+                 <groupId>com.sparkjava</groupId>
+                 <artifactId>spark-core</artifactId>
+                 <version>2.6.0</version>
+              </dependency>
+
     </dependencies>
 </project>

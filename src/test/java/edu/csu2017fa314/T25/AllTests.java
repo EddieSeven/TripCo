@@ -9,7 +9,7 @@ import junit.framework.JUnit4TestAdapter;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
    TestTripCo.class,  // Add test classes here.
-   TestModel.class, TestNearestNeighbor.class,
+   TestNearestNeighbor.class,
    TestView.class
 })
 
