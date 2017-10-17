@@ -12,6 +12,10 @@ import java.util.Scanner;
 public class View {
    private int totalDistance;
    public String outputSVG = "";
+   public double svgWidth = 0.0;
+   public double svgHeight = 0.0;
+   public double padX = 0.0;
+   public double padY = 0.0;
 
    public void setTotalDistance(int distance) 
    {
@@ -38,10 +42,6 @@ public class View {
    }
 
    public void getCoordinates(String SVGPath, ArrayList<TripLeg> path) throws IOException{
-      double svgWidth = 0.0;
-      double svgHeight = 0.0;
-      double padX = 0.0;
-      double padY = 0.0;
       Scanner scanner = new Scanner(new File(SVGPath));
 
       //grab the SVG file height and width
@@ -85,12 +85,12 @@ public class View {
       scanner.close();
       padX = Double.parseDouble(path49X.substring(path49X.indexOf("M ") + 2,path49X.indexOf(".") + 6));
       padY = Double.parseDouble(pathPolylineY.substring(pathPolylineY.lastIndexOf(",") + 1,pathPolylineY.lastIndexOf(".") + 6));
-      insertSVG(svgWidth,svgHeight,padX,padY, path);
+      //insertSVG(svgWidth,svgHeight,padX,padY, path);
       //x1 is at path49
       //y1 is at polyline45
    }
 
-   public void insertSVG(double svgWidth, double svgHeight, double padX, double padY, ArrayList<TripLeg> path) throws IOException{
+   public String insertSVG(ArrayList<TripLeg> path) throws IOException{
       String coordinates = "";
       String startcoordinate = "";
       int latIndex = 0;
@@ -115,13 +115,6 @@ public class View {
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
-
-      File file = new File("./web/output.svg");
-      FileWriter fw = new FileWriter(file.getAbsoluteFile());
-      BufferedWriter bw = new BufferedWriter(fw);
-      bw.write(outputSVG);
-      bw.close();
-      //System.out.println(outputSVG);
-      //System.out.println(coordinates);
+      return outputSVG;
    }
 }
