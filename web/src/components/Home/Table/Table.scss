@@ -1,8 +1,11 @@
-.home-container {
+.table-container {
 
-  height: auto;
-  overflow: scroll;
   color: white;
+
+  table{
+      margin-left: 10%;
+      margin-right: 10%;
+  }
 
   .pair-table {
     table, th, td {
@@ -22,9 +25,10 @@
 
   .checkboxes{
     display: inline;
+    font-size: .8em;
+    font-family: 'Raleway', 'Montserrat', 'Manuale', sans-serif;
   }
 
-  .spacer{
-    height: 200px;
-  }
+  text-align: center;
+
 }

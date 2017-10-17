@@ -29,11 +29,17 @@ public class DatabaseDriver {
         }
     }
 
-    private String formQuery(String searchString) {
+    private String formPageQuery(String searchString) {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
                 searchString + "%' LIMIT " + MAX_QUERY_SIZE + ";";
+
+        return query;
+    }
+
+    private String formAlgorithmQuery(String idList) {
+        String query = "SELECT id, latitude, longitude FROM airports WHERE id IN " + idList + ";";
 
         return query;
     }
@@ -59,13 +65,44 @@ public class DatabaseDriver {
         statement = connection.createStatement();
     }
 
-    public ArrayList<Point> query(String searchString) {
+    public Result queryAlgorithm(ArrayList<String> id){
+        String idList = toList(id);
+        ArrayList<Point> points = null;
+
+        String query = formAlgorithmQuery(idList);
+        try {
+            if (idList != null) {
+                ResultSet resultSet = statement.executeQuery(query);
+                points = constructResult(resultSet, id.size());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+		points.trimToSize();
+        return new Result(points);
+    }
+
+    private String toList(ArrayList<String> id){
+        String idList = "(";
+        for (int i = 0; i < id.size(); i++){
+            idList += "'" + id.get(i) + "', ";
+        }
+
+        if (id.size() != 0) {
+            idList = idList.substring(0, idList.length() - 2) + ")";
+            return idList;
+        } else
+            return null;
+    }
+
+    public Result queryPage(String searchString) {
         int total;
 		ArrayList<Point> points = null;
 
         try {
             total = getTotal(searchString);
-            String query = formQuery(searchString);
+            String query = formPageQuery(searchString);
             ResultSet resultSet = statement.executeQuery(query);
             points = constructResult(resultSet, total);
         } catch (SQLException e) {
@@ -73,7 +110,7 @@ public class DatabaseDriver {
         }
 
 		points.trimToSize();
-        return points;
+        return new Result(points);
     }
 
     private ArrayList<Point> constructResult(ResultSet resultSet, int total) throws SQLException {
@@ -107,15 +144,5 @@ public class DatabaseDriver {
         }
 
         return points;
-    }
-}
-
-class Result {
-    String result[][];
-    int total;
-
-    public Result(String result[][], int total) {
-        this.result = result;
-        this.total = total;
     }
 }
