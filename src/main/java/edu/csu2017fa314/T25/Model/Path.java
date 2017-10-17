@@ -3,7 +3,7 @@ package edu.csu2017fa314.T25.Model;
 import java.util.ArrayList;
 
 public class Path {
-    private Point path[];
+    public Point path[];
 	private ArrayList<TripLeg> legs;
     private int totalCost = 0;
     private int index = 0;
