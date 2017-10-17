@@ -14,7 +14,7 @@ public class TestDatabaseDriver {
 
     @Before
     public void setup() throws ClassNotFoundException {
-           test = new DatabaseDriver("travis", "", "jdbc:mysql://TripCoTestDB");
+           test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
     }
 
     @Test
