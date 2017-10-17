@@ -19,8 +19,8 @@ public class Point {
 		this.id = id;
 		this.type = type;
 		this.name = name;
-		latitude = Double.parseDouble(sLat);
-		longitude = Double.parseDouble(sLon);
+		latitude = Math.toRadians(Double.parseDouble(sLat));
+		longitude = Math.toRadians(Double.parseDouble(sLon));
 		elevation = Integer.parseInt(sElev);
 		municipality = munic;
 		home_link = homeL;
@@ -29,8 +29,8 @@ public class Point {
 	
 	// This is mostly needed for test purposes.
 	public Point(double lat, double lon) {
-		latitude = lat;
-		longitude = lon;
+		latitude = Math.toRadians(lat);
+		longitude = Math.toRadians(lon);
 	}
 
 	// This method is no longer in use because the database stores
