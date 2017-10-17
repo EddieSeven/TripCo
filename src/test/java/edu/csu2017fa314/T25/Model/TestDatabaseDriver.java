@@ -14,26 +14,26 @@ public class TestDatabaseDriver {
 
     @Before
     public void setup() throws ClassNotFoundException {
-           test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+        test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
     }
 
     @Test
     public void queryPageTest() {
         // Test 1 - Swedish Hospitals
         Result result = test.queryPage("swe");
-        assertEquals(true,         result.result[0][0].equals("0CD9"));
-        assertEquals(true,         result.result[1][0].equals("15CO"));
+        assertEquals(true, result.points.get(0).id.equals("0CD9"));
+        assertEquals(true, result.points.get(1).id.equals("15CO"));
 
         // Test 2 - Limit
         result = test.queryPage("a");
-        assertEquals(true, result.result[0][0].equals("KBJC"));
-        assertEquals(true, result.result[49][0].equals("1CO2"));
+        assertEquals(true, result.points.get(0).id.equals("KBJC"));
+        assertEquals(true, result.points.get(49).id.equals("1CO2"));
 
         // Test 3 - Denver
         result = test.queryPage("denver");
-        assertEquals(true, result.result[0][0].equals("KBJC"));
-        assertEquals(true, result.result[7][0].equals("9CO0"));
-        assertEquals(true, result.result[25][0].equals("US-0073"));
+        assertEquals(true, result.points.get(0).id.equals("KBJC"));
+        assertEquals(true, result.points.get(7).id.equals("9CO0"));
+        assertEquals(true, result.points.get(25).id.equals("US-0073"));
     }
 
     @Test
@@ -45,10 +45,10 @@ public class TestDatabaseDriver {
         idList.add("KTAD");
         idList.add("KTEX");
         Result result = test.queryAlgorithm(idList);
-        assertEquals(true, result.result[0][0].equals("0CD9"));
-        assertEquals(true, result.result[1][0].equals("15CO"));
-        assertEquals(true, result.result[2][0].equals("KTAD"));
-        assertEquals(true, result.result[3][0].equals("KTEX"));
+        assertEquals(true, result.points.get(0).id.equals("0CD9"));
+        assertEquals(true, result.points.get(1).id.equals("15CO"));
+        assertEquals(true, result.points.get(2).id.equals("KTAD"));
+        assertEquals(true, result.points.get(3).id.equals("KTEX"));
 
         // Test 2 - No input
         idList = new ArrayList<>();
