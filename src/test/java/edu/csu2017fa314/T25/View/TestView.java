@@ -1,7 +1,6 @@
 package edu.csu2017fa314.T25.View;
 import static org.junit.Assert.*;
 
-import edu.csu2017fa314.T25.Model.Model;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +9,6 @@ import java.io.FileNotFoundException;
 
 public class TestView
 {
-    Model model;
     private View v;
 
     String SVGPath = "/Data/col.svg";
@@ -18,7 +16,6 @@ public class TestView
     @Before
     public void setUp() throws Exception 
     {
-        model = new Model();
         v = new View();
     }
 
