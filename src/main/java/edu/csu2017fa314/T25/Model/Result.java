@@ -2,8 +2,8 @@ package edu.csu2017fa314.T25.Model;
 
 import java.util.ArrayList;
 
-class Result {
-	ArrayList<Point> points;
+public class Result {
+	public ArrayList<Point> points;
     int total;
 
 	public Result(ArrayList<Point> pts) {

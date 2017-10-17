@@ -35,7 +35,7 @@ public class TestNearestNeighbor {
     @Test
     public void testComputeNearestNeighbor1() {
         // Checks that given a point, its nearest neighbor is returned.
-        Path dummy0 = new Path();
+        Path dummy0 = new Path(5);
         boolean visited[] = new boolean[5];
 
         assertEquals(0, testNN.computeNearestNeighbor(1, dummy0, visited));
