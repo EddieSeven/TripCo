@@ -92,12 +92,17 @@ public class NearestNeighbor {
         else
             metric = RADIUS_KILOMETERS;
 
-        double dY = Math.abs(start.longitude - finish.longitude);
-        double cosP2 = Math.cos(finish.latitude);
+		double fLon = Math.toRadians(finish.longitude);
+		double fLat = Math.toRadians(finish.latitude);
+		double sLon = Math.toRadians(start.longitude);
+		double sLat = Math.toRadians(start.latitude);
+
+        double dY = Math.abs(sLon - fLon);
+        double cosP2 = Math.cos(fLat);
         double sindY = Math.sin(dY);
-        double cosP1 = Math.cos(start.latitude);
-        double sinP2 = Math.sin(finish.latitude);
-        double sinP1 = Math.sin(start.latitude);
+        double cosP1 = Math.cos(sLat);
+        double sinP2 = Math.sin(fLat);
+        double sinP1 = Math.sin(sLat);
         double cosdY = Math.cos(dY);
 
         double numerator = Math.pow(cosP2 * sindY, 2) + Math.pow((cosP1 * sinP2) - (sinP1 * cosP2 * cosdY), 2);
