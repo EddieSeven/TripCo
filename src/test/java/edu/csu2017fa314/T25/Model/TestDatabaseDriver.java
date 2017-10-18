@@ -19,25 +19,22 @@ public class TestDatabaseDriver {
 
     @Test
     public void queryPageTest() {
-        // Test 1 - Swedish Hospitals
-        Result result = test.queryPage("swe");
-        assertEquals(true, result.points.get(0).id.equals("0CD9"));
-        assertEquals(true, result.points.get(1).id.equals("15CO"));
+        // Test 1 - Cass Field
+        Result result = test.queryPage("cass");
+        assertEquals(true, result.points.get(0).id.equals("00CO"));
 
-        // Test 2 - Limit
-        result = test.queryPage("a");
-        assertEquals(true, result.points.get(0).id.equals("KBJC"));
-        assertEquals(true, result.points.get(49).id.equals("1CO2"));
+        // Test 2 - Buckley Air
+        result = test.queryPage("buckley");
+        assertEquals(true, result.points.get(0).id.equals("KBKF"));
 
-        // Test 3 - Denver
-        result = test.queryPage("denver");
-        assertEquals(true, result.points.get(0).id.equals("KBJC"));
-        assertEquals(true, result.points.get(7).id.equals("9CO0"));
-        assertEquals(true, result.points.get(25).id.equals("US-0073"));
+        // Test 3 - Mc Cullough
+        result = test.queryPage("mc cullough");
+        assertEquals(true, result.points.get(0).id.equals("02CO"));
     }
 
     @Test
-    public void queryAlgorithmTest() {
+    public void queryAlgorithmTest() { // todo no currently being used
+        /*
         // Test 1 - Small Input Size
         ArrayList<String> idList = new ArrayList<>();
         idList.add("0CD9");
@@ -54,5 +51,6 @@ public class TestDatabaseDriver {
         idList = new ArrayList<>();
         result = test.queryAlgorithm(idList);
         assertEquals(null, result);
+        */
     }
 }
