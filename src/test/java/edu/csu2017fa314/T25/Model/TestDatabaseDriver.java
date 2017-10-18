@@ -14,24 +14,31 @@ public class TestDatabaseDriver {
 
     @Before
     public void setup() throws ClassNotFoundException {
-        test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+        String isTravis = System.getenv("TRAVIS");
+
+        if (isTravis != null) {
+            test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+        }
     }
 
     @Test
     public void queryPageTest() {
-        System.getenv("TRAVIS");
+        String isTravis = System.getenv("TRAVIS");
 
-        // Test 1 - Cass Field
-        Result result = test.queryPage("cass");
-        assertEquals(true, result.points.get(0).id.equals("00CO"));
+        if (isTravis != null) {
 
-        // Test 2 - Buckley Air
-        result = test.queryPage("buckley");
-        assertEquals(true, result.points.get(0).id.equals("KBKF"));
+            // Test 1 - Cass Field
+            Result result = test.queryPage("cass");
+            assertEquals(true, result.points.get(0).id.equals("00CO"));
 
-        // Test 3 - Mc Cullough
-        result = test.queryPage("mc cullough");
-        assertEquals(true, result.points.get(0).id.equals("02CO"));
+            // Test 2 - Buckley Air
+            result = test.queryPage("buckley");
+            assertEquals(true, result.points.get(0).id.equals("KBKF"));
+
+            // Test 3 - Mc Cullough
+            result = test.queryPage("mc cullough");
+            assertEquals(true, result.points.get(0).id.equals("02CO"));
+        }
     }
 
     @Test
