@@ -33,7 +33,7 @@ public class DatabaseDriver {
         String query = "SELECT * FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
-                searchString + "%' LIMIT " + MAX_QUERY_SIZE + ";";
+                searchString + "%';";
 
         return query;
     }
@@ -127,7 +127,7 @@ public class DatabaseDriver {
 		String home_link;
 		String wikipedia_link;
 
-        while (resultSet.next() && counter < MAX_QUERY_SIZE) {
+        while (resultSet.next() /*&& counter < MAX_QUERY_SIZE todo commented out for now*/ ) {
             id = resultSet.getString("id");
             type = resultSet.getString("type");
             name = resultSet.getString("name");
