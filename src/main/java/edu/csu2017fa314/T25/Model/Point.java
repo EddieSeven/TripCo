@@ -21,7 +21,8 @@ public class Point {
 		this.name = name;
 		latitude = Math.toRadians(Double.parseDouble(sLat));
 		longitude = Math.toRadians(Double.parseDouble(sLon));
-		elevation = Integer.parseInt(sElev);
+		if (sElev != null)
+		    elevation = Integer.parseInt(sElev);
 		municipality = munic;
 		home_link = homeL;
 		wikipedia_link = wikiL;
