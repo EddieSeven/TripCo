@@ -19,6 +19,8 @@ public class TestDatabaseDriver {
 
     @Test
     public void queryPageTest() {
+        System.getenv("TRAVIS");
+
         // Test 1 - Cass Field
         Result result = test.queryPage("cass");
         assertEquals(true, result.points.get(0).id.equals("00CO"));
