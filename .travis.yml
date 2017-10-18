@@ -6,7 +6,7 @@ addons:
   mariadb: '10.2'
 before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS TripCoTestDB'
-  - mysql -u root -e 'CREATE TABLE airports (index int, id varchar(1000), type varchar(1000), name varchar(1000), latitude varchar(1000), longitude varchar(1000), elevation varchar(1000), municipality varchar(1000), home_link varchar(1000), wikipedia_link varchar(1000));' TripCoTestDB
+  - mysql -u root -e 'CREATE TABLE airports (id varchar(1000), type varchar(1000), name varchar(1000), latitude varchar(1000), longitude varchar(1000), elevation varchar(1000), municipality varchar(1000), home_link varchar(1000), wikipedia_link varchar(1000));' TripCoTestDB
   - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ('KBJC','39.90879822','-105.1169968');' TripCoTestDB
   - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ('KBKF','39.701698303200004','-104.751998901');' TripCoTestDB
   - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ('KCOS','38.805801391602','-104.70099639893');' TripCoTestDB
