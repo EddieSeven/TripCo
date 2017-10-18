@@ -7,13 +7,8 @@ addons:
 before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS TripCoTestDB'
   - mysql -u root -e 'CREATE TABLE airports (id varchar(1000), type varchar(1000) DEFAULT NULL, name varchar(1000) DEFAULT NULL, latitude varchar(1000), longitude varchar(1000), elevation varchar(1000) DEFAULT NULL, municipality varchar(1000) DEFAULT NULL, home_link varchar(1000) DEFAULT NULL, wikipedia_link varchar(1000) DEFAULT NULL);' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBJC", "Rocky Mountain Metropolitan Airport", '39.90879822','-105.1169968');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBKF", "Buckley Air Force Base", '39.701698303200004','-104.751998901');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KCOS", "City of Colorado Springs Municipal Airport", '38.805801391602','-104.70099639893');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ("KDEN",'39.861698150635','-104.672996521');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ("KEGE",'39.64260101','-106.9179993');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ("KGJT",'39.1223983765','-108.527000427');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ("KPUB",'38.289100646972656','-104.49700164794922');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("00CO", "Cass Field", '40.62220001220703','-104.34400177001953');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, latitude, longitude) VALUES ("01CO",'39.24530029296875','-106.24600219726562');' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("02CO","Mc Cullough Airport", '37.64329910279999','-106.04699707');' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBJC", "Rocky Mountain Metropolitan Airport", "39.90879822","-105.1169968");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBKF", "Buckley Air Force Base", "39.701698303200004","-104.751998901");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KCOS", "City of Colorado Springs Municipal Airport", "38.805801391602","-104.70099639893");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("00CO", "Cass Field", "40.62220001220703","-104.34400177001953");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("02CO", "Mc Cullough Airport", "37.64329910279999","-106.04699707");' TripCoTestDB
