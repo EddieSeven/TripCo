@@ -14,7 +14,7 @@ import edu.csu2017fa314.T25.Model.Point;
 import spark.Request;
 import spark.Response;
 import static spark.Spark.post;
-import static spark.Spark.port;
+import static spark.Spark.get;
 
 public class Server {
 	Gson g;
@@ -26,9 +26,24 @@ public class Server {
 	}
 	public void serve() {
 		post("/search", this::serveSearch, g::toJson);
+		get("/svg/*", this::serveSVG);
 	}
 	public void serveTest() {
 		post("/search", this::serveSearchTest, g::toJson);
+		get("/svg/*", this::serveSVG);
+	}
+
+	private Object serveSVG(Request rec, Response resp) {
+		setImageHeaders(resp);
+		View v = new View();
+		String body = "";
+		try {
+			v.getCoordinates("./col.svg");
+			body = v.getSVG();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return body;
 	}
 
 	// This is meant for testing to avoid having to connect to the database
@@ -75,6 +90,13 @@ public class Server {
 
 	private void setHeaders(Response resp) {
 		resp.header("Content-Type", "application/json");
+		
+		resp.header("Access-Control-Allow-Origin", "*");
+		resp.header("Access-Control-Allow-Headers", "*");
+	}
+
+	private void setImageHeaders(Response resp) {
+		resp.header("Content-Type", "image/svg+xml");
 		
 		resp.header("Access-Control-Allow-Origin", "*");
 		resp.header("Access-Control-Allow-Headers", "*");
