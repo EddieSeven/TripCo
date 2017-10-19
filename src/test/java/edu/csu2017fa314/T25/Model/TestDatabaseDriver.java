@@ -29,7 +29,8 @@ public class TestDatabaseDriver {
 
             // Test 1 - Cass Field
             Result result = test.queryPage("cass");
-            assertEquals(true, result.points.get(0).id.equals("00CO"));
+            assertEquals(true, result.points.get(0).id.equals("00555CO")); // todo remove 555
+            
 
             // Test 2 - Buckley Air
             result = test.queryPage("buckley");
