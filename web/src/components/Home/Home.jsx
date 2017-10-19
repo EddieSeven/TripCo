@@ -15,7 +15,7 @@ class Home extends React.Component {
             <div className="inner">
                 <div className="header">
                     <div className="spacer"> </div>
-                    <img src="src/images/tripco-logo-color-small.svg" />
+                    <img src="src/images/tripco-logo-color-small.png" />
                 </div>
 
                 <SearchBar />

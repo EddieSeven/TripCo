@@ -19,9 +19,10 @@ public class Point {
 		this.id = id;
 		this.type = type;
 		this.name = name;
-		latitude = Double.parseDouble(sLat);
-		longitude = Double.parseDouble(sLon);
-		elevation = Integer.parseInt(sElev);
+		latitude = Math.toRadians(Double.parseDouble(sLat));
+		longitude = Math.toRadians(Double.parseDouble(sLon));
+		if (sElev != null)
+		    elevation = Integer.parseInt(sElev);
 		municipality = munic;
 		home_link = homeL;
 		wikipedia_link = wikiL;

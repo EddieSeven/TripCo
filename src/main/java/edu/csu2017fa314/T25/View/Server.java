@@ -53,8 +53,8 @@ public class Server {
 		JsonParser jp = new JsonParser();
 		JsonElement je = jp.parse(rec.body());
 	
-		SearchQuery sq = g.fromJson(je, SearchQuery.class);
-		System.out.println("Querying for " + sq.getQuery());
+		ServerRequest sq = g.fromJson(je, ServerRequest.class);
+		System.out.println("Querying for " + sq.getDescription());
 
 		Point[] points = new Point[3];
 		points[0] = new Point("0", "airport", "p1", "0.0", "0.0", "1000", "munic1", "no home link", "no wiki link");
@@ -74,10 +74,10 @@ public class Server {
 		JsonParser jp = new JsonParser();
 		JsonElement je = jp.parse(rec.body());
 	
-		SearchQuery sq = g.fromJson(je, SearchQuery.class);
-		System.out.println("Querying for " + sq.getQuery());
+		ServerRequest sq = g.fromJson(je, ServerRequest.class);
+		System.out.println("Querying for " + sq.getDescription());
 
-		Result r = dbDriver.queryPage(sq.getQuery());
+		Result r = dbDriver.queryPage(sq.getDescription());
 		Point[] points = new Point[r.points.size()];
 		points = r.points.toArray(points);
 		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
@@ -103,16 +103,16 @@ public class Server {
 	}
 }
 
-class SearchQuery {
-	private String query;
-	public SearchQuery(String q) {
-		query = q;
-	}
-
-	public String getQuery() {
-		return query;
-	}
-	public void setQuery(String q) {
-		query = q;
-	}
-}
+//class SearchQuery {
+//	private String query;
+//	public SearchQuery(String q) {
+//		query = q;
+//	}
+//
+//	public String getQuery() {
+//		return query;
+//	}
+//	public void setQuery(String q) {
+//		query = q;
+//	}
+//}
