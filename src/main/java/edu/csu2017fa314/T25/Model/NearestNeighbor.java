@@ -42,7 +42,7 @@ public class NearestNeighbor {
 
         for (int i = 0; i < N; i++) {
             current = computePath(i);
-
+            twoOptSwap(current, i , i+1);
             if (current.getCost() < shortestPath.getCost()) {
                 shortestPath = current;
             }
@@ -109,5 +109,27 @@ public class NearestNeighbor {
         double denominator = (sinP1 * sinP2) + (cosP1 * cosP2 * cosdY);
         double dS = Math.atan2(Math.sqrt(numerator), denominator);
         return (int) (Math.round(metric * dS));
+    }
+    public void twoOptSwap(Path route, int i1, int k) { // swap in place
+        while (i1 < k){
+            Point temp = route.path[i1];
+            route.path[i1] = route.path[k];
+            route.path[k] = temp;
+            i1++;
+            k--;
+        }
+        boolean improvement = true;
+        while (improvement){
+            improvement = false;
+            for (int i = 0; i <= N - 3; i++) { //checkn>4
+                for (k = i + 2; k <= N - 1; k++) {
+                    double delta = -computeDistance(route.path[i], route.path[i + 1],true) - computeDistance(route.path[k], route.path[k + 1],true) + computeDistance(route.path[i], route.path[k],true) + computeDistance(route.path[i + 1], route.path[k + 1],true);
+                    if (delta < 0) {
+                        twoOptSwap(route, i + 1, k);
+                        improvement = true;
+                    }
+                }
+            }
+        }
     }
 }

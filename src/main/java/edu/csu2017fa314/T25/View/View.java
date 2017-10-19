@@ -41,8 +41,8 @@ public class View {
 
    }
 
-   public void getCoordinates(String SVGPath, ArrayList<TripLeg> path) throws IOException{
-      Scanner scanner = new Scanner(new File(SVGPath));
+   public void getCoordinates() throws IOException{
+      Scanner scanner = new Scanner(new File("web/col.svg"));
 
       //grab the SVG file height and width
       String pathPolylineY = "";
@@ -91,6 +91,7 @@ public class View {
    }
 
    public String insertSVG(ArrayList<TripLeg> path) throws IOException{
+      getCoordinates();
       String coordinates = "";
       String startcoordinate = "";
       int latIndex = 0;
