@@ -11,33 +11,40 @@ import java.util.ArrayList;
 public class TestDatabaseDriver {
     private DatabaseDriver test;
 
-    /*
+
     @Before
     public void setup() throws ClassNotFoundException {
-           test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC"); // todo Doesn't work with travis
+        String isTravis = System.getenv("TRAVIS");
+
+        if (isTravis != null) {
+            test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+        }
     }
 
     @Test
     public void queryPageTest() {
-        // Test 1 - Swedish Hospitals
-        Result result = test.queryPage("swe");
-        assertEquals(true,         result.result[0][0].equals("0CD9"));
-        assertEquals(true,         result.result[1][0].equals("15CO"));
+        String isTravis = System.getenv("TRAVIS");
 
-        // Test 2 - Limit
-        result = test.queryPage("a");
-        assertEquals(true, result.result[0][0].equals("KBJC"));
-        assertEquals(true, result.result[49][0].equals("1CO2"));
+        if (isTravis != null) {
 
-        // Test 3 - Denver
-        result = test.queryPage("denver");
-        assertEquals(true, result.result[0][0].equals("KBJC"));
-        assertEquals(true, result.result[7][0].equals("9CO0"));
-        assertEquals(true, result.result[25][0].equals("US-0073"));
+            // Test 1 - Cass Field
+            Result result = test.queryPage("cass");
+            assertEquals(true, result.points.get(0).id.equals("00CO")); 
+            
+
+            // Test 2 - Buckley Air
+            result = test.queryPage("buckley");
+            assertEquals(true, result.points.get(0).id.equals("KBKF"));
+
+            // Test 3 - Mc Cullough
+            result = test.queryPage("mc cullough");
+            assertEquals(true, result.points.get(0).id.equals("02CO"));
+        }
     }
 
     @Test
-    public void queryAlgorithmTest() {
+    public void queryAlgorithmTest() { // todo no currently being used
+        /*
         // Test 1 - Small Input Size
         ArrayList<String> idList = new ArrayList<>();
         idList.add("0CD9");
@@ -45,15 +52,15 @@ public class TestDatabaseDriver {
         idList.add("KTAD");
         idList.add("KTEX");
         Result result = test.queryAlgorithm(idList);
-        assertEquals(true, result.result[0][0].equals("0CD9"));
-        assertEquals(true, result.result[1][0].equals("15CO"));
-        assertEquals(true, result.result[2][0].equals("KTAD"));
-        assertEquals(true, result.result[3][0].equals("KTEX"));
+        assertEquals(true, result.points.get(0).id.equals("0CD9"));
+        assertEquals(true, result.points.get(1).id.equals("15CO"));
+        assertEquals(true, result.points.get(2).id.equals("KTAD"));
+        assertEquals(true, result.points.get(3).id.equals("KTEX"));
 
         // Test 2 - No input
         idList = new ArrayList<>();
         result = test.queryAlgorithm(idList);
         assertEquals(null, result);
+        */
     }
-    */
 }
