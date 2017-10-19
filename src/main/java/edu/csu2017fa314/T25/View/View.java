@@ -43,6 +43,7 @@ public class View {
 
    public void getCoordinates() throws IOException{
       Scanner scanner = new Scanner(new File("web/col.svg"));
+	  outputSVG = "";
 
       //grab the SVG file height and width
       String pathPolylineY = "";
@@ -118,4 +119,8 @@ public class View {
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
       return outputSVG;
    }
+
+	public String getSVG() {
+		return outputSVG;
+	}
 }
