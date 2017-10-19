@@ -27,7 +27,32 @@ public class Server {
 	public void serve() {
 		post("/search", this::serveSearch, g::toJson);
 	}
+	public void serveTest() {
+		post("/search", this::serveSearchTest, g::toJson);
+	}
 
+	// This is meant for testing to avoid having to connect to the database
+	private Object serveSearchTest(Request rec, Response resp) {
+		setHeaders(resp);
+		
+		JsonParser jp = new JsonParser();
+		JsonElement je = jp.parse(rec.body());
+	
+		SearchQuery sq = g.fromJson(je, SearchQuery.class);
+		System.out.println("Querying for " + sq.getQuery());
+
+		Point[] points = new Point[3];
+		points[0] = new Point("0", "airport", "p1", "0.0", "0.0", "1000", "munic1", "no home link", "no wiki link");
+		points[1] = new Point("1", "heliport", "p2", "0.0", "1.0", "2000", "munic2", "no home link", "no wiki link");
+		points[2] = new Point("2", "heliport", "p3", "0.0", "2.0", "2000", "munic3", "no home link", "no wiki link");
+		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
+		
+		// Get itinerary from database
+		return g.toJson(legs, ArrayList.class);
+
+
+	}
 	private Object serveSearch(Request rec, Response resp) {
 		setHeaders(resp);
 		

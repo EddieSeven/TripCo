@@ -30,8 +30,8 @@ public class Point {
 	
 	// This is mostly needed for test purposes.
 	public Point(double lat, double lon) {
-		latitude = Math.toRadians(lat);
-		longitude = Math.toRadians(lon);
+		latitude = lat;
+		longitude = lon;
 	}
 
 	// This method is no longer in use because the database stores
