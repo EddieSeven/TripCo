@@ -39,7 +39,7 @@ class SearchBar extends React.Component {
             */
             locs = serverLocations.map((location) => {
                 console.log(location.start.name);
-                if(location.start.type.includes(this.query.value)){
+                // if(location.start.type.includes(this.query.value)){
                     return <li key={location.start.id}>
                         <table className="results-table">
                         <thead>
@@ -97,7 +97,7 @@ class SearchBar extends React.Component {
                         </table>
 
                     </li>;
-                }
+                //}
             });
 
             console.log("Map created.");
