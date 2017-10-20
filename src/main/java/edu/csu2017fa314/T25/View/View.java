@@ -86,6 +86,8 @@ public class View {
       scanner.close();
       padX = Double.parseDouble(path49X.substring(path49X.indexOf("M ") + 2,path49X.indexOf(".") + 6));
       padY = Double.parseDouble(pathPolylineY.substring(pathPolylineY.lastIndexOf(",") + 1,pathPolylineY.lastIndexOf(".") + 6));
+
+      //System.out.println(outputSVG);
       //insertSVG(svgWidth,svgHeight,padX,padY, path);
       //x1 is at path49
       //y1 is at polyline45
@@ -101,6 +103,7 @@ public class View {
 		 TripLeg leg = path.get(i);
          double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 + Math.abs(leg.start.longitude) / (-109 + 102)));
          svgXcoordinate += padX;
+         System.out.println(svgXcoordinate);
          double svgYcoordinate = ((svgHeight - (padY * 2)) * (41 - leg.start.latitude) / (41 - 37));
          svgYcoordinate += padY;
          if(i == 0) {
@@ -111,12 +114,12 @@ public class View {
          else {
             coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
          }
-
       }
       coordinates += startcoordinate;
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
+
       return outputSVG;
    }
 

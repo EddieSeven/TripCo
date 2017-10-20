@@ -19,6 +19,7 @@ import static spark.Spark.get;
 public class Server {
 	Gson g;
 	DatabaseDriver dbDriver;
+	View v = new View();
 	boolean updateSVG;
 	String svg;
 	ArrayList<TripLeg> latestItinerary;
@@ -28,13 +29,12 @@ public class Server {
 		dbDriver = dbd;
 
 		updateSVG = false;
-		View v = new View();
-		try {
-			v.getCoordinates();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			v.getCoordinates();
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		svg = v.getSVG();
 		latestItinerary = null;
 	}
@@ -49,7 +49,6 @@ public class Server {
 	}
 
 	private Object serveSVG(Request rec, Response resp) {
-		View v = new View();
 		if (updateSVG) {
 			try {
 				System.out.println("Appending path to SVG: " + latestItinerary);

@@ -34,13 +34,11 @@ public class DatabaseDriver {
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
                 searchString + "%';";
-
         return query;
     }
 
     private String formAlgorithmQuery(String idList) {
         String query = "SELECT id, latitude, longitude FROM airports WHERE id IN " + idList + ";";
-
         return query;
     }
 
