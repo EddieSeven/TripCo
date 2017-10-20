@@ -6,7 +6,7 @@ class SearchBar extends React.Component {
         super(props);
         this.state = {
             queryResults: [],
-            svgResults: null,
+            svgResults: "",
             input: ""
         };
     }
@@ -21,7 +21,7 @@ class SearchBar extends React.Component {
     render() {
         let serverLocations;
         let locs;
-        let svg;
+        let svg = "http://localhost:4567/svg";
         let renderedSvg;
 
         if (this.state.queryResults) { // if this.state.serverReturned is not null
@@ -123,7 +123,7 @@ class SearchBar extends React.Component {
                 />
                 <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
             </form>
-            <div className="svg-container"></div>
+            <div className="svg-container">{svg}</div>
             <div className="results-list">
                 <ul>{locs}</ul>
             </div>
