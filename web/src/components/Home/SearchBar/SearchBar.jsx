@@ -39,18 +39,28 @@ class SearchBar extends React.Component {
             */
             locs = serverLocations.map((location) => {
                 console.log(location.start.name);
-                if(location.start.type.includes(this.query.value)){
+                // if(location.start.type.includes(this.query.value)){
                     return <li key={location.start.id}>
                         <table className="results-table">
                         <thead>
                             <tr>
                                 <th> Name </th>
 
-                                <th> Type </th>
+                                <th> ID </th>
 
                                 <th> Latitude </th>
 
                                 <th> Longitude </th>
+
+                                <th> Municipality </th>
+
+                                <th> Type </th>
+
+                                <th> Wiki Link </th>
+
+                                <th> Home Link </th>
+
+                                <th> Distance </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,7 +69,7 @@ class SearchBar extends React.Component {
                                     {location.start.name}
                                 </td>
                                 <td>
-                                    {location.start.type}
+                                    {location.start.id}
                                 </td>
                                 <td>
                                     {location.start.latitude}
@@ -67,12 +77,27 @@ class SearchBar extends React.Component {
                                 <td>
                                     {location.start.longitude}
                                 </td>
+                                <td>
+                                    {location.start.municipality}
+                                </td>
+                                <td>
+                                    {location.start.type}
+                                </td>
+                                <td>
+                                    {location.start.wikipedia_link}
+                                </td>
+                                <td>
+                                    {location.start.home_link}
+                                </td>
+                                <td>
+                                    {location.distance}
+                                </td>
                             </tr>
                         </tbody>
                         </table>
 
                     </li>;
-                }
+                //}
             });
 
             console.log("Map created.");
