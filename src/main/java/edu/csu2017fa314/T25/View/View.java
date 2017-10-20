@@ -101,9 +101,8 @@ public class View {
       int longIndex = 0;
       for(int i = 0; i < path.size(); i++){
 		 TripLeg leg = path.get(i);
-         double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 + Math.abs(leg.start.longitude) / (-109 + 102)));
+         double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 - leg.start.longitude) / (-109 + 102));
          svgXcoordinate += padX;
-         System.out.println(svgXcoordinate);
          double svgYcoordinate = ((svgHeight - (padY * 2)) * (41 - leg.start.latitude) / (41 - 37));
          svgYcoordinate += padY;
          if(i == 0) {
