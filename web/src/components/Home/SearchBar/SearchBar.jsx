@@ -46,11 +46,21 @@ class SearchBar extends React.Component {
                             <tr>
                                 <th> Name </th>
 
-                                <th> Type </th>
+                                <th> ID </th>
 
                                 <th> Latitude </th>
 
                                 <th> Longitude </th>
+
+                                <th> Municipality </th>
+
+                                <th> Type </th>
+
+                                <th> Wiki Link </th>
+
+                                <th> Home Link </th>
+
+                                <th> Distance </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,13 +69,28 @@ class SearchBar extends React.Component {
                                     {location.start.name}
                                 </td>
                                 <td>
-                                    {location.start.type}
+                                    {location.start.id}
                                 </td>
                                 <td>
                                     {location.start.latitude}
                                 </td>
                                 <td>
                                     {location.start.longitude}
+                                </td>
+                                <td>
+                                    {location.start.municipality}
+                                </td>
+                                <td>
+                                    {location.start.type}
+                                </td>
+                                <td>
+                                    {location.start.wikipedia_link}
+                                </td>
+                                <td>
+                                    {location.start.home_link}
+                                </td>
+                                <td>
+                                    {location.distance}
                                 </td>
                             </tr>
                         </tbody>
