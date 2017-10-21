@@ -69,7 +69,7 @@ Completed *number of issues completed* issues associated with these user stories
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
+What we will change this time | More weekly meetings |  | Closing up issues as we complete them
 What we did well | Communication of objectives and constructive collaboration on challenging material. |  | 
-What we need to work on | Communication of established deadlines to ensure sprint will be completed on time. |  | Use scrum to establish better baselines on goals and timeframes.
+What we need to work on | Communication of established deadlines to ensure sprint will be completed on time. | Better use of planning to track progress and to keep the pace. | Use scrum to establish better baselines on goals and timeframes.
 What we will change next time |  |  | 
