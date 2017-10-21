@@ -45,7 +45,7 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 ## Review
 
 #### Completed user stories (epics) in Sprint Backlog 
-* *2-Opt Optimization* #94 : [comments]
+* *2-Opt Optimization* #94 : Change data structure that 2opt is modifying
 * *Web Server* #92 : [comments]
 * *Database* #102 : Has the code to return a set of ID's as per stage 2, but only uses the search string query method.
 * *Map Background* #93 : [comments]
