@@ -53,8 +53,8 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 Completed *number of issues completed* issues associated with these user stories.
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* *user story*: *Explanation...*
-*
+* #92
+* #93
 
 #### What went well
 * We've discovered a convient way to code and communicate: using voice chat and screen sharing from home.
