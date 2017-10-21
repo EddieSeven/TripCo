@@ -53,8 +53,8 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 Completed *number of issues completed* issues associated with these user stories.
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* Web Server : [ what went wrong ]
-* Map Background : [ what went wrong ] 
+* Web Server : Not all parts are present, the SVG and c cumulative total doesn't render on the website.
+* Map Background : Path generated not using correct data structure to generate results. Code for image itself isn't being injected into final HTML for rendering.
 
 #### What went well
 * We've discovered a convient way to code and communicate: using voice chat and screen sharing from home.
@@ -69,7 +69,7 @@ Completed *number of issues completed* issues associated with these user stories
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time | More weekly meetings |  | Closing up issues as we complete them
+What we will change this time | More weekly meetings | Identifying of major parts eariler, to help with creation of deadlines and to better track progress | Closing up issues as we complete them
 What we did well | Communication of objectives and constructive collaboration on challenging material. |  | 
 What we need to work on | Communication of established deadlines to ensure sprint will be completed on time. | Better use of planning to track progress and to keep the pace. | Use scrum to establish better baselines on goals and timeframes.
-What we will change next time |  |  | 
+What we will change next time | Use of new communication channels from the beginning to help facilitate development |  | Use of Discord for group chat, including screen share functionality to help see each other's screens.
