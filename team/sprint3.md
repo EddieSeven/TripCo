@@ -53,8 +53,8 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 Completed *number of issues completed* issues associated with these user stories.
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* #92
-* #93
+* Web Server : [ what went wrong ]
+* Map Background : [ what went wrong ] 
 
 #### What went well
 * We've discovered a convient way to code and communicate: using voice chat and screen sharing from home.
@@ -63,7 +63,7 @@ Completed *number of issues completed* issues associated with these user stories
 #### Problems encountered and resolutions
 * Primarily, getting a working demo (not necessarily the requirements of our assignment, but a functioning project, end to end) early enough. **Resolution** Get all the components talking to eachother early on in the sprint. This will allow much better testing and we can be sure that we will have *something* to show during the demo.
 * Keeping up with our plan is an issue (sorry), and splitting up tasks into elements that we can each pick up and do in the estimated time. **Resolution** We've had some experience with the project now, so our estimations are probably better, and we hopefully crank through the next plan in less time with more issues.
-* 
+
 
 ## Retrospective
 
