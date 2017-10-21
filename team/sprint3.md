@@ -58,7 +58,7 @@ Completed *number of issues completed* issues associated with these user stories
 
 #### What went well
 * We've discovered a convient way to code and communicate: using voice chat and screen sharing from home.
-*
+* Collaboration on challenging objectives, greatly reducing time spent on time intensive tasks.
 
 #### Problems encountered and resolutions
 * Primarily, getting a working demo (not necessarily the requirements of our assignment, but a functioning project, end to end) early enough. **Resolution** Get all the components talking to eachother early on in the sprint. This will allow much better testing and we can be sure that we will have *something* to show during the demo.
