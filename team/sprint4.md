@@ -1,4 +1,4 @@
-# Sprint 4 - 25 - NO NAME TEAM
+# Sprint 4 - 25 - NO NAME GROUP
 
 ## Goal
 
