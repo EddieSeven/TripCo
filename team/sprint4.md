@@ -27,11 +27,11 @@
 
 ## Plan 
 
-Epics in the Sprint Backlog: #38, #96, #130, #131, #132, #133, #134, #135.  
+Epics in the Sprint Backlog: #136, #130, #131, #132, #133
 
-Total planned tasks in the Sprint Backlog: *total number of issues in sprint backlog at start* 
+Total planned tasks in the Sprint Backlog: 21
 
-Total story points in the Sprint Backlog: *total number of story points in sprint backlog at start*
+Total story points in the Sprint Backlog: 82
 
 ## Daily Scrums
 
