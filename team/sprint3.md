@@ -46,9 +46,9 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 
 #### Completed user stories (epics) in Sprint Backlog 
 * *2-Opt Optimization* #94 : Change data structure that 2opt is modifying
-* *Web Server* #92 : [comments]
+* *Web Server* #92 : Add option to select kilometers or miles for distance calculation
 * *Database* #102 : Has the code to return a set of ID's as per stage 2, but only uses the search string query method.
-* *Map Background* #93 : [comments]
+* *Map Background* #93 : Server can return the SVG code, but there was trouble displaying it.
 
 Completed *number of issues completed* issues associated with these user stories.
 
@@ -70,6 +70,6 @@ Completed *number of issues completed* issues associated with these user stories
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
 What we will change this time | More weekly meetings | Identifying of major parts eariler, to help with creation of deadlines and to better track progress | Closing up issues as we complete them
-What we did well | Communication of objectives and constructive collaboration on challenging material. |  | 
+What we did well | Communication of objectives and constructive collaboration on challenging material. | We met more regularly and spaced out tasks more evenly than in previous sprints | Everyone had their entire toolchain working, so doing things like code coverage was easy.
 What we need to work on | Communication of established deadlines to ensure sprint will be completed on time. | Better use of planning to track progress and to keep the pace. | Use scrum to establish better baselines on goals and timeframes.
-What we will change next time | Use of new communication channels from the beginning to help facilitate development |  | Use of Discord for group chat, including screen share functionality to help see each other's screens.
+What we will change next time | Use of new communication channels from the beginning to help facilitate development | Have one person write down the user stories and update the scrum each day | Use of Discord for group chat, including screen share functionality to help see each other's screens.
