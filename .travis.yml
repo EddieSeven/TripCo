@@ -11,8 +11,18 @@ before_script:
   - mysql -u root -e 'CREATE TABLE continents (id int(11) NOT NULL, name varchar(100) DEFAULT NULL,code varchar(3) DEFAULT NULL,wikipedia_link varchar(1000) DEFAULT NULL,PRIMARY KEY (id));' TripCoTestDB
   - mysql -u root -e 'CREATE TABLE regions (id int(11) NOT NULL,code tinytext,local_code tinytext,name tinytext,continent tinytext,iso_country tinytext,wikipedia_link tinytext,keywords tinytext,PRIMARY KEY (id));' TripCoTestDB
 
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBJC", "Rocky Mountain Metropolitan Airport", "39.90879822","-105.1169968");' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBKF", "Buckley Air Force Base", "39.701698303200004","-104.751998901");' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KCOS", "City of Colorado Springs Municipal Airport", "38.805801391602","-104.70099639893");' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("00CO", "Cass Field", "40.62220001220703","-104.34400177001953");' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("02CO", "Mc Cullough Airport", "37.64329910279999","-106.04699707");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO continents (id, name, code) VALUES (0, "Forful", "FF");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO continents (id, name, code) VALUES (1, "Dorf", "DF");' TripCoTestDB
+
+  - mysql -u root -e 'INSERT INTO countries (id, code, name, continent, keywords) VALUES (0, "TB", "Thessaburg", "FF", "fun");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO countries (id, code, name, continent, keywords) VALUES (1, "VM", "Victorium", "FF", "piffle");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO countries (id, code, name, continent, keywords) VALUES (2, "GL", "Gloria", "DF", "insufferable");' TripCoTestDB
+
+  - mysql -u root -e 'INSERT INTO regions (id, code, name, continent, iso_country, keywords) VALUES (0, "NT", "North Thessaburg", "FF", "TB", "unintelligent");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO regions (id, code, name, continent, iso_country, keywords) VALUES (1, "SV", "South Victorium", "FF", "VM", "indescribable");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO regions (id, code, name, continent, iso_country, keywords) VALUES (2, "CG", "Central Gloria", "DF", "GL", "barren");' TripCoTestDB
+
+  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (0, "TL", "Thirfle", "60.0", "-37.4", "FF", "TB", "NT", "Gor", "lame");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (1, "NN", "None", "-60.0", "37.4", "FF", "VM", "SV", "Mor", "cool");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (2, "UB", "Urbino", "0", "0", "DF", "GL", "CG", "Gor", "essential");' TripCoTestDB
+
