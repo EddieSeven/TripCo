@@ -30,11 +30,11 @@ public class DatabaseDriver {
     }
 
     private String formPageQuery(String searchString) {
-        String select = "SELECT world.id, world.name, latitude, longitude, world.continent, iso_country, iso_region "; // Columns we want in the result set
+        String select = "SELECT world.id, world.name, latitude, longitude, world.continent, world.iso_country, world.iso_region "; // Columns we want in the result set
 
         String from = "FROM world INNER JOIN continents ON world.continent = continents.code " +
                 "INNER JOIN countries ON world.iso_country = countries.code " +
-                "INNER JOIN regions ON world.iso_region = region.code ";
+                "INNER JOIN regions ON world.iso_region = regions.code ";
 
         String where = "WHERE continents.name like '%" + searchString + "%' AND " +
                 "continents.name like '%" + searchString + "%' AND " +
