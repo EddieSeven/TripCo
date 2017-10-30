@@ -6,7 +6,11 @@ addons:
   mariadb: '10.2'
 before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS TripCoTestDB'
-  - mysql -u root -e 'CREATE TABLE airports (id varchar(1000), type varchar(1000) DEFAULT NULL, name varchar(1000) DEFAULT NULL, latitude varchar(1000), longitude varchar(1000), elevation varchar(1000) DEFAULT NULL, municipality varchar(1000) DEFAULT NULL, home_link varchar(1000) DEFAULT NULL, wikipedia_link varchar(1000) DEFAULT NULL);' TripCoTestDB
+  - mysql -u root -e 'CREATE TABLE world (id int(11) NOT NULL, code varchar(11) NOT NULL, type varchar(1000) DEFAULT NULL, name varchar(1000) DEFAULT NULL, latitude varchar(1000) DEFAULT NULL, longitude varchar(1000) DEFAULT NULL, elevation varchar(1000) DEFAULT NULL, continent varchar(1000) DEFAULT NULL, iso_country varchar(1000) DEFAULT NULL, iso_region varchar(1000) DEFAULT NULL, municipality varchar(1000) DEFAULT NULL, scheduled_service varchar(1000) DEFAULT NULL, gps_code varchar(1000) DEFAULT NULL, iata_code varchar(1000) DEFAULT NULL, local_code varchar(1000) DEFAULT NULL, home_link varchar(1000) DEFAULT NULL, wikipedia_link varchar(1000) DEFAULT NULL, keywords varchar(1000) DEFAULT NULL, PRIMARY KEY (code));' TripCoTestDB
+  - mysql -u root -e 'CREATE TABLE countries (id int(11) NOT NULL, code varchar(1000) DEFAULT NULL, name varchar(1000) DEFAULT NULL, continent varchar(1000) DEFAULT NULL, wikipedia_link varchar(1000) DEFAULT NULL, keywords varchar(1000) DEFAULT NULL, PRIMARY KEY (id));' TripCoTestDB
+  - mysql -u root -e 'CREATE TABLE continents (id int(11) NOT NULL, name varchar(100) DEFAULT NULL,code varchar(3) DEFAULT NULL,wikipedia_link varchar(1000) DEFAULT NULL,PRIMARY KEY (id));' TripCoTestDB
+  - mysql -u root -e 'CREATE TABLE regions (id int(11) NOT NULL,code tinytext,local_code tinytext,name tinytext,continent tinytext,iso_country tinytext,wikipedia_link tinytext,keywords tinytext,PRIMARY KEY (id));' TripCoTestDB
+
   - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBJC", "Rocky Mountain Metropolitan Airport", "39.90879822","-105.1169968");' TripCoTestDB
   - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KBKF", "Buckley Air Force Base", "39.701698303200004","-104.751998901");' TripCoTestDB
   - mysql -u root -e 'INSERT INTO airports (id, name, latitude, longitude) VALUES ("KCOS", "City of Colorado Springs Municipal Airport", "38.805801391602","-104.70099639893");' TripCoTestDB
