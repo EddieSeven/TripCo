@@ -33,8 +33,8 @@ public class DatabaseDriver {
         String select = "SELECT world.id, world.name, latitude, longitude, world.continent, iso_country, iso_region "; // Columns we want in the result set
 
         String from = "FROM world INNER JOIN continents ON world.continent = continents.code " +
-                "INNER JOIN countries ON iso_country = countries.code " +
-                "INNER JOIN regions ON iso_region = region.code ";
+                "INNER JOIN countries ON world.iso_country = countries.code " +
+                "INNER JOIN regions ON world.iso_region = region.code ";
 
         String where = "WHERE continents.name like '%" + searchString + "%' AND " +
                 "continents.name like '%" + searchString + "%' AND " +
