@@ -32,23 +32,23 @@ public class DatabaseDriver {
     private String formPageQuery(String searchString) {
         String select = "SELECT world.id, world.name, latitude, longitude, world.continent, iso_country, iso_region "; // Columns we want in the result set
 
-        String from = "FROM world INNER JOIN continents ON world.continent = continents.code" +
-                "INNER JOIN countries ON iso_country = countries.code" +
+        String from = "FROM world INNER JOIN continents ON world.continent = continents.code " +
+                "INNER JOIN countries ON iso_country = countries.code " +
                 "INNER JOIN regions ON iso_region = region.code ";
 
-        String where = "WHERE continents.name like '%" + searchString + "%' AND" +
-                "continents.name like '%" + searchString + "%' AND" +
-                "continents.code like '%" + searchString + "%' AND" +
-                "countries.name like '%" + searchString + "%' AND" +
-                "countries.code like '%" + searchString + "%' AND" +
-                "countries.keywords like '%" + searchString + "%' AND" +
-                "regions.name like '%" + searchString + "%' AND" +
-                "regions.keywords like '%" + searchString + "%' AND" +
-                "regions.code like '%" + searchString + "%' AND" +
-                "world.name like '%" + searchString + "%' AND" +
-                "world.code like '%" + searchString + "%' AND" +
-                "world.type like '%" + searchString + "%' AND" +
-                "world.municipality like '%" + searchString + "%' AND" +
+        String where = "WHERE continents.name like '%" + searchString + "%' AND " +
+                "continents.name like '%" + searchString + "%' AND " +
+                "continents.code like '%" + searchString + "%' AND " +
+                "countries.name like '%" + searchString + "%' AND " +
+                "countries.code like '%" + searchString + "%' AND " +
+                "countries.keywords like '%" + searchString + "%' AND " +
+                "regions.name like '%" + searchString + "%' AND " +
+                "regions.keywords like '%" + searchString + "%' AND " +
+                "regions.code like '%" + searchString + "%' AND " +
+                "world.name like '%" + searchString + "%' AND " +
+                "world.code like '%" + searchString + "%' AND " +
+                "world.type like '%" + searchString + "%' AND " +
+                "world.municipality like '%" + searchString + "%' AND " +
                 "world.keywords like '%" + searchString + "%'";
 
         return select + from + where + ";";

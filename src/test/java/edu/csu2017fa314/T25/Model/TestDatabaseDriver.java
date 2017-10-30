@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class TestDatabaseDriver {
     private DatabaseDriver test;
-
+    private String isTravis;
 
     @Before
     public void setup() throws ClassNotFoundException {
-        String isTravis = System.getenv("TRAVIS");
+        isTravis = System.getenv("TRAVIS");
 
         if (isTravis != null) {
             test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
@@ -23,7 +23,6 @@ public class TestDatabaseDriver {
 
     @Test
     public void queryPageTest() {
-        String isTravis = System.getenv("TRAVIS");
 
         if (isTravis != null) {
 
