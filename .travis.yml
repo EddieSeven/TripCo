@@ -22,7 +22,7 @@ before_script:
   - mysql -u root -e 'INSERT INTO regions (id, code, name, continent, iso_country, keywords) VALUES (1, "SV", "South Victorium", "FF", "VM", "indescribable");' TripCoTestDB
   - mysql -u root -e 'INSERT INTO regions (id, code, name, continent, iso_country, keywords) VALUES (2, "CG", "Central Gloria", "DF", "GL", "barren");' TripCoTestDB
 
-  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (0, "TL", "Thirfle", "60.0", "-37.4", "FF", "TB", "NT", "Gor", "lame");' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (1, "NN", "None", "-60.0", "37.4", "FF", "VM", "SV", "Mor", "cool");' TripCoTestDB
-  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (2, "UB", "Urbino", "0", "0", "DF", "GL", "CG", "Gor", "essential");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (0, "TL", "Airport", "Thirfle", "60.0", "-37.4", "FF", "TB", "NT", "Gor", "lame");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (1, "NN", "Heliport", "None", "-60.0", "37.4", "FF", "VM", "SV", "Mor", "cool");' TripCoTestDB
+  - mysql -u root -e 'INSERT INTO world (id, code, type, name, latitude, longitude, continent, iso_country, iso_region, municipality, keywords) VALUES (2, "UB", "Dirigible Station", "Urbino", "0", "0", "DF", "GL", "CG", "Gor", "essential");' TripCoTestDB
 
