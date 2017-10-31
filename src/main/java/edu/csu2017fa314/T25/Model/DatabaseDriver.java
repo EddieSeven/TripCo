@@ -30,11 +30,11 @@ public class DatabaseDriver {
     }
 
     private String formPageQuery(String searchString) {
-        String select = "SELECT world.id, world.name, latitude, longitude, world.continent, world.iso_country, world.iso_region "; // Columns we want in the result set
+        String select = "SELECT airports.id, airports.name, latitude, longitude, airports.continent, airports.iso_country, airports.iso_region "; // Columns we want in the result set
 
-        String from = "FROM world INNER JOIN continents ON world.continent = continents.code " +
-                "INNER JOIN countries ON world.iso_country = countries.code " +
-                "INNER JOIN regions ON world.iso_region = regions.code ";
+        String from = "FROM airports INNER JOIN continents ON airports.continent = continents.code " +
+                "INNER JOIN countries ON airports.iso_country = countries.code " +
+                "INNER JOIN regions ON airports.iso_region = regions.code ";
 
         String where = "WHERE continents.name like '%" + searchString + "%' AND " +
                 "continents.name like '%" + searchString + "%' AND " +
@@ -45,22 +45,22 @@ public class DatabaseDriver {
                 "regions.name like '%" + searchString + "%' AND " +
                 "regions.keywords like '%" + searchString + "%' AND " +
                 "regions.code like '%" + searchString + "%' AND " +
-                "world.name like '%" + searchString + "%' AND " +
-                "world.code like '%" + searchString + "%' AND " +
-                "world.type like '%" + searchString + "%' AND " +
-                "world.municipality like '%" + searchString + "%' AND " +
-                "world.keywords like '%" + searchString + "%'";
+                "airports.name like '%" + searchString + "%' AND " +
+                "airports.code like '%" + searchString + "%' AND " +
+                "airports.type like '%" + searchString + "%' AND " +
+                "airports.municipality like '%" + searchString + "%' AND " +
+                "airports.keywords like '%" + searchString + "%'";
 
         return select + from + where + ";";
     }
 
     private String formAlgorithmQuery(String idList) {
-        String query = "SELECT id, latitude, longitude FROM world WHERE id IN " + idList + ";"; // todo subject to change back to airports
+        String query = "SELECT id, latitude, longitude FROM airports WHERE id IN " + idList + ";";
         return query;
     }
 
     private int getTotal(String searchString) throws SQLException {
-        String query = "SELECT COUNT(*) FROM world WHERE type LIKE '%" + // todo subject to change back to airports
+        String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
                 searchString + "%';";
