@@ -9,10 +9,10 @@ Checklist | *ServerResponse.java, SearchBar.jsx (Lines 135-194)*
 ### Roles
 Name | Role | Preparation Time
 ---- | ---- | ----
-Charles | |
-Leif | |
-Michael | |
-Will | |
+Charles | Moderator |
+Leif | End-user |
+Michael | Tester |
+Will | Maintainer |
 
 ### Log
 file:line | defect | h/m/l | github# | who
