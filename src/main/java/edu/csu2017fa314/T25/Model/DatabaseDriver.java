@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseDriver {
-    private final int MAX_QUERY_SIZE = 50;
+    private final int MAX_QUERY_SIZE = 100;
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
@@ -36,22 +36,22 @@ public class DatabaseDriver {
                 "INNER JOIN countries ON airports.iso_country = countries.code " +
                 "INNER JOIN regions ON airports.iso_region = regions.code ";
 
-        String where = "WHERE continents.name like '%" + searchString + "%' AND " +
-                "continents.name like '%" + searchString + "%' AND " +
-                "continents.code like '%" + searchString + "%' AND " +
-                "countries.name like '%" + searchString + "%' AND " +
-                "countries.code like '%" + searchString + "%' AND " +
-                "countries.keywords like '%" + searchString + "%' AND " +
-                "regions.name like '%" + searchString + "%' AND " +
-                "regions.keywords like '%" + searchString + "%' AND " +
-                "regions.code like '%" + searchString + "%' AND " +
-                "airports.name like '%" + searchString + "%' AND " +
-                "airports.code like '%" + searchString + "%' AND " +
-                "airports.type like '%" + searchString + "%' AND " +
-                "airports.municipality like '%" + searchString + "%' AND " +
-                "airports.keywords like '%" + searchString + "%'";
+        String where = "WHERE continents.name like '%" + searchString + "%' OR " +
+                "continents.name like '%" + searchString + "%' OR " +
+                "continents.code like '%" + searchString + "%' OR " +
+                "countries.name like '%" + searchString + "%' OR " +
+                "countries.code like '%" + searchString + "%' OR " +
+                "countries.keywords like '%" + searchString + "%' OR " +
+                "regions.name like '%" + searchString + "%' OR " +
+                "regions.keywords like '%" + searchString + "%' OR " +
+                "regions.code like '%" + searchString + "%' OR " +
+                "airports.name like '%" + searchString + "%' OR " +
+                "airports.code like '%" + searchString + "%' OR " +
+                "airports.type like '%" + searchString + "%' OR " +
+                "airports.municipality like '%" + searchString + "%' OR " +
+                "airports.keywords like '%" + searchString + "%' ";
 
-        return select + from + where + ";";
+        return select + from + where + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
     private String formAlgorithmQuery(String idList) {
@@ -128,7 +128,7 @@ public class DatabaseDriver {
     }
 
     private ArrayList<Point> constructResult(ResultSet resultSet, int total) throws SQLException {
-		ArrayList<Point> points = new ArrayList<Point>();
+		ArrayList<Point> points = new ArrayList<>();
 
         int counter = 0;
         String id;
@@ -142,6 +142,7 @@ public class DatabaseDriver {
 		String wikipedia_link;
 
         while (resultSet.next() /*&& counter < MAX_QUERY_SIZE todo commented out for now*/ ) {
+
             id = resultSet.getString("id");
             type = resultSet.getString("type");
             name = resultSet.getString("name");

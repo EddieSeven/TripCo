@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TestDatabaseDriver {
     private DatabaseDriver test;
     private String isTravis;
-    final private boolean atMichaels = true;
+    final private boolean atMichaels = true; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
     @Before
     public void setup() throws ClassNotFoundException {
@@ -28,7 +28,7 @@ public class TestDatabaseDriver {
     @Test
     public void queryPageTest() {
 
-        if (isTravis != null || atMichaels) {
+        if (isTravis != null) {
 
             // Test 1 - Cass Field
             Result result = test.queryPage("Urb");
@@ -42,6 +42,9 @@ public class TestDatabaseDriver {
             // Test 3 - Mc Cullough
             result = test.queryPage("mor");
             assertEquals(true, result.points.get(0).id.equals("NN"));
+        } else if (atMichaels) {
+            Result result = test.queryPage("london");
+            int a = 400;
         }
     }
 
