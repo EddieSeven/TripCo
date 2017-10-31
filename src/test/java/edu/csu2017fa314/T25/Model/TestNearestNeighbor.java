@@ -45,7 +45,6 @@ public class TestNearestNeighbor {
         assertEquals(1, testNN.computeNearestNeighbor(2, dummy0, visited));
     }
 
-	// This test fails, and needs to be looked at
     @Test
     public void testComputePath() {
         // Given a small set of five point, checks that from a given starting point the path matches the expected path
@@ -110,4 +109,25 @@ public class TestNearestNeighbor {
     @Test
     public void testComputeShortestPath() {
     }
+
+	@Test
+	public void test2Opt() {
+		Point a = new Point(0.0, 0.0);
+		Point b = new Point(0.0, 1.0);
+		Point c = new Point(1.0, 1.0);
+		Point d = new Point(1.0, 0.0);
+		Point [] pts = {a, b, c, d};
+		NearestNeighbor nn = new NearestNeighbor(pts, 4);
+		Path test = new Path(4);
+
+		test.addPoint(a);
+		test.addPoint(c);
+		test.addPoint(b);
+		test.addPoint(d);
+		test.addPoint(a);
+
+		nn.twoOpt(test);
+		assertEquals(276, test.getCost());
+		
+	}
 }
