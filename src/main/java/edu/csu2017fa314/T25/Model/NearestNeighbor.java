@@ -11,6 +11,9 @@ public class NearestNeighbor {
     public NearestNeighbor(Point points[], int N) {
         this.N = N;
         this.points = points;
+		for (int i = 0; i < N; i++) {
+			this.points[i].setIndex(i);
+		}
         distanceMatrix = new int[N][N];
     }
 
@@ -23,7 +26,7 @@ public class NearestNeighbor {
         int lowestDistance = Integer.MAX_VALUE;
 
         for (int j = 0; j < N; j++) {
-            int currentDistance = getDistance(i, j);
+            int currentDistance = getDistance(points[i], points[j]);
 
             if (i != j && currentDistance < lowestDistance && !visited[j]) {
                 indexLowest = j;
@@ -71,13 +74,15 @@ public class NearestNeighbor {
         return path;
     }
 
-    private int getDistance(int i, int j) {
+    private int getDistance(Point pi, Point pj) {
+		int i = pi.getIndex();
+		int j = pj.getIndex();
         if (i == j)
             return 0;
         else if (distanceMatrix[i][j] != 0) // assumed to be zero if it hasn't been calculated yet
             return distanceMatrix[i][j];
         else {
-            distanceMatrix[i][j] = computeDistance(points[i], points[j], true);
+            distanceMatrix[i][j] = computeDistance(pi, pj, true);
             return distanceMatrix[i][j];
         }
     }
@@ -127,7 +132,7 @@ public class NearestNeighbor {
             improvement = false;
             for (int i = 0; i <= N - 3; i++) { //checkn>4
                 for (int k = i + 2; k <= N - 1; k++) {
-                    double delta = -computeDistance(route.path[i], route.path[i + 1],true) - computeDistance(route.path[k], route.path[k + 1],true) + computeDistance(route.path[i], route.path[k],true) + computeDistance(route.path[i + 1], route.path[k + 1],true);
+                    double delta = -getDistance(route.path[i], route.path[i + 1]) - getDistance(route.path[k], route.path[k + 1]) + getDistance(route.path[i], route.path[k]) + getDistance(route.path[i + 1], route.path[k + 1]);
                     if (delta < 0) {
                         twoOptSwap(route, i + 1, k);
                         improvement = true;
