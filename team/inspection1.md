@@ -4,7 +4,7 @@ Inspection | Details
 ----- | -----
 Subject | *Server Response Inspection*
 Meeting | *10/31/2017, 7:00PM, Remote (Discord)*
-Checklist | *ServerResponse.java, SearchBar.jsx (Lines 135-194)*
+Checklist | *Server.java, SearchBar.jsx (Lines 135-194)*
 
 ### Roles
 Name | Role | Preparation Time
