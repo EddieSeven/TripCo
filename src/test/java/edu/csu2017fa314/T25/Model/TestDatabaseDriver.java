@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TestDatabaseDriver {
     private DatabaseDriver test;
     private String isTravis;
-    final private boolean atMichaels = true; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
+    final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
     @Before
     public void setup() throws ClassNotFoundException {
@@ -33,7 +33,6 @@ public class TestDatabaseDriver {
             // Test 1 - Cass Field
             Result result = test.queryPage("Urb");
             assertEquals(true, result.points.get(0).id.equals("UB"));
-            
 
             // Test 2 - Buckley Air
             result = test.queryPage("lame");
@@ -42,9 +41,9 @@ public class TestDatabaseDriver {
             // Test 3 - Mc Cullough
             result = test.queryPage("mor");
             assertEquals(true, result.points.get(0).id.equals("NN"));
+
         } else if (atMichaels) {
-            Result result = test.queryPage("london");
-            int a = 400;
+            // Result result = test.queryPage("london")
         }
     }
 
