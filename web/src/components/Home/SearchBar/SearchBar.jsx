@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import InlineSVG from 'svg-inline-react';
 
 
 class SearchBar extends React.Component {
@@ -13,9 +14,12 @@ class SearchBar extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         var query = this.query.value;
+        // var image = this.svg;
         console.log("Searched for:");
         console.log(query);
-        this.fetch("query", query);
+        // console.log(image);
+        this.fetch("queryA", query);
+        // this.fetch("svg", image);
     }
 
     render() {
@@ -28,18 +32,19 @@ class SearchBar extends React.Component {
             // set local variable to results of sent query
             serverLocations = this.state.queryResults;
             console.log("State Loaded.");
+            console.log(this.state);
 
             // console.log(serverLocations);
 
-            /*Create an array of HTML list items. The Array.map function in Javascript passes each individual element
+            /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
             * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
             * through a function and returns a new array with the mapped elements.
             * In this case f: location -> <li>location.name</li>, so the array will look like:
             * [<li>[name1]</li>,<li>[name2]</li>...]
             */
+
             locs = serverLocations.map((location) => {
                 console.log(location.start.name);
-                // if(location.start.type.includes(this.query.value)){
                     return <li key={location.start.id}>
                         <table className="results-table">
                         <thead>
@@ -61,6 +66,7 @@ class SearchBar extends React.Component {
                                 <th> Home Link </th>
 
                                 <th> Distance </th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -97,17 +103,23 @@ class SearchBar extends React.Component {
                         </table>
 
                     </li>;
-                //}
             });
 
+            if(this.state.svgResults){
+                svg = this.state.svgResults;
+                renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
+            }
+            console.log(svg);
+            console.log(renderedSvg);
+            console.log(this.state.svgResults);
             console.log("Map created.");
 
         }
         // Once the server sends back an SVG, set the local variable "renderedSvg" to be the image
-        // if (this.state.svgResults) {
-        //    svg = this.state.svgResults;
-        //    renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
-        // }
+        //if (this.state.svgResults) {
+        //   svg = this.state.svgResults;
+        //   renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
+        //}
 
 
         return  (
@@ -123,7 +135,7 @@ class SearchBar extends React.Component {
                 />
                 <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
             </form>
-            <div className="svg-container"></div>
+            <div className="svg-container">{renderedSvg}</div>
             <div className="results-list">
                 <ul>{locs}</ul>
             </div>
@@ -131,7 +143,7 @@ class SearchBar extends React.Component {
         );
     }
 
-    // This function sends `input` the server and updates the state with whatever is returned
+    // This function sends `input` to the server and updates the state with whatever is returned
     async fetch(type, input) {
        // Create object to send to server
 
@@ -139,19 +151,12 @@ class SearchBar extends React.Component {
            object the server is reading into (in this case ServerRequest).
            Notice how we give both requests the same format */
        let clientRequest;
-       if (type === "query") {
-           clientRequest = {
-               request: "query",
-               description: input,
-           };
 
-       // if the button is clicked:
-       } // else {
-       //    clientRequest = {
-       //        request: "svg",
-       //        description: ""
-       //    }
-       // }
+       clientRequest = {
+           request: "queryA",
+           description: input
+       };
+
        try {
             console.log(clientRequest);
 
@@ -163,26 +168,29 @@ class SearchBar extends React.Component {
                    method: "POST",
                    body: JSON.stringify(clientRequest)
                });
+
            // Wait for server to return and convert it to json.
            let ret = await jsonReturned.json();
            let returnedJson = JSON.parse(ret);
-           // Log the received JSON to the browser console
-           console.log("Got back ", returnedJson);
 
-           // if the response field of the returned json is "query", that means the server responded to the SQL query request
-           if (clientRequest.request === "query") {
+           // Log the received JSON to the browser console
+           console.log("Got back ", ret);
+
+           // if the response field of the returned json is "queryA", that means the server responded to the SQL query request
+           if (clientRequest.request === "queryA") {
                this.setState({
-                   queryResults: returnedJson
+                   queryResults: returnedJson.locations,
+                   svgResults: returnedJson.svg
                });
 
            // if it's not, we assume the response field is "svg" and contains the an svg image
-           } // else {
-           //    this.setState({
-           //        svgResults: JSON.parse(ret)
-           //    })
-           // }
+           } else {
+              this.setState({
+                  svgResults: JSON.parse(ret)
+              })
+           }
 
-           // console.log(this.state.queryResults);
+           console.log(returnedJson);
 
            // Print on console what was returned
            // Update the state so we can see it on the web
