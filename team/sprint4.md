@@ -40,6 +40,7 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
  10/25/17 | None | #93 | None | High
  10/30/17 | #140, #141 | #151, #161, #158, #157, #139 | None | High
+ 9/1/17   | #155, #157, #158, #160 | #138, #139, #151, #154, #161 | None | Moderate
 
 ## Review
 
