@@ -151,7 +151,7 @@ public class DatabaseDriver {
             // home_link = resultSet.getString("home_link");
             // wikipedia_link = resultSet.getString("wikipedia_link");
 
-			points.add(new Point(id, "", name, latitude, longitude, "", "", "", ""));
+			points.add(new Point(id, "", name, latitude, longitude, "300", "", "", ""));
 
             counter++;
         }
