@@ -10,35 +10,37 @@ import java.util.ArrayList;
 
 public class TestDatabaseDriver {
     private DatabaseDriver test;
-
+    private String isTravis;
+    final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
     @Before
     public void setup() throws ClassNotFoundException {
-        String isTravis = System.getenv("TRAVIS");
+        isTravis = System.getenv("TRAVIS");
 
         if (isTravis != null) {
             test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+        } else if (atMichaels) {
+                test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
         }
     }
 
     @Test
     public void queryPageTest() {
-        String isTravis = System.getenv("TRAVIS");
-
         if (isTravis != null) {
-
             // Test 1 - Cass Field
-            Result result = test.queryPage("cass");
-            assertEquals(true, result.points.get(0).id.equals("00CO")); 
-            
+            Result result = test.queryPage("Urb");
+            assertEquals(true, result.points.get(0).id.equals("2"));
 
             // Test 2 - Buckley Air
-            result = test.queryPage("buckley");
-            assertEquals(true, result.points.get(0).id.equals("KBKF"));
+            result = test.queryPage("lame");
+            assertEquals(true, result.points.get(0).id.equals("0"));
 
             // Test 3 - Mc Cullough
-            result = test.queryPage("mc cullough");
-            assertEquals(true, result.points.get(0).id.equals("02CO"));
+            result = test.queryPage("mor");
+            assertEquals(true, result.points.get(0).id.equals("1"));
+
+        } else if (atMichaels) {
+            Result result = test.queryPage("london");
         }
     }
 
