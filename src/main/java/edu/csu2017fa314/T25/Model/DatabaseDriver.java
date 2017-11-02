@@ -146,12 +146,12 @@ public class DatabaseDriver {
             name = resultSet.getString("name");
             latitude = resultSet.getString("latitude");
             longitude = resultSet.getString("longitude");
-            elevation = resultSet.getString("elevation");
-            municipality = resultSet.getString("municipality");
-            home_link = resultSet.getString("home_link");
-            wikipedia_link = resultSet.getString("wikipedia_link");
+            // elevation = resultSet.getString("elevation");
+            // municipality = resultSet.getString("municipality");
+            // home_link = resultSet.getString("home_link");
+            // wikipedia_link = resultSet.getString("wikipedia_link");
 
-			points.add(new Point(id, "", name, latitude, longitude, elevation, municipality, home_link, wikipedia_link));
+			points.add(new Point(id, "", name, latitude, longitude, "", "", "", ""));
 
             counter++;
         }
