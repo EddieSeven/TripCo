@@ -22,16 +22,14 @@ public class TestDatabaseDriver {
         } else if (atMichaels) {
                 test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
         }
-
     }
 
     @Test
     public void queryPageTest() {
-
         if (isTravis != null) {
-
             // Test 1 - Cass Field
             Result result = test.queryPage("Urb");
+            System.out.print(result.points.get(0).id);
             assertEquals(true, result.points.get(0).id.equals("UB"));
 
             // Test 2 - Buckley Air
@@ -43,7 +41,7 @@ public class TestDatabaseDriver {
             assertEquals(true, result.points.get(0).id.equals("NN"));
 
         } else if (atMichaels) {
-            // Result result = test.queryPage("london")
+            Result result = test.queryPage("london");
         }
     }
 
