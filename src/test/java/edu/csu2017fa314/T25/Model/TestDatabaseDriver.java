@@ -29,16 +29,15 @@ public class TestDatabaseDriver {
         if (isTravis != null) {
             // Test 1 - Cass Field
             Result result = test.queryPage("Urb");
-            System.out.print(result.points.get(0).id);
-            assertEquals(true, result.points.get(0).id.equals("UB"));
+            assertEquals(true, result.points.get(0).id.equals("2"));
 
             // Test 2 - Buckley Air
             result = test.queryPage("lame");
-            assertEquals(true, result.points.get(0).id.equals("TL"));
+            assertEquals(true, result.points.get(0).id.equals("0"));
 
             // Test 3 - Mc Cullough
             result = test.queryPage("mor");
-            assertEquals(true, result.points.get(0).id.equals("NN"));
+            assertEquals(true, result.points.get(0).id.equals("1"));
 
         } else if (atMichaels) {
             Result result = test.queryPage("london");

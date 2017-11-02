@@ -20,13 +20,34 @@ public class DatabaseDriver {
         this.url = url;
         Class.forName(driver);
 
-
         try {
             startConnection();
         } catch (SQLException e) {
             System.err.printf("Exception: ");
             System.err.printf(e.getMessage());
         }
+    }
+
+    private void startConnection() throws SQLException {
+        connection = DriverManager.getConnection(url, userName, password);
+        statement = connection.createStatement();
+    }
+
+    public Result queryPage(String searchString) {
+        int total;
+        ArrayList<Point> points = null;
+
+        try {
+            total = getTotal(searchString);
+            String query = formPageQuery(searchString);
+            ResultSet resultSet = statement.executeQuery(query);
+            points = constructResult(resultSet, total);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        points.trimToSize();
+        return new Result(points);
     }
 
     private String formPageQuery(String searchString) {
@@ -54,6 +75,24 @@ public class DatabaseDriver {
         return select + from + where + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
+    public Result queryAlgorithm(ArrayList<String> id){
+        String idList = toList(id);
+        ArrayList<Point> points = null;
+
+        String query = formAlgorithmQuery(idList);
+        try {
+            if (idList != null) {
+                ResultSet resultSet = statement.executeQuery(query);
+                points = constructResult(resultSet, id.size());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        points.trimToSize();
+        return new Result(points);
+    }
+
     private String formAlgorithmQuery(String idList) {
         String query = "SELECT id, latitude, longitude FROM airports WHERE id IN " + idList + ";";
         return query;
@@ -74,29 +113,6 @@ public class DatabaseDriver {
         return total;
     }
 
-    private void startConnection() throws SQLException {
-        connection = DriverManager.getConnection(url, userName, password);
-        statement = connection.createStatement();
-    }
-
-    public Result queryAlgorithm(ArrayList<String> id){
-        String idList = toList(id);
-        ArrayList<Point> points = null;
-
-        String query = formAlgorithmQuery(idList);
-        try {
-            if (idList != null) {
-                ResultSet resultSet = statement.executeQuery(query);
-                points = constructResult(resultSet, id.size());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-		points.trimToSize();
-        return new Result(points);
-    }
-
     private String toList(ArrayList<String> id){
         String idList = "(";
         for (int i = 0; i < id.size(); i++){
@@ -108,23 +124,6 @@ public class DatabaseDriver {
             return idList;
         } else
             return null;
-    }
-
-    public Result queryPage(String searchString) {
-        int total;
-		ArrayList<Point> points = null;
-
-        try {
-            total = getTotal(searchString);
-            String query = formPageQuery(searchString);
-            ResultSet resultSet = statement.executeQuery(query);
-            points = constructResult(resultSet, total);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-		points.trimToSize();
-        return new Result(points);
     }
 
     private ArrayList<Point> constructResult(ResultSet resultSet, int total) throws SQLException {
@@ -142,8 +141,8 @@ public class DatabaseDriver {
 
         while (resultSet.next() /*&& counter < MAX_QUERY_SIZE todo commented out for now*/ ) {
 
-            id = resultSet.getString("id");
-            name = resultSet.getString("name");
+            id = resultSet.getString("airports.id");
+            name = resultSet.getString("airports.name");
             latitude = resultSet.getString("latitude");
             longitude = resultSet.getString("longitude");
             // elevation = resultSet.getString("elevation");
