@@ -15,6 +15,11 @@ public class Point {
 	String home_link;
 	String wikipedia_link;
 
+	// This is the point's initial position in the array.
+	// It's used so that no matter where a point lies in a path,
+	// its values in the distance matrix can still be found
+	private int index;
+
     public Point(String id, String type, String name, String sLat, String sLon, String sElev, String munic, String homeL, String wikiL) {
 		this.id = id;
 		this.type = type;
@@ -32,6 +37,14 @@ public class Point {
 	public Point(double lat, double lon) {
 		latitude = lat;
 		longitude = lon;
+	}
+
+	public void setIndex(int ind) {
+		index = ind;
+	}
+	
+	public int getIndex() {
+		return index;
 	}
 
 	// This method is no longer in use because the database stores

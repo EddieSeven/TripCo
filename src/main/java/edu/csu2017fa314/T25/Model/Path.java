@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Path {
     public Point path[];
-	private ArrayList<TripLeg> legs;
     private int totalCost = 0;
     private int index = 0;
     private int N;
@@ -12,7 +11,6 @@ public class Path {
     public Path(int N) {
         this.N = N + 1;
         path = new Point[this.N];
-		legs = new ArrayList<TripLeg>();
     }
 
     public Path() {
@@ -20,7 +18,14 @@ public class Path {
     }
 
     public int getCost() {
-        return totalCost;
+		if (totalCost == Integer.MAX_VALUE) {
+			return totalCost;
+		}
+		int tCost = 0;
+		for (int i = 0; i < path.length - 1; i++) {
+			tCost += NearestNeighbor.computeDistance(path[i], path[i+1], true);
+		}
+		return tCost;
     }
 
     public Point[] getPath() {
@@ -28,16 +33,27 @@ public class Path {
     }
 
 	public ArrayList<TripLeg> getLegs() {
+		ArrayList<TripLeg> legs = new ArrayList<TripLeg>();
+		int tCost = 0;
+		printPath();
+		for (int i = 0; i < path.length - 1; i++) {
+			tCost = NearestNeighbor.computeDistance(path[i], path[i+1], true);
+			legs.add(new TripLeg(path[i], path[i+1], tCost));
+		}
 		return legs;
+
+	}
+
+	private void printPath() {
+		for (Point p : path) {
+			System.out.println(p.id);
+		}
 	}
 
     public void add(Point point, int cost) {
 		totalCost += cost;
         path[index] = point;
 
-		if (index > 0) {
-			legs.add(new TripLeg(path[index-1], path[index], cost));
-		}
         index++;
     }
 
