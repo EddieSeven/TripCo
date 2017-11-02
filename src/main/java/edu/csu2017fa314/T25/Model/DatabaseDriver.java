@@ -132,7 +132,6 @@ public class DatabaseDriver {
 
         int counter = 0;
         String id;
-		String type;
 		String name;
         String latitude;
         String longitude;
@@ -144,7 +143,6 @@ public class DatabaseDriver {
         while (resultSet.next() /*&& counter < MAX_QUERY_SIZE todo commented out for now*/ ) {
 
             id = resultSet.getString("id");
-            type = resultSet.getString("type");
             name = resultSet.getString("name");
             latitude = resultSet.getString("latitude");
             longitude = resultSet.getString("longitude");
@@ -153,7 +151,7 @@ public class DatabaseDriver {
             home_link = resultSet.getString("home_link");
             wikipedia_link = resultSet.getString("wikipedia_link");
 
-			points.add(new Point(id, type, name, latitude, longitude, elevation, municipality, home_link, wikipedia_link));
+			points.add(new Point(id, "", name, latitude, longitude, elevation, municipality, home_link, wikipedia_link));
 
             counter++;
         }
