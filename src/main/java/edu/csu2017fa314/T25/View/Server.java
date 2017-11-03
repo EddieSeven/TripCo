@@ -73,9 +73,31 @@ public class Server {
 		System.out.println("Querying for " + sq.getDescription());
 
 		Point[] points = new Point[3];
-		//points[0] = new Point("0", "airport", "p1", "38.371", "-107.860", "1000", "munic1", "no home link", "no wiki link");
-		//points[1] = new Point("1", "heliport", "p2", "39.052", "-105.631", "2000", "munic2", "no home link", "no wiki link");
-		//points[2] = new Point("2", "heliport", "p3", "37.646", "-105.431", "2000", "munic3", "no home link", "no wiki link");
+
+		String attributes[] = new String[5];
+		attributes[0] = "aa";
+		attributes[1] = "heliport";
+		attributes[2] = "Alfred Aytpe Heliport";
+		attributes[3] = "38.371";
+		attributes[4] = "-107.860";
+		points[0] = new Point(attributes);
+
+		attributes = new String[5];
+		attributes[0] = "cb";
+		attributes[1] = "airport";
+		attributes[2] = "Canton Bibel Airport";
+		attributes[3] = "39.052";
+		attributes[4] = "-105.631";
+		points[1] = new Point(attributes);
+
+		attributes = new String[5];
+		attributes[0] = "dj";
+		attributes[1] = "airport";
+		attributes[2] = "Don John Airport";
+		attributes[3] = "37.646";
+		attributes[4] = "-105.431";
+		points[2] = new Point(attributes);
+
 		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
 

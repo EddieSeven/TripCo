@@ -2,7 +2,7 @@ package edu.csu2017fa314.T25.Model;
 
 public class Point {
 	// [0] == Airport code
-	// [1] == Airport trip
+	// [1] == Airport type
 	// [2] == Airport name
 	// [3] == Latitude
 	// [4] == Longitude
