@@ -12,10 +12,10 @@ import java.util.Scanner;
 public class View {
    private int totalDistance;
    public String outputSVG = "";
-   public double svgWidth = 0.0;
-   public double svgHeight = 0.0;
-   public double padX = 0.0;
-   public double padY = 0.0;
+   private double svgWidth = 1024.0;
+   private double svgHeight = 512.0;
+   private double padX = 0.0;// no pad x on world map.
+   private double padY = 14.0;//
 
    public void setTotalDistance(int distance) 
    {
@@ -42,44 +42,16 @@ public class View {
    }
 
    public void getCoordinates() throws IOException{
-      Scanner scanner = new Scanner(new File("web/col.svg"));
+      Scanner scanner = new Scanner(new File("web/world.svg"));
 	  outputSVG = "";
 
       //grab the SVG file height and width
       String pathPolylineY = "";
       String path49X = "";
-      Boolean foundWidth = false;
-      Boolean foundHeight = false;
-      Boolean foundpolyY = false;
-      Boolean foundPathX = false;
+
+
       while(scanner.hasNextLine()) {
          String line = scanner.nextLine();
-         if (line.contains("path49") && !foundPathX) {
-            foundPathX = true;
-         }
-         if (line.contains("polyline45") && !foundpolyY) {
-            foundpolyY = true;
-         }
-         if (line.contains("points=") && !foundpolyY) {
-            pathPolylineY = line;
-         }
-         if (line.contains("d=") && !foundPathX) {
-            path49X = line;
-         }
-         if (line.contains("width") && !foundWidth) {// create escape sequence for width and height
-            svgWidth = Double.parseDouble(line.substring(10, line.length() - 1));
-            foundWidth = true;
-         }
-         if (line.contains("height") && !foundHeight) {
-            svgHeight = Double.parseDouble(line.substring(11, line.length() - 1));
-            foundHeight = true;
-         }
-
-         if (line.contains("path181")) {
-            outputSVG += "   id=\"path181\" />\n";
-            break;
-
-         }
          outputSVG += line + "\n";
          //else add to string for file output
       }
