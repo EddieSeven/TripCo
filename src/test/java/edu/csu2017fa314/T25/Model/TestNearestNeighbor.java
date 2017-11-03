@@ -12,16 +12,11 @@ public class TestNearestNeighbor {
     @Before
     public void setup() {
         Point points[] = new Point[5];
-        Point a = new Point(37.34247, -108.58625);
-        a.id = "a";
-        Point b = new Point(40.57191, -105.121777);
-        b.id = "b";
-        Point c = new Point(28.729166, -81.14536);
-        c.id = "c";
-        Point d = new Point(60.06519, -151.509611);
-        d.id = "d";
-        Point e = new Point(35.131388, -119.181944);
-        e.id = "e";
+        Point a = new Point(37.34247, -108.58625, "a");
+        Point b = new Point(40.57191, -105.121777,"b");
+        Point c = new Point(28.729166, -81.14536, "c");
+        Point d = new Point(60.06519, -151.509611, "d");
+        Point e = new Point(35.131388, -119.181944, "e");
         points[0] = a;
         points[1] = b;
         points[2] = c;
@@ -39,7 +34,6 @@ public class TestNearestNeighbor {
         boolean visited[] = new boolean[5];
 
         assertEquals(0, testNN.computeNearestNeighbor(1, dummy0, visited));
-
         assertEquals(4, testNN.computeNearestNeighbor(3, dummy0, visited));
         assertEquals(0, testNN.computeNearestNeighbor(4, dummy0, visited));
         assertEquals(1, testNN.computeNearestNeighbor(2, dummy0, visited));
@@ -48,16 +42,11 @@ public class TestNearestNeighbor {
     @Test
     public void testComputePath() {
         // Given a small set of five point, checks that from a given starting point the path matches the expected path
-        Point a = new Point(37.34247, -108.58625);
-        a.id = "a";
-        Point b = new Point(40.57191, -105.121777);
-        b.id = "b";
-        Point c = new Point(28.729166, -81.14536);
-        c.id = "c";
-        Point d = new Point(60.06519, -151.509611);
-        d.id = "d";
-        Point e = new Point(35.131388, -119.181944);
-        e.id = "e";
+        Point a = new Point(37.34247, -108.58625, "a");
+        Point b = new Point(40.57191, -105.121777, "b");
+        Point c = new Point(28.729166, -81.14536, "c");
+        Point d = new Point(60.06519, -151.509611, "d");
+        Point e = new Point(35.131388, -119.181944, "e");
 
         // Test 1
         Path expectedPath = new Path(5);
@@ -70,7 +59,7 @@ public class TestNearestNeighbor {
         expectedPath.addPoint(b);
 
         for (int i = 0; i < actualPath.size(); i++) {
-            assertEquals(expectedPath.getPoint(i).id, actualPath.getPoint(i).id);
+            assertEquals(expectedPath.getPoint(i).attributes[0], actualPath.getPoint(i).attributes[0]);
         }
 
         // Test 2
@@ -84,20 +73,20 @@ public class TestNearestNeighbor {
         expectedPath.addPoint(d);
 
         for (int i = 0; i < actualPath.size(); i++) {
-            assertEquals(expectedPath.getPoint(i).id, actualPath.getPoint(i).id);
+            assertEquals(expectedPath.getPoint(i).attributes[0], actualPath.getPoint(i).attributes[0]);
         }
     }
 	public void testComputeDistance() {
-        Point a1 = new Point(37.33914,-108.58291);
-        Point a2 = new Point(40.57191, -105.12177);
+        Point a1 = new Point(37.33914,-108.58291, "a");
+        Point a2 = new Point(40.57191, -105.12177, "b");
         assertEquals(291, NearestNeighbor.computeDistance(a1, a2, true));
 
-        Point b1 = new Point(28.729166,-81.14536);
-        Point b2 = new Point(60.06519, -151.509611);
+        Point b1 = new Point(28.729166,-81.14536, "a");
+        Point b2 = new Point(60.06519, -151.509611, "b");
         assertEquals(3848, NearestNeighbor.computeDistance(b1, b2, true));
 
-        Point c1 = new Point(35.131388, -119.181944);
-        Point c2 = new Point(45.23411, -67.92664);
+        Point c1 = new Point(35.131388, -119.181944, "a");
+        Point c2 = new Point(45.23411, -67.92664, "b");
         assertEquals(2745, NearestNeighbor.computeDistance(c1, c2, true));
 
         // this test is failing
@@ -112,10 +101,10 @@ public class TestNearestNeighbor {
 
 	@Test
 	public void test2Opt() {
-		Point a = new Point(0.0, 0.0);
-		Point b = new Point(0.0, 1.0);
-		Point c = new Point(1.0, 1.0);
-		Point d = new Point(1.0, 0.0);
+		Point a = new Point(0.0, 0.0, "a");
+		Point b = new Point(0.0, 1.0, "b");
+		Point c = new Point(1.0, 1.0, "c");
+		Point d = new Point(1.0, 0.0, "d");
 		Point [] pts = {a, b, c, d};
 		NearestNeighbor nn = new NearestNeighbor(pts, 4);
 		Path test = new Path(4);

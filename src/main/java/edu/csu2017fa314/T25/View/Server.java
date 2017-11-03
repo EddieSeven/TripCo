@@ -73,9 +73,9 @@ public class Server {
 		System.out.println("Querying for " + sq.getDescription());
 
 		Point[] points = new Point[3];
-		points[0] = new Point("0", "airport", "p1", "38.371", "-107.860", "1000", "munic1", "no home link", "no wiki link");
-		points[1] = new Point("1", "heliport", "p2", "39.052", "-105.631", "2000", "munic2", "no home link", "no wiki link");
-		points[2] = new Point("2", "heliport", "p3", "37.646", "-105.431", "2000", "munic3", "no home link", "no wiki link");
+		//points[0] = new Point("0", "airport", "p1", "38.371", "-107.860", "1000", "munic1", "no home link", "no wiki link");
+		//points[1] = new Point("1", "heliport", "p2", "39.052", "-105.631", "2000", "munic2", "no home link", "no wiki link");
+		//points[2] = new Point("2", "heliport", "p3", "37.646", "-105.431", "2000", "munic3", "no home link", "no wiki link");
 		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
 
@@ -96,10 +96,9 @@ public class Server {
 		ServerRequest sq = g.fromJson(je, ServerRequest.class);
 		System.out.println("Querying for " + sq.getDescription());
 
-		Result r = dbDriver.queryPage(sq.getDescription());
-		Point[] points = new Point[r.points.size()];
-		points = r.points.toArray(points);
-		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
+		Result result = dbDriver.queryPage(sq.getDescription());
+
+		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size);
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
 
 		updateSVG = true;

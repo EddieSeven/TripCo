@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class DatabaseDriver {
     private final int MAX_QUERY_SIZE = 100;
+    private final int NUMBER_OF_ATTRIBUTES = 11;
     private String userName;
     private String password;
     private String driver = "com.mysql.cj.jdbc.Driver";
@@ -34,24 +35,24 @@ public class DatabaseDriver {
     }
 
     public Result queryPage(String searchString) {
-        int total;
-        ArrayList<Point> points = null;
+        int total = 0;
+        Point points[] = null;
 
         try {
             total = getTotal(searchString);
             String query = formPageQuery(searchString);
             ResultSet resultSet = statement.executeQuery(query);
-            points = constructResult(resultSet, total);
+            points = constructPageResult(resultSet, total);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        points.trimToSize();
-        return new Result(points);
+        Result result = new Result(points, total);
+        return result;
     }
 
     private String formPageQuery(String searchString) {
-        String select = "SELECT airports.id, airports.name, latitude, longitude, airports.continent, airports.iso_country, airports.iso_region "; // Columns we want in the result set
+        String select = "SELECT airports.code, airports.type, airports.name, latitude, longitude, elevation, municipality, countries.name, regions.name, home_link, airports.wikipedia_link "; // Columns we want in the result set
 
         String from = "FROM airports INNER JOIN continents ON airports.continent = continents.code " +
                 "INNER JOIN countries ON airports.iso_country = countries.code " +
@@ -75,22 +76,21 @@ public class DatabaseDriver {
         return select + from + where + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-    public Result queryAlgorithm(ArrayList<String> id){
+    public Result queryAlgorithm(ArrayList<String> id){ // todo FIX 80, 92, 86
         String idList = toList(id);
-        ArrayList<Point> points = null;
+        Point points[] = new Point[0];
 
         String query = formAlgorithmQuery(idList);
         try {
             if (idList != null) {
                 ResultSet resultSet = statement.executeQuery(query);
-                points = constructResult(resultSet, id.size());
+                points = constructPageResult(resultSet, id.size());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        points.trimToSize();
-        return new Result(points);
+        return new Result(points, 9999);
     }
 
     private String formAlgorithmQuery(String idList) {
@@ -126,32 +126,27 @@ public class DatabaseDriver {
             return null;
     }
 
-    private ArrayList<Point> constructResult(ResultSet resultSet, int total) throws SQLException {
-		ArrayList<Point> points = new ArrayList<>();
+    private Point[] constructPageResult(ResultSet resultSet, int total) throws SQLException {
+		Point points[] = new Point[total];
 
-        int counter = 0;
-        String id;
-		String name;
-        String latitude;
-        String longitude;
-		String elevation;
-		String municipality;
-		String home_link;
-		String wikipedia_link;
+		int counter = 0;
+        while (resultSet.next() && counter < total) {
 
-        while (resultSet.next() /*&& counter < MAX_QUERY_SIZE todo commented out for now*/ ) {
+            String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
+            attributes[0] = resultSet.getString("airports.code");
+            attributes[1] = resultSet.getString("airports.type");
+            attributes[2] = resultSet.getString("airports.name");
+            attributes[3] = resultSet.getString("latitude");
+            attributes[4] = resultSet.getString("longitude");
+            attributes[5] = resultSet.getString("elevation");
+            attributes[6] = resultSet.getString("municipality");
+            attributes[7] = resultSet.getString("countries.name");
+            attributes[8] = resultSet.getString("regions.name");
+            attributes[9] = resultSet.getString("home_link");
+            attributes[10] = resultSet.getString("airports.wikipedia_link");
 
-            id = resultSet.getString("airports.id");
-            name = resultSet.getString("airports.name");
-            latitude = resultSet.getString("latitude");
-            longitude = resultSet.getString("longitude");
-            // elevation = resultSet.getString("elevation");
-            // municipality = resultSet.getString("municipality");
-            // home_link = resultSet.getString("home_link");
-            // wikipedia_link = resultSet.getString("wikipedia_link");
-
-			points.add(new Point(id, "", name, latitude, longitude, "300", "", "", ""));
-
+            Point newPoint = new Point(attributes);
+            points[counter] = newPoint;
             counter++;
         }
 
