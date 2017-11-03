@@ -76,21 +76,46 @@ public class DatabaseDriver {
         return select + from + where + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-    public Result queryAlgorithm(ArrayList<String> id){ // todo FIX 80, 92, 86
+    private Point[] constructPageResult(ResultSet resultSet, int total) throws SQLException {
+        Point points[] = new Point[total];
+
+        int counter = 0;
+        while (resultSet.next() && counter < total) {
+            String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
+            attributes[0] = resultSet.getString("airports.code");
+            attributes[1] = resultSet.getString("airports.type");
+            attributes[2] = resultSet.getString("airports.name");
+            attributes[3] = resultSet.getString("latitude");
+            attributes[4] = resultSet.getString("longitude");
+            attributes[6] = resultSet.getString("municipality");
+            attributes[7] = resultSet.getString("countries.name");
+            attributes[8] = resultSet.getString("regions.name");
+
+            Point newPoint = new Point(attributes);
+            points[counter] = newPoint;
+            counter++;
+        }
+
+        return points;
+    }
+
+    public Result queryAlgorithm(ArrayList<String> id) {
         String idList = toList(id);
-        Point points[] = new Point[0];
+        Point points[] = null;
+        int total = id.size();
 
         String query = formAlgorithmQuery(idList);
         try {
             if (idList != null) {
                 ResultSet resultSet = statement.executeQuery(query);
-                points = constructPageResult(resultSet, id.size());
+                points = constructAlgorithmResult(resultSet, id.size());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return new Result(points, 9999);
+        Result result = new Result(points, total);
+        return result;
     }
 
     private String formAlgorithmQuery(String idList) {
@@ -98,40 +123,11 @@ public class DatabaseDriver {
         return query;
     }
 
-    private int getTotal(String searchString) throws SQLException {
-        String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
-                searchString + "%' OR name LIKE '%" +
-                searchString + "%' OR municipality LIKE '%" +
-                searchString + "%';";
+    private Point[] constructAlgorithmResult(ResultSet resultSet, int total) throws SQLException {
+        Point points[] = new Point[total];
 
-        ResultSet result = statement.executeQuery(query);
-
-        int total;
-        result.next();
-        total = result.getInt(1);
-
-        return total;
-    }
-
-    private String toList(ArrayList<String> id){
-        String idList = "(";
-        for (int i = 0; i < id.size(); i++){
-            idList += "'" + id.get(i) + "', ";
-        }
-
-        if (id.size() != 0) {
-            idList = idList.substring(0, idList.length() - 2) + ")";
-            return idList;
-        } else
-            return null;
-    }
-
-    private Point[] constructPageResult(ResultSet resultSet, int total) throws SQLException {
-		Point points[] = new Point[total];
-
-		int counter = 0;
+        int counter = 0;
         while (resultSet.next() && counter < total) {
-
             String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
             attributes[0] = resultSet.getString("airports.code");
             attributes[1] = resultSet.getString("airports.type");
@@ -151,5 +147,33 @@ public class DatabaseDriver {
         }
 
         return points;
+    }
+
+    private int getTotal(String searchString) throws SQLException {
+        String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
+                searchString + "%' OR name LIKE '%" +
+                searchString + "%' OR municipality LIKE '%" +
+                searchString + "%';";
+
+        ResultSet result = statement.executeQuery(query);
+
+        int total;
+        result.next();
+        total = result.getInt(1);
+
+        return total;
+    }
+
+    private String toList(ArrayList<String> id) {
+        String idList = "(";
+        for (int i = 0; i < id.size(); i++) {
+            idList += "'" + id.get(i) + "', ";
+        }
+
+        if (id.size() != 0) {
+            idList = idList.substring(0, idList.length() - 2) + ")";
+            return idList;
+        } else
+            return null;
     }
 }

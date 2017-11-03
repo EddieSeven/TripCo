@@ -1,6 +1,19 @@
 package edu.csu2017fa314.T25.Model;
 
 public class Point {
+	// [0] == Airport code
+	// [1] == Airport trip
+	// [2] == Airport name
+	// [3] == Latitude
+	// [4] == Longitude
+	// [5] == Elevation
+	// [6] == Municipality
+	// [7] == Country name
+	// [8] == Region name
+	// [9] == Airport home link
+	// [10] == Airport wiki link
+
+
     public String attributes[];
     public double latitude;
     public double longitude;

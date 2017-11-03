@@ -2,16 +2,14 @@ package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
 
-
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
 
 public class TestDatabaseDriver {
     private DatabaseDriver test;
     private String isTravis;
-    final private boolean atMichaels = true; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
+    final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
     @Before
     public void setup() throws ClassNotFoundException {
