@@ -2,10 +2,8 @@ package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
 
-
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
 
 public class TestDatabaseDriver {
@@ -29,15 +27,15 @@ public class TestDatabaseDriver {
         if (isTravis != null) {
             // Test 1 - Cass Field
             Result result = test.queryPage("Urb");
-            assertEquals(true, result.points.get(0).id.equals("2"));
+            assertEquals(true, result.points[0].attributes[0].equals("UB"));
 
             // Test 2 - Buckley Air
-            result = test.queryPage("lame");
-            assertEquals(true, result.points.get(0).id.equals("0"));
+            result = test.queryPage("thir");
+            assertEquals(true, result.points[0].attributes[0].equals("TL"));
 
             // Test 3 - Mc Cullough
             result = test.queryPage("mor");
-            assertEquals(true, result.points.get(0).id.equals("1"));
+            assertEquals(true, result.points[0].attributes[0].equals("NN"));
 
         } else if (atMichaels) {
             Result result = test.queryPage("london");

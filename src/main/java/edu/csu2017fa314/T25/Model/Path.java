@@ -46,7 +46,7 @@ public class Path {
 
 	private void printPath() {
 		for (Point p : path) {
-			System.out.println(p.id);
+			System.out.println(p.attributes[0]);
 		}
 	}
 
