@@ -30,7 +30,7 @@ public class TestDatabaseDriver {
             assertEquals(true, result.points[0].attributes[0].equals("UB"));
 
             // Test 2 - Buckley Air
-            result = test.queryPage("lame");
+            result = test.queryPage("thir");
             assertEquals(true, result.points[0].attributes[0].equals("TL"));
 
             // Test 3 - Mc Cullough
