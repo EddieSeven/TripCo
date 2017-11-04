@@ -35,7 +35,7 @@ public class Path {
 	public ArrayList<TripLeg> getLegs() {
 		ArrayList<TripLeg> legs = new ArrayList<TripLeg>();
 		int tCost = 0;
-		printPath();
+		//printPath();
 		for (int i = 0; i < path.length - 1; i++) {
 			tCost = NearestNeighbor.computeDistance(path[i], path[i+1], true);
 			legs.add(new TripLeg(path[i], path[i+1], tCost));

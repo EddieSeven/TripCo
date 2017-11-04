@@ -41,46 +41,57 @@ public class View {
 
    }
 
-   public void getCoordinates() throws IOException{
+   public void readSVG() throws IOException{
       Scanner scanner = new Scanner(new File("web/world.svg"));
 	  outputSVG = "";
-
-      //grab the SVG file height and width
-      String pathPolylineY = "";
-      String path49X = "";
-
-
       while(scanner.hasNextLine()) {
          String line = scanner.nextLine();
          outputSVG += line + "\n";
-         //else add to string for file output
       }
       scanner.close();
-      padX = Double.parseDouble(path49X.substring(path49X.indexOf("M ") + 2,path49X.indexOf(".") + 6));
-      padY = Double.parseDouble(pathPolylineY.substring(pathPolylineY.lastIndexOf(",") + 1,pathPolylineY.lastIndexOf(".") + 6));
-
-      //System.out.println(outputSVG);
-      //insertSVG(svgWidth,svgHeight,padX,padY, path);
-      //x1 is at path49
-      //y1 is at polyline45
    }
 
+   public Double hemisphereValue(Double latitude, Double longitude){// write tests for me
+      Double returnedValue = 0.0;
+
+
+
+      if(latitude > 0 && longitude < 0){//north west
+
+      }
+      if(latitude < 0 && longitude < 0){//south west
+
+      }
+      if(latitude > 0 && longitude > 0){//north east
+
+      }
+      if(latitude < 0 && longitude > 0){//south east
+
+      }
+
+
+      return returnedValue;
+   }
+
+
    public String insertSVG(ArrayList<TripLeg> path) throws IOException{
-      getCoordinates();
+      readSVG();
       String coordinates = "";
       String startcoordinate = "";
-      int latIndex = 0;
-      int longIndex = 0;
       for(int i = 0; i < path.size(); i++){
 		 TripLeg leg = path.get(i);
-         double svgXcoordinate = ((svgWidth - (padX * 2)) * (-109 - leg.start.longitude) / (-109 + 102));
+         double svgXcoordinate = ((svgWidth) * (leg.start.longitude) / (-180 + 102));
          svgXcoordinate += padX;
-         double svgYcoordinate = ((svgHeight - (padY * 2)) * (41 - leg.start.latitude) / (41 - 37));
+         double svgYcoordinate = (svgHeight - padY) * (leg.start.latitude) / (41 + 37);
          svgYcoordinate += padY;
+         System.out.println();
+         System.out.println("svgX: " +svgXcoordinate);
+         System.out.println("longitude: "+leg.start.longitude);
+         System.out.println("svgY: "+svgYcoordinate);
+         System.out.println("Latitude: "+leg.start.latitude);
          if(i == 0) {
             coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
             startcoordinate = "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
-
          }
          else {
             coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";

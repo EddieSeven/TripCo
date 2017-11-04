@@ -34,7 +34,7 @@ public class TripCo {
 		
 		DatabaseDriver db = new DatabaseDriver("cedward", "829875838" , "jdbc:mysql://faure.cs.colostate.edu/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
 		Server s = new Server(db);
-		s.serveTest();
+		s.serve();
 
     }
 }

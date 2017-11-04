@@ -51,14 +51,14 @@ public class Server {
 	private Object serveSVG(Request rec, Response resp) {
 		if (updateSVG) {
 			try {
-				System.out.println("Appending path to SVG: " + latestItinerary);
+//				System.out.println("Appending path to SVG: " + latestItinerary);
 				svg = v.insertSVG(latestItinerary);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			updateSVG = false;
 		}
-		
+
 		return svg;
 	}
 
@@ -81,7 +81,7 @@ public class Server {
 
 		updateSVG = true;
 		latestItinerary = legs;
-		
+
 		// Get itinerary from database
 		return g.toJson(legs, ArrayList.class);
 
@@ -104,7 +104,7 @@ public class Server {
 
 		updateSVG = true;
 		latestItinerary = legs;
-		
+
 		// Get itinerary from database
 		return g.toJson(legs, ArrayList.class);
 
