@@ -50,7 +50,6 @@ public class View {
             outputSVG += "id=\"Antarctique\" /></g>\n";
             break;
          }
-
          outputSVG += line + "\n";
       }
       scanner.close();
@@ -62,20 +61,20 @@ public class View {
       //hemisphere edge case with zero coordinates?
 
       if(latitude > 0 && longitude < 0){//north west
-         returnedValue[0] = (-180.0 - longitude);
-         returnedValue[1] = (90.0 - latitude);
+         returnedValue[0] = ((svgWidth) * (-180 - longitude)) / (-180.0);
+         returnedValue[1] = (svgHeight) * (90 - latitude) / (90.0);
       }
       if(latitude < 0 && longitude < 0){//south west
-         returnedValue[0] = (-180.0 - longitude);
-         returnedValue[1] = (-90.0 - latitude);
+         returnedValue[0] = (-180.0);
+         returnedValue[1] = (-90.0);
       }
       if(latitude > 0 && longitude > 0){//north east
-         returnedValue[0] = (180.0 - longitude);
-         returnedValue[1] = (90.0 - latitude);
+         returnedValue[0] = (180.0);
+         returnedValue[1] = (90.0);
       }
       if(latitude < 0 && longitude > 0){//south east
-         returnedValue[0] = (180.0 - longitude);
-         returnedValue[1] = (-90.0 - latitude);
+         returnedValue[0] = (180.0);
+         returnedValue[1] = (-90.0);
       }
       // change to just compute the X and Y?
 
@@ -89,9 +88,9 @@ public class View {
       String startcoordinate = "";
       for(int i = 0; i < path.size(); i++){
 		 TripLeg leg = path.get(i);
-         double svgXcoordinate = ((svgWidth) * (leg.start.longitude) / (hemisphereValue(leg.start.latitude, leg.start.longitude)[0]));
+         double svgXcoordinate = hemisphereValue(leg.start.latitude, leg.start.longitude)[0];
          svgXcoordinate += padX;
-         double svgYcoordinate = (svgHeight - padY) * (leg.start.latitude) / (hemisphereValue(leg.start.latitude, leg.start.longitude)[1]);
+         double svgYcoordinate = hemisphereValue(leg.start.latitude, leg.start.longitude)[1];
          svgYcoordinate += padY;
          System.out.println();
          System.out.println("svgX: " +svgXcoordinate);
