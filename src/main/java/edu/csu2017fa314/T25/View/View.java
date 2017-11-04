@@ -46,29 +46,38 @@ public class View {
 	  outputSVG = "";
       while(scanner.hasNextLine()) {
          String line = scanner.nextLine();
+         if(line.contains("Antarctique")){ //end of SVG, insert path at this point
+            outputSVG += "id=\"Antarctique\" /></g>\n";
+            break;
+         }
+
          outputSVG += line + "\n";
       }
       scanner.close();
    }
 
-   public Double hemisphereValue(Double latitude, Double longitude){// write tests for me
-      Double returnedValue = 0.0;
+   public double[] hemisphereValue(Double latitude, Double longitude){// write tests for me
+      double[] returnedValue = {0.0,0.0};
 
-
+      //hemisphere edge case with zero coordinates?
 
       if(latitude > 0 && longitude < 0){//north west
-
+         returnedValue[0] = (-180.0 - longitude);
+         returnedValue[1] = (90.0 - latitude);
       }
       if(latitude < 0 && longitude < 0){//south west
-
+         returnedValue[0] = (-180.0 - longitude);
+         returnedValue[1] = (-90.0 - latitude);
       }
       if(latitude > 0 && longitude > 0){//north east
-
+         returnedValue[0] = (180.0 - longitude);
+         returnedValue[1] = (90.0 - latitude);
       }
       if(latitude < 0 && longitude > 0){//south east
-
+         returnedValue[0] = (180.0 - longitude);
+         returnedValue[1] = (-90.0 - latitude);
       }
-
+      // change to just compute the X and Y?
 
       return returnedValue;
    }
@@ -80,9 +89,9 @@ public class View {
       String startcoordinate = "";
       for(int i = 0; i < path.size(); i++){
 		 TripLeg leg = path.get(i);
-         double svgXcoordinate = ((svgWidth) * (leg.start.longitude) / (-180 + 102));
+         double svgXcoordinate = ((svgWidth) * (leg.start.longitude) / (hemisphereValue(leg.start.latitude, leg.start.longitude)[0]));
          svgXcoordinate += padX;
-         double svgYcoordinate = (svgHeight - padY) * (leg.start.latitude) / (41 + 37);
+         double svgYcoordinate = (svgHeight - padY) * (leg.start.latitude) / (hemisphereValue(leg.start.latitude, leg.start.longitude)[1]);
          svgYcoordinate += padY;
          System.out.println();
          System.out.println("svgX: " +svgXcoordinate);
@@ -101,7 +110,7 @@ public class View {
       coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
       outputSVG += coordinates;
       outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
-
+      //System.out.println(outputSVG);
       return outputSVG;
    }
 
