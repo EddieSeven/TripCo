@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class TestDatabaseDriver {
     private DatabaseDriver test;
     private boolean isTravis = false;
-    final private boolean atMichaels = true; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
+    final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
     @Before
     public void setup() throws ClassNotFoundException {
