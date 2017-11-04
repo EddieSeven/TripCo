@@ -29,26 +29,45 @@ public class TestNearestNeighbor {
 
     @Test
     public void testComputeNearestNeighbor1() {
-        // Checks that given a point, its nearest neighbor is returned.
-        Path dummy0 = new Path(5);
+        Path path = new Path(5);
         boolean visited[] = new boolean[5];
 
-        assertEquals(0, testNN.computeNearestNeighbor(1, dummy0, visited));
-        assertEquals(4, testNN.computeNearestNeighbor(3, dummy0, visited));
-        assertEquals(0, testNN.computeNearestNeighbor(4, dummy0, visited));
-        assertEquals(1, testNN.computeNearestNeighbor(2, dummy0, visited));
+        assertEquals(0, testNN.computeNearestNeighbor(1, path, visited));
     }
 
     @Test
-    public void testComputePath() {
-        // Given a small set of five point, checks that from a given starting point the path matches the expected path
+    public void testComputeNearestNeighbor2() {
+        Path path = new Path(5);
+        boolean visited[] = new boolean[5];
+
+        assertEquals(4, testNN.computeNearestNeighbor(3, path, visited));
+    }
+
+    @Test
+    public void testComputeNearestNeighbor3() {
+        Path path = new Path(5);
+        boolean visited[] = new boolean[5];
+
+        assertEquals(0, testNN.computeNearestNeighbor(4, path, visited));
+    }
+
+    @Test
+    public void testComputeNearestNeighbor4() {
+        Path path = new Path(5);
+        boolean visited[] = new boolean[5];
+
+        assertEquals(1, testNN.computeNearestNeighbor(2, path, visited));
+    }
+
+
+    @Test
+    public void testComputePath1() {
         Point a = new Point(37.34247, -108.58625, "a");
         Point b = new Point(40.57191, -105.121777, "b");
         Point c = new Point(28.729166, -81.14536, "c");
         Point d = new Point(60.06519, -151.509611, "d");
         Point e = new Point(35.131388, -119.181944, "e");
 
-        // Test 1
         Path expectedPath = new Path(5);
         Path actualPath = testNN.computePath(1);
         expectedPath.addPoint(b);
@@ -61,10 +80,19 @@ public class TestNearestNeighbor {
         for (int i = 0; i < actualPath.size(); i++) {
             assertEquals(expectedPath.getPoint(i).attributes[0], actualPath.getPoint(i).attributes[0]);
         }
+    }
 
-        // Test 2
-        expectedPath = new Path(5);
-        actualPath = testNN.computePath(3);
+    @Test
+    public void testComputePath2() {
+        Path expectedPath = new Path(5);
+        Path actualPath = testNN.computePath(3);
+
+        Point a = new Point(37.34247, -108.58625, "a");
+        Point b = new Point(40.57191, -105.121777, "b");
+        Point c = new Point(28.729166, -81.14536, "c");
+        Point d = new Point(60.06519, -151.509611, "d");
+        Point e = new Point(35.131388, -119.181944, "e");
+
         expectedPath.addPoint(d);
         expectedPath.addPoint(e);
         expectedPath.addPoint(a);
@@ -76,28 +104,43 @@ public class TestNearestNeighbor {
             assertEquals(expectedPath.getPoint(i).attributes[0], actualPath.getPoint(i).attributes[0]);
         }
     }
-	public void testComputeDistance() {
+
+
+    @Test
+	public void testComputeDistance1() {
         Point a1 = new Point(37.33914,-108.58291, "a");
         Point a2 = new Point(40.57191, -105.12177, "b");
         assertEquals(291, NearestNeighbor.computeDistance(a1, a2, true));
+    }
 
+    @Test
+    public void testComputeDistance2() {
         Point b1 = new Point(28.729166,-81.14536, "a");
         Point b2 = new Point(60.06519, -151.509611, "b");
         assertEquals(3848, NearestNeighbor.computeDistance(b1, b2, true));
+    }
 
+    @Test
+    public void testComputeDistance3() {
         Point c1 = new Point(35.131388, -119.181944, "a");
         Point c2 = new Point(45.23411, -67.92664, "b");
         assertEquals(2745, NearestNeighbor.computeDistance(c1, c2, true));
+    }
 
-        // this test is failing
-        // Point d1 = new Point("37°20'56.9\" N", "108°35'47.3\" W");
-        // Point d2 = new Point("37°21'10.9\" N", "108°32'56.5\" W");
-        // int res = Model.computeDistance(c1, c2);
-        // assertEquals(3, Model.computeDistance(c1, c2));
-    }
     @Test
-    public void testComputeShortestPath() {
+    public void testComputeDistance4(){
+        Point c1 = new Point(56.041813, -87.514592, "a");
+        Point c2 = new Point(43.644831, 78.951198, "b");
+        assertEquals(5504, NearestNeighbor.computeDistance(c1, c2, true));
     }
+
+    @Test
+    public void testComputeDistance5(){
+        Point c1 = new Point(43.761920, 11.315691, "a");
+        Point c2 = new Point(-31.429020, -64.184464, "b");
+        assertEquals(7041, NearestNeighbor.computeDistance(c1, c2, true));
+    }
+
 
 	@Test
 	public void test2Opt() {
