@@ -55,9 +55,9 @@ public class TestDatabaseDriver {
     public void queryAlgorithmTest1() {
         if (isTravis) {
             ArrayList<String> idList = new ArrayList<>();
-            idList.add("0CD9");
-            idList.add("15CO");
-            idList.add("KTAD");
+            idList.add("TL");
+            idList.add("NN");
+            idList.add("UB");
             Result result = test.queryAlgorithm(idList);
             assertEquals(true, result.points[0].attributes[0].equals("TL"));
             assertEquals(true, result.points[1].attributes[0].equals("NN"));
