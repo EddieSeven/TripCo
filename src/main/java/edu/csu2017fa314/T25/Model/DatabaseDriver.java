@@ -119,8 +119,15 @@ public class DatabaseDriver {
     }
 
     private String formAlgorithmQuery(String idList) {
-        String query = "SELECT id, latitude, longitude FROM airports WHERE id IN " + idList + ";";
-        return query;
+        String select = "SELECT airports.code, airports.type, airports.name, latitude, longitude, elevation, municipality, countries.name, regions.name, home_link, airports.wikipedia_link "; // Columns we want in the result set
+
+        String from = "FROM airports INNER JOIN continents ON airports.continent = continents.code " +
+                "INNER JOIN countries ON airports.iso_country = countries.code " +
+                "INNER JOIN regions ON airports.iso_region = regions.code ";
+
+        String where = "WHERE airports.code IN " + idList;
+
+        return select + from + where + " LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
     private Point[] constructAlgorithmResult(ResultSet resultSet, int total) throws SQLException {
