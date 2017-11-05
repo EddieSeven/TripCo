@@ -58,29 +58,35 @@ public class View {
    public double[] hemisphereValue(Double latitude, Double longitude){// write tests for me
       double[] returnedValue = {0.0,0.0};
 
-      //hemisphere edge case with zero coordinates?
-
-      if(latitude > 0 && longitude < 0){//north west
+      if(latitude > 0 && longitude < 0) {//north west
          returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
          returnedValue[1] = ((90 - latitude) / 180) * svgHeight;
-         returnedValue[1] -= padY;
       }
       if(latitude < 0 && longitude < 0){//south west
          returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
          returnedValue[1] = ((90 + Math.abs(latitude)) / 180) * svgHeight;
-         returnedValue[1] -= padY;
+
       }
       if(latitude > 0 && longitude > 0){//north east
          returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
          returnedValue[1] = ((90 - latitude) / 180) * svgHeight;
-         returnedValue[1] -= padY;
+
       }
       if(latitude < 0 && longitude > 0){//south east
          returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
          returnedValue[1] = ((90 + Math.abs(latitude)) / 180) * svgHeight;
-         returnedValue[1] -= padY;
       }
-      //edge case for zero coordinates!!!
+
+      if(longitude == 0){
+         returnedValue[0] = 512;
+      }
+      if(latitude == 0){
+         returnedValue[1] = 256;
+      }
+      if(latitude == -90){
+         returnedValue[1] = 512;
+      }
+
       return returnedValue;
    }
 
@@ -92,9 +98,7 @@ public class View {
       for(int i = 0; i < path.size(); i++){
 		 TripLeg leg = path.get(i);
          double svgXcoordinate = hemisphereValue(leg.start.latitude, leg.start.longitude)[0];
-         svgXcoordinate += padX;
          double svgYcoordinate = hemisphereValue(leg.start.latitude, leg.start.longitude)[1];
-         svgYcoordinate += padY;
          System.out.println();
          System.out.println("svgX: " +svgXcoordinate);
          System.out.println("longitude: "+leg.start.longitude);
