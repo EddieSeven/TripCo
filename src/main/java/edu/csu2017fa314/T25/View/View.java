@@ -14,7 +14,7 @@ public class View {
    public String outputSVG = "";
    private double svgWidth = 1024.0;
    private double svgHeight = 512.0;
-   private double padX = 0.0;// no pad x on world map.
+   private double padX = 0.0;// no pad x on world map. delete this after testing
    private double padY = 14.0;//
 
    public void setTotalDistance(int distance) 
@@ -61,23 +61,26 @@ public class View {
       //hemisphere edge case with zero coordinates?
 
       if(latitude > 0 && longitude < 0){//north west
-         returnedValue[0] = ((svgWidth) * (-180 - longitude)) / (-180.0);
-         returnedValue[1] = (svgHeight) * (90 - latitude) / (90.0);
+         returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
+         returnedValue[1] = ((90 - latitude) / 180) * svgHeight;
+         returnedValue[1] -= padY;
       }
       if(latitude < 0 && longitude < 0){//south west
-         returnedValue[0] = (-180.0);
-         returnedValue[1] = (-90.0);
+         returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
+         returnedValue[1] = ((90 + Math.abs(latitude)) / 180) * svgHeight;
+         returnedValue[1] -= padY;
       }
       if(latitude > 0 && longitude > 0){//north east
-         returnedValue[0] = (180.0);
-         returnedValue[1] = (90.0);
+         returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
+         returnedValue[1] = ((90 - latitude) / 180) * svgHeight;
+         returnedValue[1] -= padY;
       }
       if(latitude < 0 && longitude > 0){//south east
-         returnedValue[0] = (180.0);
-         returnedValue[1] = (-90.0);
+         returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
+         returnedValue[1] = ((90 + Math.abs(latitude)) / 180) * svgHeight;
+         returnedValue[1] -= padY;
       }
-      // change to just compute the X and Y?
-
+      //edge case for zero coordinates!!!
       return returnedValue;
    }
 
