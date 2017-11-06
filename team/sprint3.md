@@ -39,34 +39,37 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 *10/9/2017* | #106 | #103 | *None* | *High*
 *10/11/2017* | #103, #109 |  #104 | *Getting the plan right* | *High*
 *10/13/2017* | *None* | #101, #94, #104, #105 | *None* | *High*
-*10/18/2017* | *#101, #94, #104, #105* | *issue numbers only* | *None* | *High*
+*10/18/2017* | #101, #94, #104, #105 | *issue numbers only* | *None* | *High*
  
 
 ## Review
 
 #### Completed user stories (epics) in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* *2-Opt Optimization* #94 : Change data structure that 2opt is modifying
+* *Web Server* #92 : Add option to select kilometers or miles for distance calculation
+* *Database* #102 : Has the code to return a set of ID's as per stage 2, but only uses the search string query method.
+* *Map Background* #93 : Server can return the SVG code, but there was trouble displaying it.
 
 Completed *number of issues completed* issues associated with these user stories.
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* *user story*: *Explanation...*
-*
+* Web Server : Not all parts are present, the SVG and c cumulative total doesn't render on the website.
+* Map Background : Path generated not using correct data structure to generate results. Code for image itself isn't being injected into final HTML for rendering.
 
 #### What went well
-* *something*
-*
+* We've discovered a convient way to code and communicate: using voice chat and screen sharing from home.
+* Collaboration on challenging objectives, greatly reducing time spent on time intensive tasks.
 
 #### Problems encountered and resolutions
-* *something*
-*
+* Primarily, getting a working demo (not necessarily the requirements of our assignment, but a functioning project, end to end) early enough. **Resolution** Get all the components talking to eachother early on in the sprint. This will allow much better testing and we can be sure that we will have *something* to show during the demo.
+* Keeping up with our plan is an issue (sorry), and splitting up tasks into elements that we can each pick up and do in the estimated time. **Resolution** We've had some experience with the project now, so our estimations are probably better, and we hopefully crank through the next plan in less time with more issues.
+
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | More weekly meetings | Identifying of major parts eariler, to help with creation of deadlines and to better track progress | Closing up issues as we complete them
+What we did well | Communication of objectives and constructive collaboration on challenging material. | We met more regularly and spaced out tasks more evenly than in previous sprints | Everyone had their entire toolchain working, so doing things like code coverage was easy.
+What we need to work on | Communication of established deadlines to ensure sprint will be completed on time. | Better use of planning to track progress and to keep the pace. | Use scrum to establish better baselines on goals and timeframes.
+What we will change next time | Use of new communication channels from the beginning to help facilitate development | Have one person write down the user stories and update the scrum each day | Use of Discord for group chat, including screen share functionality to help see each other's screens.

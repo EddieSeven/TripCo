@@ -12,7 +12,7 @@
     <groupId>edu.csu2017fa314.T25</groupId>
     <artifactId>T25</artifactId>
     <packaging>jar</packaging>
-    <version>3.0</version>
+    <version>4.0</version>
     <name>T25</name>
     <url>https://github.com/csu2017fa314/T25/</url>
     <build>
