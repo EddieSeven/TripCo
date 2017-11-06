@@ -129,9 +129,8 @@ public class Server {
 
 		// Get itinerary from database
 		return g.toJson(legs, ArrayList.class);
-
-
 	}
+
 	private Object serveSearch(Request rec, Response resp) {
 		setHeaders(resp);
 		
@@ -168,17 +167,3 @@ public class Server {
 		resp.header("Access-Control-Allow-Headers", "*");
 	}
 }
-
-//class SearchQuery {
-//	private String query;
-//	public SearchQuery(String q) {
-//		query = q;
-//	}
-//
-//	public String getQuery() {
-//		return query;
-//	}
-//	public void setQuery(String q) {
-//		query = q;
-//	}
-//}
