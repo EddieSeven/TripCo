@@ -163,7 +163,7 @@ public class DatabaseDriver {
         String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
                 searchString + "%' OR name LIKE '%" +
                 searchString + "%' OR municipality LIKE '%" +
-                searchString + "%;'";
+                searchString + "%';";
 
         ResultSet result = statement.executeQuery(query);
 
