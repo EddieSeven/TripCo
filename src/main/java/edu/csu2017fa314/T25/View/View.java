@@ -58,25 +58,15 @@ public class View {
    public double[] hemisphereValue(Double latitude, Double longitude){// write tests for me
       double[] returnedValue = {0.0,0.0};
 
-      if(latitude > 0 && longitude < 0) {//north west
+      if(latitude > 0 && longitude < 0 || latitude > 0 && longitude > 0) {//north west
          returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
          returnedValue[1] = ((90 - latitude) / 180) * svgHeight;
       }
-      if(latitude < 0 && longitude < 0){//south west
+      if(latitude < 0 && longitude < 0 || latitude < 0 && longitude > 0){//south west
          returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
          returnedValue[1] = ((90 + Math.abs(latitude)) / 180) * svgHeight;
 
       }
-      if(latitude > 0 && longitude > 0){//north east
-         returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
-         returnedValue[1] = ((90 - latitude) / 180) * svgHeight;
-
-      }
-      if(latitude < 0 && longitude > 0){//south east
-         returnedValue[0] = ((180 + longitude) / 360) * svgWidth;
-         returnedValue[1] = ((90 + Math.abs(latitude)) / 180) * svgHeight;
-      }
-
       if(longitude == 0){
          returnedValue[0] = 512;
       }
@@ -99,11 +89,11 @@ public class View {
 		 TripLeg leg = path.get(i);
          double svgXcoordinate = hemisphereValue(leg.start.latitude, leg.start.longitude)[0];
          double svgYcoordinate = hemisphereValue(leg.start.latitude, leg.start.longitude)[1];
-         System.out.println();
-         System.out.println("svgX: " +svgXcoordinate);
-         System.out.println("longitude: "+leg.start.longitude);
-         System.out.println("svgY: "+svgYcoordinate);
-         System.out.println("Latitude: "+leg.start.latitude);
+//         System.out.println();
+//         System.out.println("svgX: " +svgXcoordinate);
+//         System.out.println("longitude: "+leg.start.longitude);
+//         System.out.println("svgY: "+svgYcoordinate);
+//         System.out.println("Latitude: "+leg.start.latitude);
          if(i == 0) {
             coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
             startcoordinate = "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
