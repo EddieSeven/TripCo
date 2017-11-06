@@ -25,7 +25,8 @@
     "express": "^4.15.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-dropzone": "^4.1.0"
+    "react-dropzone": "^4.1.0",
+    "svg-inline-react": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
