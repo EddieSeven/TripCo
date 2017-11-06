@@ -34,6 +34,7 @@ public class TripCo {
 		
         DatabaseDriver db = new DatabaseDriver("", "" , "");
         Server s = new Server(db);
-        s.serveTest();
+        s.serve();
+
     }
 }

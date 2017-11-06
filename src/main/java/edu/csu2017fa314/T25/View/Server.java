@@ -48,8 +48,7 @@ public class Server {
 		post("/search", this::serveSearchTest, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
-
-
+  
 	public String getSvg(){
 	    return svg;
     }
@@ -84,6 +83,7 @@ public class Server {
 //
 //        return gson.toJson(ssres, ServerSvgResponse.class);
 //	}
+
 
 	// This is meant for testing to avoid having to connect to the database
 	private Object serveSearchTest(Request rec, Response resp) {
@@ -126,7 +126,7 @@ public class Server {
 
 		updateSVG = true;
 		latestItinerary = legs;
-		
+
 		// Get itinerary from database
 		return g.toJson(legs, ArrayList.class);
 
@@ -148,7 +148,7 @@ public class Server {
 
 		updateSVG = true;
 		latestItinerary = legs;
-		
+
 		// Get itinerary from database
 		return g.toJson(legs, ArrayList.class);
 
