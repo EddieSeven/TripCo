@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
     render() {
         let serverLocations;
         let locs;
-        let svg = "http://localhost:4567/svg";
+        let svg;
         let renderedSvg;
 
         if (this.state.queryResults) { // if this.state.serverReturned is not null
@@ -116,10 +116,10 @@ class SearchBar extends React.Component {
 
         }
         // Once the server sends back an SVG, set the local variable "renderedSvg" to be the image
-        //if (this.state.svgResults) {
-        //   svg = this.state.svgResults;
-        //   renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
-        //}
+        if (this.state.svgResults) {
+           svg = this.state.svgResults;
+           renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
+        }
 
 
         return  (
@@ -162,8 +162,9 @@ class SearchBar extends React.Component {
 
            // Attempt to send `clientRequest` via a POST request
            // Notice how the end of the url below matches what the server is listening on (found in java code)
-           // By default, Spark uses port 4567
-           let jsonReturned = await fetch(`http://localhost:4567/search`,
+           // By default, Spark uses port 4567.
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":4567/search";
+           let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
                    body: JSON.stringify(clientRequest)
@@ -174,23 +175,18 @@ class SearchBar extends React.Component {
            let returnedJson = JSON.parse(ret);
 
            // Log the received JSON to the browser console
-           console.log("Got back ", ret);
+           console.log("Got back ", returnedJson);
 
            // if the response field of the returned json is "queryA", that means the server responded to the SQL query request
            if (clientRequest.request === "queryA") {
                this.setState({
-                   queryResults: returnedJson.locations,
-                   svgResults: returnedJson.svg
+                   queryResults: returnedJson,
+                   // queryResults: returnedJson.locations,
+                   // svgResults: returnedJson.svg
                });
-
-           // if it's not, we assume the response field is "svg" and contains the an svg image
-           } else {
-              this.setState({
-                  svgResults: JSON.parse(ret)
-              })
            }
 
-           console.log(returnedJson);
+           console.log(this);
 
            // Print on console what was returned
            // Update the state so we can see it on the web

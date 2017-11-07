@@ -40,7 +40,7 @@ public class Server {
 	}
 
 	public void serve() {
-	    serveTest();
+	    // serveTest();
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
@@ -66,7 +66,7 @@ public class Server {
 //        return gson.toJson(ssres, ServerSvgResponse.class);
 //    }
 
-//	private Object serveSVG(Request rec, Response resp) {
+//	private Object serveSVG() {
 //        Gson gson = new Gson();
 //		if (updateSVG) {
 //			try {
@@ -79,9 +79,9 @@ public class Server {
 //		}
 //
 //		//return svg;
-//        ServerSvgResponse ssres = new ServerSvgResponse(120, 100, svg);
+//        ServerResponse ssres = new ServerResponse(120, 100, svg);
 //
-//        return gson.toJson(ssres, ServerSvgResponse.class);
+//        return gson.toJson(ssres, ServerResponse.class);
 //	}
 
 
@@ -93,6 +93,7 @@ public class Server {
 		JsonElement je = jp.parse(rec.body());
 	
 		ServerRequest sq = g.fromJson(je, ServerRequest.class);
+		System.out.println("Printing sq: " + sq);
 		System.out.println("Querying for " + sq.getDescription());
 
 		Point[] points = new Point[3];
@@ -148,9 +149,19 @@ public class Server {
 		updateSVG = true;
 		latestItinerary = legs;
 
-		// Get itinerary from database
-		return g.toJson(legs, ArrayList.class);
+		if (updateSVG) {
+			try {
+				System.out.println("Appending path to SVG: " + latestItinerary);
+				svg = v.insertSVG(latestItinerary);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			updateSVG = false;
+		}
 
+        ServerResponse ssres = new ServerResponse(legs, svg, 120, 100);
+
+		return g.toJson(ssres, ServerResponse.class);
 	}
 
 	private void setHeaders(Response resp) {

@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './Home/Home.jsx';
 import Table from './Home/Table/Table.jsx';
 import Pair from './Home/Pair/Pair.jsx';
-// import InlineSVG from 'svg-inline-react';
+import InlineSVG from 'svg-inline-react';
 
 
 export default class App extends React.Component {
