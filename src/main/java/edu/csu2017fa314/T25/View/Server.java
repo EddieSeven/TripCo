@@ -15,6 +15,7 @@ import spark.Request;
 import spark.Response;
 import static spark.Spark.post;
 import static spark.Spark.get;
+import static spark.Spark.port;
 
 public class Server {
 	Gson g;
@@ -29,21 +30,23 @@ public class Server {
 		dbDriver = dbd;
 
 		updateSVG = false;
-//		try {
-//			v.getCoordinates();
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			v.getCoordinates();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		svg = v.getSVG();
 		latestItinerary = null;
 	}
 
 	public void serve() {
+		port(2526);
 		post("/search", this::serveSearch, g::toJson);
 		get("/svg", this::serveSVG);
 	}
 	public void serveTest() {
+		port(2526);
 		post("/search", this::serveSearchTest, g::toJson);
 		get("/svg", this::serveSVG);
 	}
