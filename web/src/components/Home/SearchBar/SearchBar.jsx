@@ -25,7 +25,8 @@ class SearchBar extends React.Component {
     render() {
         let serverLocations;
         let locs;
-        let svg = "http://localhost:4567/svg";
+		// TODO: Replace localhost with URL of remote server
+        let svg = "http://localhost:2526/svg";
         let renderedSvg;
 
         if (this.state.queryResults) { // if this.state.serverReturned is not null
@@ -163,7 +164,8 @@ class SearchBar extends React.Component {
            // Attempt to send `clientRequest` via a POST request
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
-           let jsonReturned = await fetch(`http://localhost:4567/search`,
+			//TODO: Replace localhost with name of remote server
+           let jsonReturned = await fetch(`http://localhost:2526/search`,
                {
                    method: "POST",
                    body: JSON.stringify(clientRequest)
