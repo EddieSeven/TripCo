@@ -1,0 +1,11 @@
+#!/bin/bash
+###
+    Code created by sswensen on 4/24/17, borrowed by cedward for sprint 4.
+###
+
+for i in "$@"; do {
+    $i&s=$!
+    l+="C$s";
+} done
+trap "kill $l" SIGINT
+wait $l
