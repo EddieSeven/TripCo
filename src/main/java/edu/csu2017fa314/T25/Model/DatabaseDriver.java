@@ -73,7 +73,10 @@ public class DatabaseDriver {
                 "airports.municipality like '%" + searchString + "%' OR " +
                 "airports.keywords like '%" + searchString + "%' ";
 
-        return select + from + where + "LIMIT " + MAX_QUERY_SIZE + ";";
+        String orderBy = "ORDER BY countries.name, regions.name, airports.municipality, " +
+                "airports.name ASC ";
+
+        return select + from + where + orderBy + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
     private Point[] constructPageResult(ResultSet resultSet, int total) throws SQLException {
@@ -167,6 +170,9 @@ public class DatabaseDriver {
         int total;
         result.next();
         total = result.getInt(1);
+
+        if (MAX_QUERY_SIZE < total)
+            total = MAX_QUERY_SIZE;
 
         return total;
     }
