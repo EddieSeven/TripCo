@@ -36,6 +36,5 @@ public class TripCo {
 		Server s = new Server(db);
 		//s.serveTest();
 		s.serve();
-
     }
 }

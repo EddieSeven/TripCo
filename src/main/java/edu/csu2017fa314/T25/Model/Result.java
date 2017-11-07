@@ -1,13 +1,11 @@
 package edu.csu2017fa314.T25.Model;
 
-import java.util.ArrayList;
-
 public class Result {
-	public ArrayList<Point> points;
-    int total;
+	public Point points[];
+    public int size;
 
-	public Result(ArrayList<Point> pts) {
-		points = pts;
-		total = pts.size();
+	public Result(Point points[], int size) {
+		this.points = points;
+		this.size = size;
 	}
 }
