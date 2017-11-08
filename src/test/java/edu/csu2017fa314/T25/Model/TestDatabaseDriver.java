@@ -46,7 +46,7 @@ public class TestDatabaseDriver {
     public void queryPageTest3() {
         if (isTravis) {
             Result result = test.queryPage("mor");
-            assertEquals(true, result.points[0].attributes[0].equals("None"));
+            assertEquals(true, result.points[0].attributes[2].equals("None"));
 
         }
     }
