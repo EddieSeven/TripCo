@@ -40,9 +40,10 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 *date* | *issue numbers only* | *issue numbers only* | *None* | *High*
  10/25/17 | None | #93 | None | High
  10/30/17 | #140, #141 | #151, #161, #158, #157, #139 | None | High
- 9/1/17   | #155, #157, #158, #160 | #138, #139, #151, #154, #161 | None | Moderate
- 9/3/17   | #154 | #138, #139, #151, #152, #161 | None | High
- 9/6/17   | #138, #151, #153 | #139, #142, #143, #152, #156, #161 | None | Moderate
+ 11/1/17   | #155, #157, #158, #160 | #138, #139, #151, #154, #161 | None | Moderate
+ 11/3/17   | #154 | #138, #139, #151, #152, #161 | None | High
+ 11/6/17   | #138, #151, #153 | #139, #142, #143, #152, #156, #161 | None | Moderate
+ 11/8/17   | #149, #150, #152, #161 | #139, #142, #143, #144, #156 | None | High
 
 ## Review
 
