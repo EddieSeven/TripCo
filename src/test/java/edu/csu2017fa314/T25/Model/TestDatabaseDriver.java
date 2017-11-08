@@ -27,7 +27,7 @@ public class TestDatabaseDriver {
     public void queryPageTest1() {
         if (isTravis) {
             Result result = test.queryPage("Urb");
-            assertEquals(true, result.points[0].attributes[0].equals("UB"));
+            assertEquals(true, result.points[0].attributes[2].equals("Urbino"));
         } else if (atMichaels) {
             Result result = test.queryPage("london");
         }
@@ -37,7 +37,7 @@ public class TestDatabaseDriver {
     public void queryPageTest2() {
         if (isTravis) {
             Result result = test.queryPage("thir");
-            assertEquals(true, result.points[0].attributes[0].equals("TL"));
+            assertEquals(true, result.points[0].attributes[2].equals("Thirfle"));
 
         }
     }
@@ -46,7 +46,7 @@ public class TestDatabaseDriver {
     public void queryPageTest3() {
         if (isTravis) {
             Result result = test.queryPage("mor");
-            assertEquals(true, result.points[0].attributes[0].equals("NN"));
+            assertEquals(true, result.points[0].attributes[0].equals("None"));
 
         }
     }

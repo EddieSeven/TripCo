@@ -85,11 +85,9 @@ public class DatabaseDriver {
         int counter = 0;
         while (resultSet.next() && counter < total) {
             String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
-            attributes[0] = resultSet.getString("airports.code");
             attributes[1] = resultSet.getString("airports.type");
             attributes[2] = resultSet.getString("airports.name");
-            attributes[3] = resultSet.getString("latitude");
-            attributes[4] = resultSet.getString("longitude");
+            attributes[5] = resultSet.getString("airports.elevation");
             attributes[6] = resultSet.getString("municipality");
             attributes[7] = resultSet.getString("countries.name");
             attributes[8] = resultSet.getString("regions.name");
