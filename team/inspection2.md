@@ -18,3 +18,6 @@ Will | Maintainer |
 file:line | defect | h/m/l | github# | who
 --- | --- |:---:|:---:| ---
 SearchBar.jsx: lines 161-165, 168 | JSON parsed without an SVG | h | | Charles
+view.java: lines 31 - 33, 92 - 96 , 109 | Dead code for testing purposes | l | | Michael, Charles
+view.java: lines 98 - 102 | optimize SVG write path | l | | Leif
+view.java: line 91 | unneccesary call to hemisphereValue | m | | Will
