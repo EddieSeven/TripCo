@@ -118,8 +118,8 @@ public class Server {
 		attributes[4] = "-105.431";
 		points[2] = new Point(attributes);
 
-		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
+		NearestNeighbor algorithm = new NearestNeighbor(points, points.length, sq.getMiles());
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
 
 		updateSVG = true;
 		latestItinerary = legs;
@@ -139,8 +139,8 @@ public class Server {
 
 		Result result = dbDriver.queryPage(sq.getDescription());
 
-		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size);
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
+		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, sq.getMiles());
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
 
 		updateSVG = true;
 		latestItinerary = legs;
@@ -171,11 +171,5 @@ public class Server {
 		resp.header("Access-Control-Allow-Origin", "*");
 		resp.header("Access-Control-Allow-Headers", "*");
 	}
-
-	private void setImageHeaders(Response resp) {
-		resp.header("Content-Type", "image/svg+xml");
-		
-		resp.header("Access-Control-Allow-Origin", "*");
-		resp.header("Access-Control-Allow-Headers", "*");
-	}
+	
 }
