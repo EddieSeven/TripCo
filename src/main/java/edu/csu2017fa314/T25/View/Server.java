@@ -36,12 +36,12 @@ public class Server {
 	}
 
 	public void serve() {
-		port(2526);
+		//port(2525);
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
 	public void serveTest() {
-		port(2526);
+		//port(2525);
 		post("/search", this::serveSearchTest, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
@@ -145,8 +145,23 @@ public class Server {
 		updateSVG = true;
 		latestItinerary = legs;
 
+		if (updateSVG) {
+			try {
+				System.out.println("Appending path to SVG: " + latestItinerary);
+				svg = v.insertSVG(latestItinerary);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			updateSVG = false;
+		}
+//	Gson gson = new Gson();
+//		//return svg;
+        ServerResponse ssres = new ServerResponse(legs, svg, 120, 100);
+
+        return g.toJson(ssres, ServerResponse.class);
+
 		// Get itinerary from database
-		return g.toJson(legs, ArrayList.class);
+		//return g.toJson(legs, ArrayList.class);
 
 	}
 
