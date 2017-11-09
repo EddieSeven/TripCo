@@ -53,7 +53,7 @@ public class TestView
     @Test
     public void testIDL(){
 
-        String testNENW = "L860.23898 105.48930 L1024.00000 94.72623 M0.00000 116.25237 L95.04996 83.96316 ";
+        String testNENW = "L860.23898 105.48930 L1024.00000 116.25237 M0.00000 116.25237 L95.04996 83.96316 ";
         String resultofNENW = v.internationalDL(860.2389845333333,105.48930275555556,95.0499565966222,83.96316189240889);
         assertEquals(testNENW,resultofNENW);
 
