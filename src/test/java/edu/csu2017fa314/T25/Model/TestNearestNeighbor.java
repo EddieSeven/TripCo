@@ -148,7 +148,14 @@ public class TestNearestNeighbor {
         assertEquals(3, NearestNeighbor.computeDistance(c1, c2, true));
     }
 
+    @Test
+    public void testTripLeg(){
+        Point c1 = new Point(37.34913889, 108.5964722, "a");
+        Point c2 = new Point(37.35302778, 108.5490278, "b");
+        TripLeg tripLeg = new TripLeg(c1, c2, NearestNeighbor.computeDistance(c1, c2, true));
+        assertEquals(3, tripLeg.distance);
 
+    }
 
 	@Test
 	public void test2Opt() {

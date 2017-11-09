@@ -13,22 +13,7 @@ import static spark.Spark.*;
 public class TripCo {
 
     public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException {
-        /*Model model = new Model();
-        View viewer = new View();
-        model.readCSV(args[0]);
 
-        ArrayList<TripLeg> trips;
-
-        trips = model.calculateDistances();
-
-
-        try {
-            viewer.writeJSON(trips);
-            viewer.getCoordinates(args[1]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		*/
 		boolean isTest = false;
 		if (args.length > 1 && args[args.length-1] == "test") {
 			isTest = true;
