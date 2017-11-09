@@ -8,28 +8,16 @@ import edu.csu2017fa314.T25.View.Server;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import static spark.Spark.*;
 
 public class TripCo {
 
     public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException {
-
-		boolean isTest = false;
-		if (args.length > 1 && args[args.length-1] == "test") {
-			isTest = true;
-		}
-
         System.out.println("Welcome to TripCo");
-		
-		if (isTest) {
-			DatabaseDriver db = new DatabaseDriver("", "", "");
-			Server s  = new Server(db);
-			s.serveTest();
-		}
-		else {
-			DatabaseDriver db = new DatabaseDriver("cedward", "829875838" , "jdbc:mysql://faure.cs.colostate.edu/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
-			Server s  = new Server(db);
-			s.serve();
-		}
+
+        DatabaseDriver db = new DatabaseDriver("cedward", "829875838", "jdbc:mysql://faure.cs.colostate.edu/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
+        Server s = new Server(db);
+        s.serve();
     }
 }

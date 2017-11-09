@@ -15,6 +15,8 @@ public class DatabaseDriver {
     private Connection connection;
     private Statement statement;
 
+    public DatabaseDriver(){}
+
     public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
