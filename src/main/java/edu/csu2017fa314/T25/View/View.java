@@ -94,7 +94,6 @@ public class View {
            coordinates += String.format("M%.5f %.5f L%.5f %.5f ", 1024.0 , intercept , nextX, nextY);
 
        }
-
        else{
 
            double slope = Math.abs(nextY - currentY)/2;
@@ -108,7 +107,6 @@ public class View {
            // modify depending on what hemisphere (NE = newY, SE = oldY)
            coordinates += String.format("L%.5f %.5f L%.5f %.5f ", currentX, currentY , 1024.0 , intercept);
            coordinates += String.format("M%.5f %.5f L%.5f %.5f ", 0.0 , intercept, nextX, nextY);
-
 
        }
        return coordinates;
