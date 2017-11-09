@@ -21,7 +21,6 @@ public class TestTripCo {
       DatabaseDriver db = new DatabaseDriver();
       Server s  = new Server(db);
       s.serveTest();
-      int a = 3;
    }
 
 }

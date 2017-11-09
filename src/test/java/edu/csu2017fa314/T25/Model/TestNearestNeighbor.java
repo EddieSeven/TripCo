@@ -154,7 +154,6 @@ public class TestNearestNeighbor {
         Point c2 = new Point(37.35302778, 108.5490278, "b");
         TripLeg tripLeg = new TripLeg(c1, c2, NearestNeighbor.computeDistance(c1, c2, true));
         assertEquals(3, tripLeg.distance);
-
     }
 
 	@Test
