@@ -50,7 +50,7 @@ public class View {
       scanner.close();
    }
 
-   public double[] hemisphereValue(Double latitude, Double longitude){// write tests for me
+   public double[] hemisphereValue(Double latitude, Double longitude){
       double[] returnedValue = {0.0,0.0};
 
       if(latitude > 0 && longitude < 0 || latitude > 0 && longitude > 0) {//north west
@@ -76,24 +76,69 @@ public class View {
    }
 
 
+
+   public String internationalDL(double currentX, double currentY, double nextX, double nextY){
+       String coordinates = "";
+       System.out.println(currentX);
+       System.out.println(currentY);
+       System.out.println(nextX);
+       System.out.println(nextY);
+
+       if (currentX < nextX){ //x1<x2
+
+           double slope = Math.abs(nextY - currentY)/2;
+           double intercept;
+           if(currentY > 256){//this is the SE
+               intercept = slope + currentY;
+           }
+           else{
+               intercept = slope + nextY;
+           }
+           coordinates += String.format("L%.5f %.5f L%.5f %.5f ", currentX, currentY , 0.0, intercept);
+           coordinates += String.format("M%.5f %.5f L%.5f %.5f ", 1024.0 , intercept , nextX, nextY);
+
+       }
+
+       else{
+
+           double slope = Math.abs(nextY - currentY)/2;
+           double intercept;
+           if(currentY > 256){//this is the SE
+               intercept = slope + currentY;
+           }
+           else{
+               intercept = slope + nextY;
+           }
+           // modify depending on what hemisphere (NE = newY, SE = oldY)
+           coordinates += String.format("L%.5f %.5f L%.5f %.5f ", currentX, currentY , 1024.0 , intercept);
+           coordinates += String.format("M%.5f %.5f L%.5f %.5f ", 0.0 , intercept, nextX, nextY);
+
+
+       }
+       System.out.println(coordinates);
+       return coordinates;
+   }
+
+
+
     public String insertSVG(ArrayList<TripLeg> path) throws IOException{
         readSVG();
         String coordinates = "";
         String startcoordinate = "";
         for(int i = 0; i < path.size(); i++){
             TripLeg leg = path.get(i);
-            double[] returnedXY = hemisphereValue(leg.start.latitude, leg.start.longitude);
+            double[] returnedXY = hemisphereValue(leg.start.latitude, leg.start.longitude); //array of X,Y coordinates
             double svgXcoordinate = returnedXY[0];
             double svgYcoordinate = returnedXY[1];
 
             double nextSvgXcoordinate = 0.0;
             double nextSvgYcoordinate = 0.0;
 
-            if(i < path.size() - 1){
+            if(i < path.size() - 1){ //set the next coordinates
                 nextSvgXcoordinate = hemisphereValue(path.get(i+1).start.latitude, path.get(i+1).start.longitude)[0];
                 nextSvgYcoordinate = hemisphereValue(path.get(i+1).start.latitude, path.get(i+1).start.longitude)[1];
             }
-            else{
+            else{//break out or out of bounds will occur
                 break;
             }
 
@@ -104,34 +149,15 @@ public class View {
 
             double differenceX = Math.abs(nextSvgXcoordinate - svgXcoordinate);
 
-            if(differenceX > 512){
+            if(differenceX > 512){ // if they are over halfway across the world from each other cross the IDL
 
-                if (svgXcoordinate < nextSvgXcoordinate){ //x1<x2
-
-                    double slope = Math.abs(nextSvgYcoordinate - svgYcoordinate)/2;
-                    double intercept = slope + svgYcoordinate;
-                    coordinates += String.format("L%.5f %.5f L%.5f %.5f ", svgXcoordinate, svgYcoordinate , 0.0, intercept);
-                    coordinates += String.format("M%.5f %.5f L%.5f %.5f ", 1024.0 , intercept , nextSvgXcoordinate, nextSvgYcoordinate);
-
-                }
-
-                else{
-
-                    double slope = Math.abs(nextSvgYcoordinate - svgYcoordinate)/2;
-
-                    double intercept = slope + svgYcoordinate;
-                    // modify depending on what hemisphere (NE = newY, SE = oldY)
-                    coordinates += String.format("L%.5f %.5f L%.5f %.5f ", svgXcoordinate, svgYcoordinate , 1024.0 , intercept);
-                    coordinates += String.format("M%.5f %.5f L%.5f %.5f ", 0.0 , intercept, nextSvgXcoordinate, nextSvgYcoordinate);
-
-
-                }
+                coordinates += internationalDL(svgXcoordinate, svgYcoordinate, nextSvgXcoordinate, nextSvgYcoordinate);
 
             }
 
-            else {
+            else {// add the line
 
-                coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " "; // add the line
+                coordinates += "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " ";
             }
 
         }

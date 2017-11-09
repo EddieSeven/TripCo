@@ -47,6 +47,19 @@ public class TestView
         assertTrue(Arrays.equals(southPoleActual , southPoleValue));
 
 
+    }
+
+
+    @Test
+    public void testIDL(){
+
+        String testG512 = "L860.23898 105.48930 L1024.00000 116.25237 M0.00000 116.25237 L95.04996 83.96316";
+        String resultofG512 = v.internationalDL(860.2389845333333,105.48930275555556,95.0499565966222,83.96316189240889);
+        assertEquals(testG512,resultofG512);
+
+        String testSESW = "L933.17291 282.05113 L1024.00000 293.22226 M0.00000 293.22226 L86.50807 304.39339";
+        String resultSESQ = v.internationalDL(933.1729066666667,282.0511288888889,86.50807291666666,304.39338650173613);
+        assertEquals(testSESW,resultSESQ);
 
 
 
