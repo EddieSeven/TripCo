@@ -79,16 +79,12 @@ public class View {
 
    public String internationalDL(double currentX, double currentY, double nextX, double nextY){
        String coordinates = "";
-       System.out.println(currentX);
-       System.out.println(currentY);
-       System.out.println(nextX);
-       System.out.println(nextY);
 
        if (currentX < nextX){ //x1<x2
 
            double slope = Math.abs(nextY - currentY)/2;
            double intercept;
-           if(currentY > 256){//this is the SE
+           if(currentY < 256){//this is the SE
                intercept = slope + currentY;
            }
            else{
@@ -115,7 +111,6 @@ public class View {
 
 
        }
-       System.out.println(coordinates);
        return coordinates;
    }
 
@@ -131,6 +126,11 @@ public class View {
             double svgXcoordinate = returnedXY[0];
             double svgYcoordinate = returnedXY[1];
 
+            if(i == 0) {
+                coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " "; // create a startpoint
+                startcoordinate = "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " "; //create the first line
+            }
+
             double nextSvgXcoordinate = 0.0;
             double nextSvgYcoordinate = 0.0;
 
@@ -138,13 +138,8 @@ public class View {
                 nextSvgXcoordinate = hemisphereValue(path.get(i+1).start.latitude, path.get(i+1).start.longitude)[0];
                 nextSvgYcoordinate = hemisphereValue(path.get(i+1).start.latitude, path.get(i+1).start.longitude)[1];
             }
-            else{//break out or out of bounds will occur
+            else{//break out or out of bounds error will occur
                 break;
-            }
-
-            if(i == 0) {
-                coordinates += "\t<path d=\"M" + String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " "; // create a startpoint
-                startcoordinate = "L" +String.format("%.5f", svgXcoordinate) + " " + String.format("%.5f", svgYcoordinate) + " "; //create the first line
             }
 
             double differenceX = Math.abs(nextSvgXcoordinate - svgXcoordinate);
