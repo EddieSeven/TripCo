@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import InlineSVG from 'svg-inline-react';
+import LoadsaveDropzone from '../Home/SearchBar/LoadsaveDropzone/LoadsaveDropzone.jsx';
+import QueryResults from '../Home/SearchBar/QueryResults/QueryResults.jsx';
+import Itinerary from '../Home/SearchBar/Itinerary/Itinerary.jsx';
 
 
 class SearchBar extends React.Component {
@@ -8,7 +11,9 @@ class SearchBar extends React.Component {
         this.state = {
             queryResults: [],
             svgResults: "",
-            input: ""
+            input: "",
+            allPairs: [],
+            sysFile: []
         };
     }
     onSubmit(e) {
@@ -22,12 +27,27 @@ class SearchBar extends React.Component {
         // this.fetch("svg", image);
     }
 
+    onSave(e){
+    }
+
+    onAddAll(){
+    }
+
+    onRemoveAll(){
+    }
+
+
+
     render() {
         let serverLocations;
         let locs;
 		// TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2525/svg";
+        let svg = "http://localhost:2526/svg";
         let renderedSvg;
+        let pairs = this.state.allPairs;
+        let ps = pairs.map((pp) => {
+            return <Pair {...pp}/>;
+        });
 
         if (this.state.queryResults) { // if this.state.serverReturned is not null
             // set local variable to results of sent query
@@ -108,40 +128,106 @@ class SearchBar extends React.Component {
 
             if(this.state.svgResults){
                 svg = this.state.svgResults;
-                renderedSvg = <InlineSVG src={svg}></InlineSVG>;
+                renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
             }
             console.log(svg);
             console.log(renderedSvg);
             console.log(this.state.svgResults);
             console.log("Map created.");
-
         }
-        // Once the server sends back an SVG, set the local variable "renderedSvg" to be the image
-        //if (this.state.svgResults) {
-        //   svg = this.state.svgResults;
-        //   renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
-        //}
 
 
         return  (
-        <div className = "searchbox">
-            <p>What kind of places would you like to visit?</p>
-            <form>
-                <input
-                  ref={(c) => this.query = c}
-                  type="search"
-                  name="destination-search"
-                  size="70"
-                  placeholder="Search destinations..."
-                />
-                <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
-            </form>
-            <div className="svg-container">{renderedSvg}</div>
-            <div className="results-list">
-                <ul>{locs}</ul>
+        <div className="header-wrapper">
+            <span className="header">
+                <div className="logo">
+                    <div className="spacer"></div>
+                    <img src="images/tripco-logo-color-small.png" />
+                </div>
+
+                <div className = "searchbox">
+                    <p>What kind of places would you like to visit?</p>
+                    <form>
+                        <input
+                          ref={(c) => this.query = c}
+                          type="search"
+                          name="destination-search"
+                          size="70"
+                          placeholder="Search destinations..."
+                        />
+                        <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
+                    </form>
+                </div>
+
+                <SearchBar />
+
+                <div className="buttons-container">
+                    <ul>
+                        <li>
+                            <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
+                        </li>
+                        <li>
+                            <LoadsaveDropzone
+                                browseFile={this.browseFile.bind(this)}
+                                pairs = {ps}
+                            />
+                        </li>
+                        <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
+                        <li><button type="submit" onClick={this.onRemoveAll()}>Delete</button></li>
+                    </ul>
+                    <span>
+                        <table>
+                            <tr>
+                                <form>
+                                    <td><label> Miles <input type="radio" name="airport-code" defaultChecked onClick={this.handleInputChange} /></label></td>
+                                    <td><label> Kilometers <input type="radio" name="airport-code" onClick={this.handleInputChange} /></label></td>
+                                </form>
+                            </tr>
+                        </table>
+                    </span>
+                </div>
+            </span>
+
+            <span className="svg-container">{renderedSvg}</span>
+
+                // <LoadsaveDropzone
+                //     browseFile={this.browseFile.bind(this)}
+                //     pairs = {ps}
+                // />
+
+                //<Dropzone className="dropzone-style" onDrop={this.uploadButtonClicked.bind(this)}>
+                //    <button type="button" >Upload a location list file</button>
+                //</Dropzone>
+
+
+            <div className="results-wrapper">
+                <div className="results-list">
+                //     <ul>{locs}</ul>
+                    <QueryResults />
+                </div>
+                <div className="itinerary-list">
+                    <Itinerary />
+                </div>
             </div>
         </div>
         );
+    }
+
+    async browseFile(file) {
+        console.log("Got file: ", file);
+        let pairs = [];
+        for (let i = 0; i < Object.values(file).length; i++) {
+            let start = file[i].start; //get start from file i
+            let end = file[i].end; //get end from file i
+            let dist = file[i].distance;
+            let p = { //create object with start, end, and dist variable
+                start: start,
+                end: end,
+                dist: dist
+            };
+            pairs.push(p); //add object to pairs array
+            console.log("Pushing pair: ", p); //log to console
+        }
     }
 
     // This function sends `input` to the server and updates the state with whatever is returned
@@ -165,8 +251,7 @@ class SearchBar extends React.Component {
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
 			//TODO: Replace localhost with name of remote server
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":4567/search";
-	   let jsonReturned = await fetch(serverUrl,
+           let jsonReturned = await fetch(`http://localhost:2526/search`,
                {
                    method: "POST",
                    body: JSON.stringify(clientRequest)
@@ -202,5 +287,10 @@ class SearchBar extends React.Component {
            console.error(e);
        }
     }
+
+    this.setState({
+        allPairs: pairs,
+        sysFile: file
+    });
 }
 export default SearchBar;
