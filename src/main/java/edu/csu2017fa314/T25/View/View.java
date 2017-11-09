@@ -37,7 +37,7 @@ public class View {
    }
 
    public void readSVG() throws IOException{
-      Scanner scanner = new Scanner(new File("web/world.svg"));
+      Scanner scanner = new Scanner(new File("world.svg"));
 	  outputSVG = "";
       while(scanner.hasNextLine()) {
          String line = scanner.nextLine();
