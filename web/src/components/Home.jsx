@@ -6,9 +6,9 @@ class Home extends React.Component {
     render() {
         return <div className="home-container">
             <div className="inner">
-                <Header />
+                <Head />
                 <Results />
             </div>
         </div>
     }
-}export default Home
+}export default Home;
