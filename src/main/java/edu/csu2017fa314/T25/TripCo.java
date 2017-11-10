@@ -30,7 +30,8 @@ public class TripCo {
         }
 		*/
 		boolean isTest = false;
-		if (args.length > 1 && args[args.length-1] == "test") {
+
+		if (args.length > 0 && args[args.length-1].equals("test")) {
 			isTest = true;
 		}
 

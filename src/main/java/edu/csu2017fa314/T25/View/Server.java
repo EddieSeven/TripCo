@@ -28,20 +28,18 @@ public class Server {
 	public Server(DatabaseDriver dbd) {
 		g = new Gson();
 		dbDriver = dbd;
-
-		updateSVG = false;
 		
 		svg = v.getSVG();
 		latestItinerary = null;
 	}
 
 	public void serve() {
-		//port(2525);
+		port(2526);
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
 	public void serveTest() {
-		//port(2525);
+		port(2526);
 		post("/search", this::serveSearchTest, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
@@ -49,38 +47,6 @@ public class Server {
 	public String getSvg(){
 	    return svg;
     }
-
-//    private Object serveSampleSvg() {
-//        Gson gson = new Gson();
-//        // Instead of writing the SVG to a file, we send it in plaintext back to the client to be rendered inline
-//        String sampleSvg =
-//                "<svg width=\"120\" height=\"100\" xmlns=\"http://www.w3.org/2000/svg\">" +
-//                        "  <line id=\"north\" y2=\"100\" x2=\"120\" y1=\"0\" x1=\"0\" stroke-width=\"5\" stroke=\"red\"/>" +
-//                        "  <line id=\"west\" y2=\"100\" x2=\"0\" y1=\"0\" x1=\"120\" stroke-width=\"5\" stroke=\"blue\"/>" +
-//                        " </svg>";
-//        ServerResponse ssres = new ServerSvgResponse(120, 100, sampleSvg);
-//
-//        return gson.toJson(ssres, ServerSvgResponse.class);
-//    }
-
-//	private Object serveSVG(Request rec, Response resp) {
-//        Gson gson = new Gson();
-//		if (updateSVG) {
-//			try {
-//				System.out.println("Appending path to SVG: " + latestItinerary);
-//				svg = v.insertSVG(latestItinerary);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			updateSVG = false;
-//		}
-//
-//		//return svg;
-//        ServerSvgResponse ssres = new ServerSvgResponse(120, 100, svg);
-//
-//        return gson.toJson(ssres, ServerSvgResponse.class);
-//	}
-
 
 	// This is meant for testing to avoid having to connect to the database
 	private Object serveSearchTest(Request rec, Response resp) {
@@ -121,11 +87,13 @@ public class Server {
 		NearestNeighbor algorithm = new NearestNeighbor(points, points.length, sq.getMiles());
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
 
-		updateSVG = true;
-		latestItinerary = legs;
-
 		// Get itinerary from database
-		return g.toJson(legs, ArrayList.class);
+		if (sq.getRequest().equals("select")) {
+			return g.toJson(new ServerResponse(points), ServerResponse.class);
+		}
+		else {
+			return g.toJson(new ServerResponse(legs, "populated", 120, 100), ServerResponse.class); 
+		}
 	}
 
 	private Object serveSearch(Request rec, Response resp) {
@@ -137,32 +105,38 @@ public class Server {
 		ServerRequest sq = g.fromJson(je, ServerRequest.class);
 		System.out.println("Querying for " + sq.getDescription());
 
-		Result result = dbDriver.queryPage(sq.getDescription());
-
-		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, sq.getMiles());
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
-
-		updateSVG = true;
-		latestItinerary = legs;
-
-		if (updateSVG) {
-			try {
-				System.out.println("Appending path to SVG: " + latestItinerary);
-				svg = v.insertSVG(latestItinerary);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			updateSVG = false;
+		ServerResponse sres = null;
+		String reqType = sq.getRequest();
+		if (reqType.equals("select")) {
+			sres = handleSelectionQuery(sq);
 		}
-//	Gson gson = new Gson();
-//		//return svg;
-        ServerResponse ssres = new ServerResponse(legs, svg, 120, 100);
+		else {
+			sres = handleSelectionQuery(sq);
+		}
 
-        return g.toJson(ssres, ServerResponse.class);
+		return g.toJson(sres, ServerResponse.class);
 
-		// Get itinerary from database
-		//return g.toJson(legs, ArrayList.class);
+	}
 
+	private ServerResponse handleItineraryQuery(ServerRequest sreq) {
+		Result result = dbDriver.queryAlgorithm(sreq.getIDList());
+
+		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, sreq.getMiles());
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sreq.getOptimization()).getLegs();
+
+		try {
+			System.out.println("Appending path to SVG: " + latestItinerary);
+			svg = v.insertSVG(latestItinerary);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ServerResponse(legs, svg, 120, 100);
+	}	
+
+	private ServerResponse handleSelectionQuery(ServerRequest sreq) {
+		Result result = dbDriver.queryPage(sreq.getDescription());
+		return new ServerResponse(result.points);
 	}
 
 	private void setHeaders(Response resp) {
