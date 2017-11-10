@@ -1,26 +1,16 @@
 import React, {Component} from 'react';
-import SearchBar from '../Home/SearchBar/SearchBar.jsx';
-{/* import Dropzone from 'react-dropzone'
-setInterval(function() {
-    var myImageElement = document.getElementById('myImage');
-    myImageElement.src = 'output.svg?rand=' + Math.random();
-}, 5000); */}
+import Head from './Header/Head.jsx';
+import Results from './Results/Results.jsx';
+
 class Home extends React.Component {
-	 /* constructor(props) {
-		super(props);
-		this.handleInputChange=this.handleInputChange.bind(this);
-	} */
     render() {
         return <div className="home-container">
             <div className="inner">
-                <div className="header">
-                    <div className="spacer"> </div>
-                    <img src="images/tripco-logo-color-small.png" />
-                </div>
-
-                <SearchBar />
-
+                <h1>Anything!!!!</h1>
+                <img src="images/tripco-logo-color-small.png" />
+                <Head />
+                <Results />
             </div>
         </div>
     }
-}export default Home
+}export default Home;
