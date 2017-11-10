@@ -50,38 +50,6 @@ public class Server {
 	    return svg;
     }
 
-//    private Object serveSampleSvg() {
-//        Gson gson = new Gson();
-//        // Instead of writing the SVG to a file, we send it in plaintext back to the client to be rendered inline
-//        String sampleSvg =
-//                "<svg width=\"120\" height=\"100\" xmlns=\"http://www.w3.org/2000/svg\">" +
-//                        "  <line id=\"north\" y2=\"100\" x2=\"120\" y1=\"0\" x1=\"0\" stroke-width=\"5\" stroke=\"red\"/>" +
-//                        "  <line id=\"west\" y2=\"100\" x2=\"0\" y1=\"0\" x1=\"120\" stroke-width=\"5\" stroke=\"blue\"/>" +
-//                        " </svg>";
-//        ServerResponse ssres = new ServerSvgResponse(120, 100, sampleSvg);
-//
-//        return gson.toJson(ssres, ServerSvgResponse.class);
-//    }
-
-//	private Object serveSVG(Request rec, Response resp) {
-//        Gson gson = new Gson();
-//		if (updateSVG) {
-//			try {
-//				System.out.println("Appending path to SVG: " + latestItinerary);
-//				svg = v.insertSVG(latestItinerary);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			updateSVG = false;
-//		}
-//
-//		//return svg;
-//        ServerSvgResponse ssres = new ServerSvgResponse(120, 100, svg);
-//
-//        return gson.toJson(ssres, ServerSvgResponse.class);
-//	}
-
-
 	// This is meant for testing to avoid having to connect to the database
 	private Object serveSearchTest(Request rec, Response resp) {
 		setHeaders(resp);
@@ -124,7 +92,6 @@ public class Server {
 		updateSVG = true;
 		latestItinerary = legs;
 
-		// Get itinerary from database
 		return g.toJson(legs, ArrayList.class);
 	}
 
@@ -154,15 +121,10 @@ public class Server {
 			}
 			updateSVG = false;
 		}
-//	Gson gson = new Gson();
-//		//return svg;
+
         ServerResponse ssres = new ServerResponse(legs, svg, 120, 100);
 
         return g.toJson(ssres, ServerResponse.class);
-
-		// Get itinerary from database
-		//return g.toJson(legs, ArrayList.class);
-
 	}
 
 	private void setHeaders(Response resp) {
