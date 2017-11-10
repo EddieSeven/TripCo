@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Header from './Header.Header.jsx';
+import Header from './Header.Head.jsx';
 import Results from './Results/Results.jsx';
 
 class Home extends React.Component {
