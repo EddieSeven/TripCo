@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import InlineSVG from 'svg-inline-react';
 
 
-class SearchBar extends React.Component {
+class Search extends React.Component {
     render() {
         return  (
             <div className = "searchbox">
@@ -21,4 +21,4 @@ class SearchBar extends React.Component {
         );
     }
 }
-export default SearchBar;
+export default Search;
