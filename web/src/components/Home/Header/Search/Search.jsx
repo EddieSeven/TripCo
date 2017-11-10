@@ -15,7 +15,7 @@ class Search extends React.Component {
                       size="70"
                       placeholder="Search destinations..."
                     />
-                    <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
+                    <button type="submit" onClick={this.props.submitFunc}>Search</button>
                 </form>
             </div>
         );

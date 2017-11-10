@@ -145,7 +145,7 @@ class Head extends React.Component {
                     <img src="../../images/tripco-logo-color-small.png" />
                 </div>
 
-                <Search />
+                <Search submitFunc={this.onSubmit.bind(this)}/>
 
                 <div className="buttons-container">
                     <ul>

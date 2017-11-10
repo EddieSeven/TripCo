@@ -16,7 +16,7 @@ class LoadsaveDropzone extends React.Component {
 
         return  (
         <span>
-            <Dropzone className="dropzone-style" onDrop={this.uploadButtonClicked.bind(this)}>
+            <Dropzone className="dropzone-style" onDrop={this.drop.bind(this)}>
                 <button type="button" >Upload a location file</button>
             </Dropzone>
         </span>
