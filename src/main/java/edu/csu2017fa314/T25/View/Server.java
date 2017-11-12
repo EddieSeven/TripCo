@@ -87,6 +87,7 @@ public class Server {
 		NearestNeighbor algorithm = new NearestNeighbor(points, points.length, sq.getMiles());
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
 
+
 		// Get itinerary from database
 		if (sq.getRequest().equals("select")) {
 			return g.toJson(new ServerResponse(points), ServerResponse.class);
@@ -115,7 +116,6 @@ public class Server {
 		}
 
 		return g.toJson(sres, ServerResponse.class);
-
 	}
 
 	private ServerResponse handleItineraryQuery(ServerRequest sreq) {

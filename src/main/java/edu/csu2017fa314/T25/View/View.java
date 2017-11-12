@@ -25,17 +25,6 @@ public class View {
       return totalDistance;
    }
 
-
-   public void writeJSON(ArrayList<TripLeg> computedDistances) throws IOException {
-      Gson gsonObj = new Gson();
-
-      FileWriter writer = new FileWriter("itinerary.json");
-      gsonObj.toJson(computedDistances, writer);
-      writer.flush();
-      writer.close();
-
-   }
-
    public void readSVG() throws IOException{
       Scanner scanner = new Scanner(new File("world.svg"));
 	  outputSVG = "";
