@@ -12,10 +12,10 @@ class Search extends React.Component {
                       ref={(c) => this.query = c}
                       type="search"
                       name="destination-search"
-                      size="70"
+                      size="45"
                       placeholder="Search destinations..."
                     />
-                    <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
+                    <button type="submit" onClick={this.props.submitFunc}>Search</button>
                 </form>
             </div>
         );
