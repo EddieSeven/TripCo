@@ -6,7 +6,6 @@ import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 class Head extends React.Component {
     constructor(props){
             super(props);
-            this.handleData = this.handleData.bind(this);
             this.state = {
                 searchQuery: '',
                 queryResults: [],
@@ -18,19 +17,17 @@ class Head extends React.Component {
     }
 
     handleData(data){
-        this.setState({
+        /*this.setState({
             searchQuery: data
-        });
+        });*/
         console.log("Test 1 " + data);
         this.onSubmit(data);
     }
 
-    onSubmit(searchQuery) {
-        // e.preventDefault();
-        var query = getSearchQuery();
+    onSubmit(e) {
         console.log("Searched for:");
-        console.log(query);
-        this.fetch("queryA", query);
+        console.log(e);
+        this.fetch("queryA", e);
     }
 
     onSave(e){
@@ -40,12 +37,6 @@ class Head extends React.Component {
     }
 
     onRemoveAll(){
-    }
-
-    getQuery(searchQuery) {
-        console.log("This shit don't work dog!");
-        console.log(searchQuery);
-        // this.onSubmit.bind(searchQuery);
     }
 
     render() {
@@ -62,8 +53,6 @@ class Head extends React.Component {
         if (this.state.queryResults) { // if this.state.serverReturned is not null
             // set local variable to results of sent query
             serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
 
             // console.log(serverLocations);
 
@@ -75,7 +64,6 @@ class Head extends React.Component {
             */
 
             locs = serverLocations.map((location) => {
-                console.log(location.start.name);
                     return <li key={location.start.id}>
                         <table className="results-table">
                         <thead>
@@ -140,11 +128,6 @@ class Head extends React.Component {
                 svg = this.state.svgResults;
                 renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
             }
-            console.log(svg);
-            console.log(renderedSvg);
-            console.log(this.state.svgResults);
-            console.log("Map created.");
-
 
             // Send locs to QueryResults.jsx
         }
@@ -156,7 +139,7 @@ class Head extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-                <Search handlerFromParent={this.handleData}/>
+                <Search handlerFromParent={this.handleData.bind(this)}/>
 
                 <div className="buttons-container">
                     <span className="buttons">

@@ -29,6 +29,10 @@ class Search extends React.Component {
         console.log("Stuff called");
     }
 
+	handleSubmit(event) {
+		this.props.handlerFromParent(this.state.searchQuery);
+	}
+
     render() {
         return  (
             <div className = "searchbox">
@@ -43,7 +47,7 @@ class Search extends React.Component {
                       placeholder="Search destinations..."
                       onChange={this.handleChange}
                     />
-                    <button type="submit" onClick={this.handleChange.bind(this)}>Search</button>
+                    <button type="submit" onClick={this.handleSubmit.bind(this)}>Search</button>
                 </form>
             </div>
         );
