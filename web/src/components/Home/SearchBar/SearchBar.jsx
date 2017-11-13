@@ -137,7 +137,7 @@ class SearchBar extends React.Component {
         }
 
 
-        return  (
+        return
         <div className="header-wrapper">
             <span className="header">
                 <div className="logo">
@@ -209,8 +209,7 @@ class SearchBar extends React.Component {
                     <Itinerary />
                 </div>
             </div>
-        </div>
-        );
+        </div>;
     }
 
     async browseFile(file) {

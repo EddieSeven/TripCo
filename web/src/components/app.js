@@ -1,7 +1,5 @@
 import React from 'react';
 import Home from './Home/Home.jsx';
-import Table from './Home/Table/Table.jsx';
-import Pair from './Home/Pair/Pair.jsx';
 // import InlineSVG from 'svg-inline-react';
 
 
@@ -9,7 +7,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-			serverReturned: null
+		serverReturned: null
         }
     };
 
@@ -32,7 +30,6 @@ export default class App extends React.Component {
 
         return (
             <div className="app-container">
-                <div className="svg-container">{this.state.svgString}</div>
                 <Home />
             </div>
         )

@@ -6,24 +6,31 @@ import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 class Head extends React.Component {
     constructor(props){
             super(props);
+            this.handleData = this.handleData.bind(this);
             this.state = {
+                searchQuery: '',
                 queryResults: [],
                 svgResults: "",
                 input: "",
                 allPairs: [],
                 sysFile: []
-            }
-        };
+            };
+    }
 
-    onSubmit(e) {
-        e.preventDefault();
-        var query = this.query.value;
-        // var image = this.svg;
+    handleData(data){
+        this.setState({
+            searchQuery: data
+        });
+        console.log("Test 1 " + data);
+        this.onSubmit(data);
+    }
+
+    onSubmit(searchQuery) {
+        // e.preventDefault();
+        var query = getSearchQuery();
         console.log("Searched for:");
         console.log(query);
-        // console.log(image);
         this.fetch("queryA", query);
-        // this.fetch("svg", image);
     }
 
     onSave(e){
@@ -33,6 +40,12 @@ class Head extends React.Component {
     }
 
     onRemoveAll(){
+    }
+
+    getQuery(searchQuery) {
+        console.log("This shit don't work dog!");
+        console.log(searchQuery);
+        // this.onSubmit.bind(searchQuery);
     }
 
     render() {
@@ -138,43 +151,46 @@ class Head extends React.Component {
 
         return (
         <div className="header-wrapper">
-        <h1>Anything!!</h1>
-            <span className="header">
+            <div className="header">
                 <div className="logo">
-                    <div className="spacer"></div>
-                    <img src="../../images/tripco-logo-color-small.png" />
+                    <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-                <Search />
+                <Search handlerFromParent={this.handleData}/>
 
                 <div className="buttons-container">
-                    <ul>
-                        <li>
-                            <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
-                        </li>
-                        <li>
-                            <LoadsaveDropzone
-                                browseFile={this.browseFile.bind(this)}
-                                pairs = {ps}
-                            />
-                        </li>
-                        <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
-                        <li><button type="submit" onClick={this.onRemoveAll()}>Delete</button></li>
-                    </ul>
-                    <span>
-                        <table>
-                            <tr>
-                                <form>
+                    <span className="buttons">
+                        <ul>
+                            <li>
+                                <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
+                            </li>
+                            <li>
+                                <LoadsaveDropzone
+                                    browseFile={this.browseFile.bind(this)}
+                                    pairs = {ps}
+                                />
+                            </li>
+                            <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
+                            <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
+                        </ul>
+                    </span>
+                    <span className="toggle">
+                        <form>
+                            <table>
+                                <tr>
                                     <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
+                                </tr>
+                                <tr>
                                     <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
-                                </form>
-                            </tr>
-                        </table>
+
+                                </tr>
+                            </table>
+                        </form>
                     </span>
                 </div>
-            </span>
+            </div>
 
-            <span className="svg-container">{renderedSvg}</span>
+            <div className="svg-container"><img src="../images/world.svg" />{renderedSvg}</div>
 
         </div>
         );
