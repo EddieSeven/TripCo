@@ -36,7 +36,7 @@ public class Server {
 	}
 
 	public void serve() {
-		//port(2525);
+		port(2526);
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
