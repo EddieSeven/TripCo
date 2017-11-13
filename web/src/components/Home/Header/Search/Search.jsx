@@ -30,6 +30,7 @@ class Search extends React.Component {
     }
 
 	handleSubmit(event) {
+		console.log("handle submit for seach=", this.state.searchQuery)
 		this.props.handlerFromParent(this.state.searchQuery);
 	}
 

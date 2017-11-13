@@ -27,6 +27,8 @@ public class Server {
 
 	public Server(DatabaseDriver dbd) {
 		g = new Gson();
+        port(2530);
+
 		dbDriver = dbd;
 
 		updateSVG = false;
@@ -36,7 +38,6 @@ public class Server {
 	}
 
 	public void serve() {
-		//port(2525);
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
@@ -50,36 +51,6 @@ public class Server {
 	    return svg;
     }
 
-//    private Object serveSampleSvg() {
-//        Gson gson = new Gson();
-//        // Instead of writing the SVG to a file, we send it in plaintext back to the client to be rendered inline
-//        String sampleSvg =
-//                "<svg width=\"120\" height=\"100\" xmlns=\"http://www.w3.org/2000/svg\">" +
-//                        "  <line id=\"north\" y2=\"100\" x2=\"120\" y1=\"0\" x1=\"0\" stroke-width=\"5\" stroke=\"red\"/>" +
-//                        "  <line id=\"west\" y2=\"100\" x2=\"0\" y1=\"0\" x1=\"120\" stroke-width=\"5\" stroke=\"blue\"/>" +
-//                        " </svg>";
-//        ServerResponse ssres = new ServerSvgResponse(120, 100, sampleSvg);
-//
-//        return gson.toJson(ssres, ServerSvgResponse.class);
-//    }
-
-//	private Object serveSVG(Request rec, Response resp) {
-//        Gson gson = new Gson();
-//		if (updateSVG) {
-//			try {
-//				System.out.println("Appending path to SVG: " + latestItinerary);
-//				svg = v.insertSVG(latestItinerary);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			updateSVG = false;
-//		}
-//
-//		//return svg;
-//        ServerSvgResponse ssres = new ServerSvgResponse(120, 100, svg);
-//
-//        return gson.toJson(ssres, ServerSvgResponse.class);
-//	}
 
 
 	// This is meant for testing to avoid having to connect to the database
@@ -129,12 +100,18 @@ public class Server {
 	}
 
 	private Object serveSearch(Request rec, Response resp) {
+				System.out.println("******************"); // [debug]
+
 		setHeaders(resp);
+		
 		
 		JsonParser jp = new JsonParser();
 		JsonElement je = jp.parse(rec.body());
+
 	
 		ServerRequest sq = g.fromJson(je, ServerRequest.class);
+		System.out.println(sq); // [debug]
+		
 		System.out.println("Querying for " + sq.getDescription());
 
 		Result result = dbDriver.queryPage(sq.getDescription());

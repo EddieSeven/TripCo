@@ -14,14 +14,16 @@ class Head extends React.Component {
                 allPairs: [],
                 sysFile: []
             };
+            this.handleData = this.handleData.bind(this);
+            this.onSubmit = this.onSubmit.bind(this);
     }
 
     handleData(data){
         /*this.setState({
             searchQuery: data
         });*/
-        console.log("Test 1 " + data);
-        this.onSubmit(data);
+        console.log("Test 1 " + this.state.searchQuery);
+        this.onSubmit(this.state.searchQuery);
     }
 
     onSubmit(e) {
@@ -38,12 +40,20 @@ class Head extends React.Component {
 
     onRemoveAll(){
     }
-
+	
+	collectSearchString(event){
+		console.log(event.target.value);
+		this.setState({
+            searchQuery: event.target.value
+        });
+			
+	}
+    
     render() {
         let serverLocations;
         let locs;
         // TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2526/svg";
+        let svg = "http://localhost:2530/svg";
         let renderedSvg;
         let pairs = this.state.allPairs;
         let ps = pairs.map((pp) => {
@@ -140,7 +150,12 @@ class Head extends React.Component {
                 </div>
 
                 <Search handlerFromParent={this.handleData.bind(this)}/>
-
+                
+                
+                <input  type="text" onChange={this.collectSearchString.bind(this)}/>
+				<button onClick={this.handleData.bind(this)}>Simple Submit</button>
+				
+				
                 <div className="buttons-container">
                     <span className="buttons">
                         <ul>
