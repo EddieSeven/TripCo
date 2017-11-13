@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
-import InlineSVG from 'svg-inline-react';
-import LoadsaveDropzone from '../Home/SearchBar/LoadsaveDropzone/LoadsaveDropzone.jsx';
-import QueryResults from '../Home/SearchBar/QueryResults/QueryResults.jsx';
-import Itinerary from '../Home/SearchBar/Itinerary/Itinerary.jsx';
+import Search from './Search/Search.jsx';
+import Results from '../Results/Results.jsx';
+import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 
-
-class SearchBar extends React.Component {
+class Head extends React.Component {
     constructor(props){
-        super(props);
-        this.state = {
-            queryResults: [],
-            svgResults: "",
-            input: "",
-            allPairs: [],
-            sysFile: []
+            super(props);
+            this.state = {
+                queryResults: [],
+                svgResults: "",
+                input: "",
+                allPairs: [],
+                sysFile: []
+            }
         };
-    }
+
     onSubmit(e) {
         e.preventDefault();
         var query = this.query.value;
@@ -36,12 +35,10 @@ class SearchBar extends React.Component {
     onRemoveAll(){
     }
 
-
-
     render() {
         let serverLocations;
         let locs;
-		// TODO: Replace localhost with URL of remote server
+        // TODO: Replace localhost with URL of remote server
         let svg = "http://localhost:2526/svg";
         let renderedSvg;
         let pairs = this.state.allPairs;
@@ -134,32 +131,21 @@ class SearchBar extends React.Component {
             console.log(renderedSvg);
             console.log(this.state.svgResults);
             console.log("Map created.");
+
+
+            // Send locs to QueryResults.jsx
         }
 
-
-        return  (
+        return (
         <div className="header-wrapper">
+        <h1>Anything!!</h1>
             <span className="header">
                 <div className="logo">
                     <div className="spacer"></div>
-                    <img src="images/tripco-logo-color-small.png" />
+                    <img src="../../images/tripco-logo-color-small.png" />
                 </div>
 
-                <div className = "searchbox">
-                    <p>What kind of places would you like to visit?</p>
-                    <form>
-                        <input
-                          ref={(c) => this.query = c}
-                          type="search"
-                          name="destination-search"
-                          size="70"
-                          placeholder="Search destinations..."
-                        />
-                        <button type="submit" onClick={this.onSubmit.bind(this)}>Search</button>
-                    </form>
-                </div>
-
-                <SearchBar />
+                <Search />
 
                 <div className="buttons-container">
                     <ul>
@@ -179,8 +165,8 @@ class SearchBar extends React.Component {
                         <table>
                             <tr>
                                 <form>
-                                    <td><label> Miles <input type="radio" name="airport-code" defaultChecked onClick={this.handleInputChange} /></label></td>
-                                    <td><label> Kilometers <input type="radio" name="airport-code" onClick={this.handleInputChange} /></label></td>
+                                    <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
+                                    <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
                                 </form>
                             </tr>
                         </table>
@@ -190,25 +176,6 @@ class SearchBar extends React.Component {
 
             <span className="svg-container">{renderedSvg}</span>
 
-                // <LoadsaveDropzone
-                //     browseFile={this.browseFile.bind(this)}
-                //     pairs = {ps}
-                // />
-
-                //<Dropzone className="dropzone-style" onDrop={this.uploadButtonClicked.bind(this)}>
-                //    <button type="button" >Upload a location list file</button>
-                //</Dropzone>
-
-
-            <div className="results-wrapper">
-                <div className="results-list">
-                //     <ul>{locs}</ul>
-                    <QueryResults />
-                </div>
-                <div className="itinerary-list">
-                    <Itinerary />
-                </div>
-            </div>
         </div>
         );
     }
@@ -250,8 +217,9 @@ class SearchBar extends React.Component {
            // Attempt to send `clientRequest` via a POST request
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
-			//TODO: Replace localhost with name of remote server
-           let jsonReturned = await fetch(`http://localhost:2526/search`,
+            //TODO: Replace localhost with name of remote server
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":4567/search";
+           let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
                    body: JSON.stringify(clientRequest)
@@ -287,10 +255,4 @@ class SearchBar extends React.Component {
            console.error(e);
        }
     }
-
-    this.setState({
-        allPairs: pairs,
-        sysFile: file
-    });
-}
-export default SearchBar;
+}export default Head;
