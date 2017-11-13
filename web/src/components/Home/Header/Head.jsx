@@ -6,24 +6,31 @@ import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 class Head extends React.Component {
     constructor(props){
             super(props);
+            this.handleData = this.handleData.bind(this);
             this.state = {
+                searchQuery: '',
                 queryResults: [],
                 svgResults: "",
                 input: "",
                 allPairs: [],
                 sysFile: []
-            }
-        };
+            };
+    }
 
-    onSubmit(e) {
-        e.preventDefault();
-        var query = this.query.value;
-        // var image = this.svg;
+    handleData(data){
+        this.setState({
+            searchQuery: data
+        });
+        console.log("Test 1 " + data);
+        this.onSubmit(data);
+    }
+
+    onSubmit(searchQuery) {
+        // e.preventDefault();
+        var query = getSearchQuery();
         console.log("Searched for:");
         console.log(query);
-        // console.log(image);
         this.fetch("queryA", query);
-        // this.fetch("svg", image);
     }
 
     onSave(e){
@@ -33,6 +40,12 @@ class Head extends React.Component {
     }
 
     onRemoveAll(){
+    }
+
+    getQuery(searchQuery) {
+        console.log("This shit don't work dog!");
+        console.log(searchQuery);
+        // this.onSubmit.bind(searchQuery);
     }
 
     render() {
@@ -143,7 +156,7 @@ class Head extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-                <Search submitFunc={this.onSubmit.bind(this)}/>
+                <Search handlerFromParent={this.handleData}/>
 
                 <div className="buttons-container">
                     <span className="buttons">
