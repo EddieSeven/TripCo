@@ -7,6 +7,8 @@ class Head extends React.Component {
     constructor(props){
             super(props);
             this.handleData = this.handleData.bind(this);
+            this.onSubmit = this.onSubmit.bind(this);
+            this.fetch = this.fetch.bind(this);
             this.state = {
                 searchQuery: '',
                 queryResults: [],
@@ -18,19 +20,17 @@ class Head extends React.Component {
     }
 
     handleData(data){
-        this.setState({
-            searchQuery: data
-        });
+        //this.setState({
+        //    searchQuery: data
+        //});
         console.log("Test 1 " + data);
         this.onSubmit(data);
     }
 
-    onSubmit(searchQuery) {
-        // e.preventDefault();
-        var query = getSearchQuery();
+    onSubmit(e) {
         console.log("Searched for:");
-        console.log(query);
-        this.fetch("queryA", query);
+        console.log(e);
+        this.fetch("queryA", e);
     }
 
     onSave(e){
@@ -156,9 +156,9 @@ class Head extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-                <form>
-                    <Search handlerFromParent={this.handleData}/>
-                </form>
+
+                <Search handlerFromParent={this.handleData.bind(this)}/>
+
 
                 <div className="buttons-container">
                     <span className="buttons">
@@ -177,17 +177,15 @@ class Head extends React.Component {
                         </ul>
                     </span>
                     <span className="toggle">
-                        <form>
-                            <table>
-                                <tr>
-                                    <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
-                                </tr>
-                                <tr>
-                                    <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
+                        <table>
+                            <tr>
+                                <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
+                            </tr>
+                            <tr>
+                                <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
 
-                                </tr>
-                            </table>
-                        </form>
+                            </tr>
+                        </table>
                     </span>
                 </div>
             </div>
@@ -236,7 +234,7 @@ class Head extends React.Component {
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
             //TODO: Replace localhost with name of remote server
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2526/search";
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
@@ -269,8 +267,8 @@ class Head extends React.Component {
            // Print on console what was returned
            // Update the state so we can see it on the web
        } catch (e) {
-           console.error("Error talking to server");
-           console.error(e);
+           console.log("Error talking to server");
+           // console.error(e);
        }
     }
 }export default Head;

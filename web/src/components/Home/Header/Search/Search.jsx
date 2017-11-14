@@ -17,9 +17,11 @@ class Search extends React.Component {
 
         this.props.handlerFromParent(this.state.searchQuery);
 
-        this.setState({
-            searchQuery: ''
-        });
+        console.log("Submit Handler was reached.");
+
+        //this.setState({
+        //    searchQuery: ''
+        //});
     }
 
     handleChange(event) {
@@ -27,6 +29,7 @@ class Search extends React.Component {
             searchQuery: event.target.value
         });
         console.log("Stuff called");
+        // this.submitHandler(event);
     }
 
     render() {
@@ -42,7 +45,7 @@ class Search extends React.Component {
                       placeholder="Search destinations..."
                       onChange={this.handleChange}
                     />
-                    <button type="submit" onClick={this.handleChange.bind(this)}>Search</button>
+                    <button type="submit" onClick={this.submitHandler.bind(this)}>Search</button>
             </div>
         );
     }
