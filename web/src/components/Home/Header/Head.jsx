@@ -156,7 +156,9 @@ class Head extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-                <Search handlerFromParent={this.handleData}/>
+                <form>
+                    <Search handlerFromParent={this.handleData}/>
+                </form>
 
                 <div className="buttons-container">
                     <span className="buttons">
@@ -234,7 +236,7 @@ class Head extends React.Component {
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
             //TODO: Replace localhost with name of remote server
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":4567/search";
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",

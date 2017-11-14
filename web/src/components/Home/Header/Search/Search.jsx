@@ -33,7 +33,6 @@ class Search extends React.Component {
         return  (
             <div className = "searchbox">
                 <p>What kind of places would you like to visit?</p>
-                <form>
                     <input
                       ref={(c) => this.query = c}
                       value = {this.state.searchQuery}
@@ -44,7 +43,6 @@ class Search extends React.Component {
                       onChange={this.handleChange}
                     />
                     <button type="submit" onClick={this.handleChange.bind(this)}>Search</button>
-                </form>
             </div>
         );
     }
