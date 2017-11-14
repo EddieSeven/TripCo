@@ -236,7 +236,7 @@ class Head extends React.Component {
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
             //TODO: Replace localhost with name of remote server
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2526/search";
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
