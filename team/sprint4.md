@@ -65,7 +65,7 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time | Collaboration on roadblocks that impede sprint progress |  | 
-What we did well | Communication of issues that are causing problems |  | 
+What we will change this time | Collaboration on roadblocks that impede sprint progress | Establish TA hours for group to collabrate together on | 
+What we did well | Communication of issues that are causing problems | Sharing information on discord that is pertinant to the entire group | 
 What we need to work on | Get help earlier before issues snowball |  |
-What we will change next time |  |  | 
+What we will change next time | As a team, asking for help when we need it | Consistent updating and merging to master where possible | 
