@@ -1,31 +1,30 @@
 import React, {Component} from 'react';
 import Search from './Search/Search.jsx';
-import Results from './Results/Results.jsx';
-import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
+import Results from '../Results/Results.jsx';
+import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 
-
-class Home extends React.Component {
+class Head extends React.Component {
     constructor(props){
             super(props);
-            this.handleData = this.handleData.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-            this.fetch = this.fetch.bind(this);
-            this.state = {
-                searchQuery: '',
-                queryResults: [],
-                svgResults: "",
-                input: "",
-                allPairs: [],
-                sysFile: []
-            };
+            //this.handleData = this.handleData.bind(this);
+            //this.onSubmit = this.onSubmit.bind(this);
+            //this.fetch = this.fetch.bind(this);
+            //this.props.state = {
+            //    searchQuery: '',
+            //    queryResults: [],
+            //    svgResults: "",
+            //    input: "",
+            //    allPairs: [],
+            //    sysFile: []
+            //};
     }
 
     handleData(data){
-        //this.setState({
-        //    searchQuery: data
-        //});
         console.log("Test 1 " + data);
-        this.onSubmit(data);
+        this.setState({
+            searchQuery: data
+        });
+        // this.onSubmit(data);
     }
 
     onSubmit(e) {
@@ -43,32 +42,22 @@ class Home extends React.Component {
     onRemoveAll(){
     }
 
+    getQuery(searchQuery) {
+        console.log("This shit don't work dog!");
+        console.log(searchQuery);
+        // this.onSubmit.bind(searchQuery);
+    }
+
     render() {
-        let serverLocations;
-        let locs;
-        // TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2526/svg";
+        let svg;
         let renderedSvg;
-        let pairs = this.state.allPairs;
-        let ps = pairs.map((pp) => {
-            return <Pair {...pp}/>;
-        });
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
-
-            if(this.state.svgResults){
-                svg = this.state.svgResults;
-                renderedSvg = <InlineSVG src={svg}></InlineSVG>;
-            }
-            console.log(svg);
-            console.log(renderedSvg);
-            console.log(this.state.svgResults);
-            console.log("Map created.");
-
-
-            // Send locs to QueryResults.jsx
+        if(this.props.svgResults){
+            svg = this.props.state.svgResults;
+            renderedSvg = <InlineSVG src={svg}></InlineSVG>;
         }
-
+        console.log("hwyyyyy");
+        console.log(this);
         return (
         <div className="header-wrapper">
             <div className="header">
@@ -76,9 +65,7 @@ class Home extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-
-                <Search handlerFromParent={this.handleData.bind(this)}/>
-
+                <Search handlerFromParent={this.props.handlerFromParent.bind(this)}/>
 
                 <div className="buttons-container">
                     <span className="buttons">
@@ -87,10 +74,7 @@ class Home extends React.Component {
                                 <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
                             </li>
                             <li>
-                                <LoadsaveDropzone
-                                    browseFile={this.browseFile.bind(this)}
-                                    pairs = {ps}
-                                />
+                                <button type="submit" onClick={this.onSave.bind(this)}>Load</button>
                             </li>
                             <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
                             <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
@@ -110,10 +94,7 @@ class Home extends React.Component {
                 </div>
             </div>
 
-            <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
-
-
-            <Results sLocs={this.state.queryResults} />
+            <div className="svg-container"><img src="../images/world.svg" />{this.renderedSvg}</div>
 
         </div>
         );
@@ -169,7 +150,7 @@ class Home extends React.Component {
            let returnedJson = JSON.parse(ret);
 
            // Log the received JSON to the browser console
-           console.log("Got back ", returnedJson);
+           console.log("Got back ", ret);
 
            // if the response field of the returned json is "queryA", that means the server responded to the SQL query request
            if (clientRequest.request === "queryA") {
@@ -177,10 +158,21 @@ class Home extends React.Component {
                    queryResults: returnedJson.locations,
                    svgResults: returnedJson.svg
                });
-            }
-            console.log(this.state.queryResults);
+
+           // if it's not, we assume the response field is "svg" and contains the an svg image
+           } else {
+              this.setState({
+                  svgResults: JSON.parse(ret)
+              })
+           }
+
+           console.log(returnedJson);
+
+           // Print on console what was returned
+           // Update the state so we can see it on the web
        } catch (e) {
            console.log("Error talking to server");
+           // console.error(e);
        }
     }
-}export default Home;
+}export default Head;

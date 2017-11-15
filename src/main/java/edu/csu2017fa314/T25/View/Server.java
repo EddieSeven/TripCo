@@ -34,7 +34,8 @@ public class Server {
 	}
 
 	public void serve() {
-		port(2526);
+		port(2530);
+
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
@@ -120,6 +121,7 @@ public class Server {
 
 	private ServerResponse handleItineraryQuery(ServerRequest sreq) {
 		Result result = dbDriver.queryAlgorithm(sreq.getIDList());
+
 
 		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, sreq.getMiles());
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sreq.getOptimization()).getLegs();
