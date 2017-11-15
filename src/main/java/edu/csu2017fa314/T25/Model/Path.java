@@ -8,14 +8,25 @@ public class Path {
     private int index = 0;
     private int N;
 
+	private static boolean miles = true;
+
     public Path(int N) {
         this.N = N + 1;
         path = new Point[this.N];
     }
 
+	public Path(Point [] path, int N) {
+		this.N = N + 1;
+		this.path = path;
+	}
+
     public Path() {
         totalCost = Integer.MAX_VALUE;
     }
+
+	public static void setMiles(boolean m) {
+		miles = m;
+	}
 
     public int getCost() {
 		if (totalCost == Integer.MAX_VALUE) {
@@ -23,7 +34,7 @@ public class Path {
 		}
 		int tCost = 0;
 		for (int i = 0; i < path.length - 1; i++) {
-			tCost += NearestNeighbor.computeDistance(path[i], path[i+1], true);
+			tCost += NearestNeighbor.computeDistance(path[i], path[i+1], miles);
 		}
 		return tCost;
     }
@@ -37,7 +48,7 @@ public class Path {
 		int tCost = 0;
 		//printPath();
 		for (int i = 0; i < path.length - 1; i++) {
-			tCost = NearestNeighbor.computeDistance(path[i], path[i+1], true);
+			tCost = NearestNeighbor.computeDistance(path[i], path[i+1], miles);
 			legs.add(new TripLeg(path[i], path[i+1], tCost));
 		}
 		return legs;
@@ -72,7 +83,7 @@ public class Path {
 
     public void returnHome() {
         // todo hardcoded miles
-        int distance = NearestNeighbor.computeDistance(path[0], path[N - 2], true);
+        int distance = NearestNeighbor.computeDistance(path[0], path[N - 2], miles);
 		add(path[0], distance);
     }
 

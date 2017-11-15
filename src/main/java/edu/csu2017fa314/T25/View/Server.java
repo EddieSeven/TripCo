@@ -28,8 +28,6 @@ public class Server {
 	public Server(DatabaseDriver dbd) {
 		g = new Gson();
 		dbDriver = dbd;
-
-		updateSVG = false;
 		
 		svg = v.getSVG();
 		latestItinerary = null;
@@ -37,6 +35,7 @@ public class Server {
 
 	public void serve() {
 		port(2530);
+
 		post("/search", this::serveSearch, g::toJson);
 		// get("/svg", this::serveSVG);
 	}
@@ -49,7 +48,6 @@ public class Server {
 	public String getSvg(){
 	    return svg;
     }
-
 
 	// This is meant for testing to avoid having to connect to the database
 	private Object serveSearchTest(Request rec, Response resp) {
@@ -87,14 +85,17 @@ public class Server {
 		attributes[4] = "-105.431";
 		points[2] = new Point(attributes);
 
-		NearestNeighbor algorithm = new NearestNeighbor(points, points.length);
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
+		NearestNeighbor algorithm = new NearestNeighbor(points, points.length, sq.getMiles());
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
 
-		updateSVG = true;
-		latestItinerary = legs;
 
 		// Get itinerary from database
-		return g.toJson(legs, ArrayList.class);
+		if (sq.getRequest().equals("select")) {
+			return g.toJson(new ServerResponse(points), ServerResponse.class);
+		}
+		else {
+			return g.toJson(new ServerResponse(legs, "populated", 120, 100), ServerResponse.class); 
+		}
 	}
 
 	private Object serveSearch(Request rec, Response resp) {
@@ -106,17 +107,38 @@ public class Server {
 		ServerRequest sq = g.fromJson(je, ServerRequest.class);
 		System.out.println("Querying for " + sq.getDescription());
 
-		Result result = dbDriver.queryPage(sq.getDescription());
+		ServerResponse sres = null;
+		String reqType = sq.getRequest();
+		if (reqType.equals("select")) {
+			sres = handleSelectionQuery(sq);
+		}
+		else {
+			sres = handleSelectionQuery(sq);
+		}
 
-		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size);
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath().getLegs();
+		return g.toJson(sres, ServerResponse.class);
+	}
 
-		updateSVG = true;
-		latestItinerary = legs;
+	private ServerResponse handleItineraryQuery(ServerRequest sreq) {
+		Result result = dbDriver.queryAlgorithm(sreq.getIDList());
 
-		// Get itinerary from database
-		return g.toJson(legs, ArrayList.class);
 
+		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, sreq.getMiles());
+		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sreq.getOptimization()).getLegs();
+
+		try {
+			System.out.println("Appending path to SVG: " + latestItinerary);
+			svg = v.insertSVG(latestItinerary);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ServerResponse(legs, svg, 120, 100);
+	}	
+
+	private ServerResponse handleSelectionQuery(ServerRequest sreq) {
+		Result result = dbDriver.queryPage(sreq.getDescription());
+		return new ServerResponse(result.points);
 	}
 
 	private void setHeaders(Response resp) {
@@ -125,11 +147,5 @@ public class Server {
 		resp.header("Access-Control-Allow-Origin", "*");
 		resp.header("Access-Control-Allow-Headers", "*");
 	}
-
-	private void setImageHeaders(Response resp) {
-		resp.header("Content-Type", "image/svg+xml");
-		
-		resp.header("Access-Control-Allow-Origin", "*");
-		resp.header("Access-Control-Allow-Headers", "*");
-	}
+	
 }

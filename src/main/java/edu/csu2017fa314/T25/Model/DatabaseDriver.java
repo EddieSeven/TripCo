@@ -15,6 +15,8 @@ public class DatabaseDriver {
     private Connection connection;
     private Statement statement;
 
+    public DatabaseDriver(){}
+
     public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
@@ -42,7 +44,7 @@ public class DatabaseDriver {
             total = getTotal(searchString);
             String query = formPageQuery(searchString);
             ResultSet resultSet = statement.executeQuery(query);
-            points = constructPageResult(resultSet, total);
+            points = constructResult(resultSet, total);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,28 +81,6 @@ public class DatabaseDriver {
         return select + from + where + orderBy + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-    private Point[] constructPageResult(ResultSet resultSet, int total) throws SQLException {
-        Point points[] = new Point[total];
-
-        int counter = 0;
-        while (resultSet.next() && counter < total) {
-            String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
-            attributes[0] = resultSet.getString("airports.code");
-            attributes[1] = resultSet.getString("airports.type");
-            attributes[2] = resultSet.getString("airports.name");
-            attributes[3] = resultSet.getString("latitude");
-            attributes[4] = resultSet.getString("longitude");
-            attributes[6] = resultSet.getString("municipality");
-            attributes[7] = resultSet.getString("countries.name");
-            attributes[8] = resultSet.getString("regions.name");
-
-            Point newPoint = new Point(attributes);
-            points[counter] = newPoint;
-            counter++;
-        }
-
-        return points;
-    }
 
     public Result queryAlgorithm(ArrayList<String> id) {
         String idList = toList(id);
@@ -111,7 +91,7 @@ public class DatabaseDriver {
         try {
             if (idList != null) {
                 ResultSet resultSet = statement.executeQuery(query);
-                points = constructAlgorithmResult(resultSet, id.size());
+                points = constructResult(resultSet, id.size());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -133,7 +113,7 @@ public class DatabaseDriver {
         return select + from + where + " LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-    private Point[] constructAlgorithmResult(ResultSet resultSet, int total) throws SQLException {
+    private Point[] constructResult(ResultSet resultSet, int total) throws SQLException {
         Point points[] = new Point[total];
 
         int counter = 0;

@@ -24,7 +24,7 @@ public class TestNearestNeighbor {
         points[4] = e;
 
 
-        testNN = new NearestNeighbor(points, 5);
+        testNN = new NearestNeighbor(points, 5, true);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class TestNearestNeighbor {
         Point e = new Point(35.131388, -119.181944, "e");
 
         Path expectedPath = new Path(5);
-        Path actualPath = testNN.computePath(1);
+        Path actualPath = testNN.computeNNPath(1);
         expectedPath.addPoint(b);
         expectedPath.addPoint(a);
         expectedPath.addPoint(e);
@@ -85,7 +85,7 @@ public class TestNearestNeighbor {
     @Test
     public void testComputePath2() {
         Path expectedPath = new Path(5);
-        Path actualPath = testNN.computePath(3);
+        Path actualPath = testNN.computeNNPath(3);
 
         Point a = new Point(37.34247, -108.58625, "a");
         Point b = new Point(40.57191, -105.121777, "b");
@@ -148,7 +148,13 @@ public class TestNearestNeighbor {
         assertEquals(3, NearestNeighbor.computeDistance(c1, c2, true));
     }
 
-
+    @Test
+    public void testTripLeg(){
+        Point c1 = new Point(37.34913889, 108.5964722, "a");
+        Point c2 = new Point(37.35302778, 108.5490278, "b");
+        TripLeg tripLeg = new TripLeg(c1, c2, NearestNeighbor.computeDistance(c1, c2, true));
+        assertEquals(3, tripLeg.distance);
+    }
 
 	@Test
 	public void test2Opt() {
@@ -157,7 +163,7 @@ public class TestNearestNeighbor {
 		Point c = new Point(1.0, 1.0, "c");
 		Point d = new Point(1.0, 0.0, "d");
 		Point [] pts = {a, b, c, d};
-		NearestNeighbor nn = new NearestNeighbor(pts, 4);
+		NearestNeighbor nn = new NearestNeighbor(pts, 4, true);
 		Path test = new Path(4);
 
 		test.addPoint(a);

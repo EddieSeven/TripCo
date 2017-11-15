@@ -7,14 +7,17 @@ public class NearestNeighbor {
     private int N;
     private Point points[];
     private int distanceMatrix[][];
+	private boolean miles;
 
-    public NearestNeighbor(Point points[], int N) {
+    public NearestNeighbor(Point points[], int N, boolean miles) {
         this.N = N;
         this.points = points;
 		for (int i = 0; i < N; i++) {
 			this.points[i].setIndex(i);
 		}
         distanceMatrix = new int[N][N];
+		this.miles = miles;
+		Path.setMiles(miles);
     }
 
     public Point[] getPoints() {
@@ -39,13 +42,23 @@ public class NearestNeighbor {
         return indexLowest;
     }
 
-    public Path computeShortestPath() {
+    public Path computeShortestPath(int optimization) {
+		if (optimization == 0) {
+			return computeNonOptPath();
+		}
         Path shortestPath = new Path();
         Path current;
 
         for (int i = 0; i < N; i++) {
-            current = computePath(i);
-            twoOpt(current);
+            current = computeNNPath(i);
+			switch (optimization) {
+				case 2:
+					twoOpt(current);
+					break;
+				case 3:
+					//3opt
+					break;
+			}
             if (current.getCost() < shortestPath.getCost()) {
                 shortestPath = current;
             }
@@ -54,7 +67,11 @@ public class NearestNeighbor {
         return shortestPath;
     }
 
-    public Path computePath(int startIndex) {
+	public Path computeNonOptPath() {
+		return new Path(points, N);
+	}
+
+    public Path computeNNPath(int startIndex) {
         Path path = new Path(N);
         boolean visited[] = new boolean[N]; // All entries default to false
 
@@ -82,7 +99,7 @@ public class NearestNeighbor {
         else if (distanceMatrix[i][j] != 0) // assumed to be zero if it hasn't been calculated yet
             return distanceMatrix[i][j];
         else {
-            distanceMatrix[i][j] = computeDistance(pi, pj, true);
+            distanceMatrix[i][j] = computeDistance(pi, pj, miles);
             return distanceMatrix[i][j];
         }
     }
