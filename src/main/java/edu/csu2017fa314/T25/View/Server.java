@@ -113,7 +113,7 @@ public class Server {
 			sres = handleSelectionQuery(sq);
 		}
 		else {
-			sres = handleSelectionQuery(sq);
+			sres = handleItineraryQuery(sq);
 		}
 
 		return g.toJson(sres, ServerResponse.class);
