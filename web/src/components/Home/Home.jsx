@@ -188,7 +188,7 @@ class Home extends React.Component {
             <div className="svg-container"><img src="../images/world.svg" />{renderedSvg}</div>
 
 
-            <Results sLocs={this.serverLocations} />
+            <Results sLocs={this.state.queryResults} />
 
         </div>
         );
