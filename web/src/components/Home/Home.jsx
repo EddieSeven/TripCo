@@ -55,85 +55,10 @@ class Home extends React.Component {
         });
 
         if (this.state.queryResults) { // if this.state.serverReturned is not null
-            // set local variable to results of sent query
-            serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
-
-            // console.log(serverLocations);
-
-            /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
-            * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
-            * through a function and returns a new array with the mapped elements.
-            * In this case f: location -> <li>location.name</li>, so the array will look like:
-            * [<li>[name1]</li>,<li>[name2]</li>...]
-            */
-
-            locs = serverLocations.map((location) => {
-                console.log(location.start.name);
-                    return <li key={location.start.id}>
-                        <table className="results-table">
-                        <thead>
-                            <tr>
-                                <th> Name </th>
-
-                                <th> ID </th>
-
-                                <th> Latitude </th>
-
-                                <th> Longitude </th>
-
-                                <th> Municipality </th>
-
-                                <th> Type </th>
-
-                                <th> Wiki Link </th>
-
-                                <th> Home Link </th>
-
-                                <th> Distance </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {location.start.name}
-                                </td>
-                                <td>
-                                    {location.start.id}
-                                </td>
-                                <td>
-                                    {location.start.latitude}
-                                </td>
-                                <td>
-                                    {location.start.longitude}
-                                </td>
-                                <td>
-                                    {location.start.municipality}
-                                </td>
-                                <td>
-                                    {location.start.type}
-                                </td>
-                                <td>
-                                    {location.start.wikipedia_link}
-                                </td>
-                                <td>
-                                    {location.start.home_link}
-                                </td>
-                                <td>
-                                    {location.distance}
-                                </td>
-                            </tr>
-                        </tbody>
-                        </table>
-
-                    </li>;
-            });
 
             if(this.state.svgResults){
                 svg = this.state.svgResults;
-                renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
+                renderedSvg = <InlineSVG src={svg}></InlineSVG>;
             }
             console.log(svg);
             console.log(renderedSvg);
@@ -185,7 +110,7 @@ class Home extends React.Component {
                 </div>
             </div>
 
-            <div className="svg-container"><img src="../images/world.svg" />{renderedSvg}</div>
+            <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
 
 
             <Results sLocs={this.state.queryResults} />
@@ -249,7 +174,7 @@ class Home extends React.Component {
            // if the response field of the returned json is "queryA", that means the server responded to the SQL query request
            if (clientRequest.request === "queryA") {
                this.setState({
-                   queryResults: returnedJson,
+                   queryResults: returnedJson.locations,
                    svgResults: returnedJson.svg
                });
             }
