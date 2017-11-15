@@ -6,25 +6,25 @@ import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 class Head extends React.Component {
     constructor(props){
             super(props);
-            this.handleData = this.handleData.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-            this.fetch = this.fetch.bind(this);
-            this.state = {
-                searchQuery: '',
-                queryResults: [],
-                svgResults: "",
-                input: "",
-                allPairs: [],
-                sysFile: []
-            };
+            //this.handleData = this.handleData.bind(this);
+            //this.onSubmit = this.onSubmit.bind(this);
+            //this.fetch = this.fetch.bind(this);
+            //this.props.state = {
+            //    searchQuery: '',
+            //    queryResults: [],
+            //    svgResults: "",
+            //    input: "",
+            //    allPairs: [],
+            //    sysFile: []
+            //};
     }
 
     handleData(data){
-        //this.setState({
-        //    searchQuery: data
-        //});
         console.log("Test 1 " + data);
-        this.onSubmit(data);
+        this.setState({
+            searchQuery: data
+        });
+        // this.onSubmit(data);
     }
 
     onSubmit(e) {
@@ -49,106 +49,15 @@ class Head extends React.Component {
     }
 
     render() {
-        let serverLocations;
-        let locs;
-        // TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2526/svg";
+        let svg;
         let renderedSvg;
-        let pairs = this.state.allPairs;
-        let ps = pairs.map((pp) => {
-            return <Pair {...pp}/>;
-        });
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
-            // set local variable to results of sent query
-            serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
-
-            // console.log(serverLocations);
-
-            /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
-            * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
-            * through a function and returns a new array with the mapped elements.
-            * In this case f: location -> <li>location.name</li>, so the array will look like:
-            * [<li>[name1]</li>,<li>[name2]</li>...]
-            */
-
-            locs = serverLocations.map((location) => {
-                console.log(location.start.name);
-                    return <li key={location.start.id}>
-                        <table className="results-table">
-                        <thead>
-                            <tr>
-                                <th> Name </th>
-
-                                <th> ID </th>
-
-                                <th> Latitude </th>
-
-                                <th> Longitude </th>
-
-                                <th> Municipality </th>
-
-                                <th> Type </th>
-
-                                <th> Wiki Link </th>
-
-                                <th> Home Link </th>
-
-                                <th> Distance </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {location.start.name}
-                                </td>
-                                <td>
-                                    {location.start.id}
-                                </td>
-                                <td>
-                                    {location.start.latitude}
-                                </td>
-                                <td>
-                                    {location.start.longitude}
-                                </td>
-                                <td>
-                                    {location.start.municipality}
-                                </td>
-                                <td>
-                                    {location.start.type}
-                                </td>
-                                <td>
-                                    {location.start.wikipedia_link}
-                                </td>
-                                <td>
-                                    {location.start.home_link}
-                                </td>
-                                <td>
-                                    {location.distance}
-                                </td>
-                            </tr>
-                        </tbody>
-                        </table>
-
-                    </li>;
-            });
-
-            if(this.state.svgResults){
-                svg = this.state.svgResults;
-                renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
-            }
-            console.log(svg);
-            console.log(renderedSvg);
-            console.log(this.state.svgResults);
-            console.log("Map created.");
-
-
-            // Send locs to QueryResults.jsx
+        if(this.props.svgResults){
+            svg = this.props.state.svgResults;
+            renderedSvg = <InlineSVG src={svg}></InlineSVG>;
         }
-
+        console.log("hwyyyyy");
+        console.log(this);
         return (
         <div className="header-wrapper">
             <div className="header">
@@ -156,9 +65,7 @@ class Head extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-
-                <Search handlerFromParent={this.handleData.bind(this)}/>
-
+                <Search handlerFromParent={this.props.handlerFromParent.bind(this)}/>
 
                 <div className="buttons-container">
                     <span className="buttons">
@@ -167,10 +74,7 @@ class Head extends React.Component {
                                 <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
                             </li>
                             <li>
-                                <LoadsaveDropzone
-                                    browseFile={this.browseFile.bind(this)}
-                                    pairs = {ps}
-                                />
+                                <button type="submit" onClick={this.onSave.bind(this)}>Load</button>
                             </li>
                             <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
                             <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
@@ -190,7 +94,7 @@ class Head extends React.Component {
                 </div>
             </div>
 
-            <div className="svg-container"><img src="../images/world.svg" />{renderedSvg}</div>
+            <div className="svg-container"><img src="../images/world.svg" />{this.renderedSvg}</div>
 
         </div>
         );

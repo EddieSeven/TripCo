@@ -5,24 +5,6 @@ import Dropzone from 'react-dropzone';
 class QueryResults extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            queryResults: [],
-            svgResults: "",
-            input: "",
-            allPairs: [],
-            sysFile: []
-        };
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-        var query = this.query.value;
-        // var image = this.svg;
-        console.log("Searched for:");
-        console.log(query);
-        // console.log(image);
-        this.fetch("queryA", query);
-        // this.fetch("svg", image);
     }
 
     render() {
@@ -32,18 +14,16 @@ class QueryResults extends React.Component {
         // TODO: Replace localhost with URL of remote server
         let svg = "http://localhost:2526/svg";
         let renderedSvg;
-        let pairs = this.state.allPairs;
-        let ps = pairs.map((pp) => {
-            return <Pair {...pp}/>;
-        });
+        //let pairs = this.state.allPairs;
+        //let ps = pairs.map((pp) => {
+        //    return <Pair {...pp}/>;
+        //});
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
             // set local variable to results of sent query
-            serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
+            serverLocations = this.props.results;
 
-            // console.log(serverLocations);
+
+            console.log("come on", results);
 
             /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
             * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
@@ -88,7 +68,6 @@ class QueryResults extends React.Component {
 
                     </li>;
             });
-        }
 
         return  (
         <div className="table-container">
@@ -105,7 +84,7 @@ class QueryResults extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <ul>{locs}</ul>
+                                <ul>{this.props.results}</ul>
                             </td>
                         </tr>
                     </tbody>
