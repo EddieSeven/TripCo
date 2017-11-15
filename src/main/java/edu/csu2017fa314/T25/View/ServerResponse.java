@@ -1,6 +1,7 @@
 package edu.csu2017fa314.T25.View;
 
 import edu.csu2017fa314.T25.Model.TripLeg;
+import edu.csu2017fa314.T25.Model.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 public class ServerResponse {
     private String response = "queryA";
     private ArrayList<TripLeg> locations;
+	private Point [] points;
     private String svg;
     private int svgHeight;
     private int svgWidth;
@@ -20,6 +22,12 @@ public class ServerResponse {
         this.svgWidth = svgWidth;
         System.out.println(this.toString());
     }
+	public ServerResponse(Point [] pts){
+		points = pts;
+		locations = null;
+		svg ="";
+		svgHeight = svgWidth = 0;
+	}
 
     @Override
     public String toString() {

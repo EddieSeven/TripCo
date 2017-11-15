@@ -48,28 +48,24 @@ Date | Tasks done this time | Tasks done next time | Impediments | Confidence
 ## Review
 
 #### Completed user stories (epics) in Sprint Backlog 
-* *user story*:  *comments*
-* 
-
-Completed *number of issues completed* issues associated with these user stories.
+* #130:  database implementation of worldwide trip and SVG rendered with path
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* *user story*: *Explanation...*
-*
+* #148: 3-opt was not able to be implemented due to roadblocks in development on sprint
+* #147: Write Function to Select Optimization Algorithm
 
 #### What went well
-* *something*
-*
+* Processes were streamlined
+* Communication of the encountered issues
 
 #### Problems encountered and resolutions
-* *something*
-*
+* When roadblocks were encountered, help by the TA's should have been sought out at an earlier time.
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | Collaboration on roadblocks that impede sprint progress | Establish TA hours for group to collabrate together on | 
+What we did well | Communication of issues that are causing problems | Sharing information on discord that is pertinant to the entire group | 
+What we need to work on | Get help earlier before issues snowball |  |
+What we will change next time | As a team, asking for help when we need it | Consistent updating and merging to master where possible | 
