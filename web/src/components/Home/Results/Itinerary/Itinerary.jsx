@@ -19,6 +19,7 @@ class Itinerary extends React.Component {
 						<tr>
 							<td> {pair.start.attributes[2]}</td>
 							<td> {pair.end.attributes[2]}</td>
+							<td> {pair.distance} </td>
 							<td> {total}</td>
 						</tr>
 					</tbody>
@@ -42,6 +43,7 @@ class Itinerary extends React.Component {
 					<tr>
 						<td> Start </td>
 						<td> End </td>
+						<td> Distance Between </td>
 						<td> Cumulative Distance </td>
 					</tr>
 				</thead>

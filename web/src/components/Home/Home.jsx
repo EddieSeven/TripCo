@@ -220,6 +220,13 @@ class Home extends React.Component {
                    queryResults: returnedJson.points
                });
             }
+		   	itin = [];
+		   	for (let i = 0; i < returnedJson.points.length; i++) {
+				itin.push(returnedJson.points[i].attributes[0]);
+			}
+		   	this.setState({
+				ids: itin
+			});
             console.log(this.state.queryResults);
        } catch (e) {
            console.log("Error talking to server");
