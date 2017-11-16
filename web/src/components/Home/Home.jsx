@@ -3,7 +3,10 @@ import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
 
-
+setInterval(function() {
+    var myImageElement = document.getElementById('myImage');
+    myImageElement.src = 'output.svg?rand=' + Math.random();
+}, 5000);
 class Home extends React.Component {
     constructor(props){
             super(props);
@@ -128,8 +131,8 @@ class Home extends React.Component {
                 </div>
             </div>
 
-            <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
-
+            {/*<div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>*/}
+            <img src="../../images/output.svg" id="myImage" />
 
             <Results sLocs={this.state.queryResults} />
 

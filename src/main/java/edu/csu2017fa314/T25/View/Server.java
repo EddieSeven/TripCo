@@ -134,7 +134,7 @@ public class Server {
 		}
 
 		return new ServerResponse(legs, svg, 120, 100);
-	}	
+	}
 
 	private ServerResponse handleSelectionQuery(ServerRequest sreq) {
 		Result result = dbDriver.queryPage(sreq.getDescription());
