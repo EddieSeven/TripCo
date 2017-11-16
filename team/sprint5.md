@@ -45,13 +45,13 @@ Technical Debt Ratio | 16% | *value*
 
 Epics planned for this release.
 
-* Test coverage(Does not include travis database testing)
-* clean code
-* map with zoom and pan
-* optimization selection
-* Trip destinations
-* select a starting location 
-* fix sprint 4 issues
+* Test coverage(Does not include travis database testing).
+* Clean code.
+* Map with zoom and pan.
+* Optimization selection.
+* Trip destinations.
+* Select a starting location. 
+* Fix sprint 4 issues.
 
 ## Daily Scrums
 
