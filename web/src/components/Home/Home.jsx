@@ -9,6 +9,7 @@ class Home extends React.Component {
             super(props);
             this.handleData = this.handleData.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
+			this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
             this.fetch = this.fetch.bind(this);
             this.fetchItinerary = this.fetchItinerary.bind(this);
             this.state = {
@@ -37,7 +38,7 @@ class Home extends React.Component {
     }
 
     onSubmitItinerary(e) {
-        this.fetchItinerary("itinerary", e);
+        this.fetchItinerary("itinerary", this.state.ids);
     }
 
     setArray(tempArray){
@@ -63,10 +64,6 @@ class Home extends React.Component {
         // TODO: Replace localhost with URL of remote server
         let svg = "http://localhost:2526/svg";
         let renderedSvg;
-        let pairs = this.state.allPairs;
-        let ps = pairs.map((pp) => {
-            return <Pair {...pp}/>;
-        });
 
         if (this.state.queryResults.length > 0) { // if this.state.serverReturned is not null
             console.log("First Checkpoint", this.state.queryResults);
@@ -112,10 +109,9 @@ class Home extends React.Component {
                             <li>
                                 <LoadsaveDropzone
                                     browseFile={this.browseFile.bind(this)}
-                                    pairs = {ps}
                                 />
                             </li>
-                            <li><button type="submit" onClick={this.onSubmitItinerary(this.state.queryResults.ids)}>Plan</button></li>
+                            <li><button type="submit" onClick={this.onSubmitItinerary}>Plan</button></li>
                             <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
                         </ul>
                     </span>
@@ -126,8 +122,7 @@ class Home extends React.Component {
                             </tr>
                             <tr>
                                 <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
-
-                            </tr>
+							</tr>
                         </table>
                     </span>
                 </div>
@@ -143,7 +138,7 @@ class Home extends React.Component {
     }
 
     async browseFile(file) {
-        console.log("Got file: ", file);
+        /*console.log("Got file: ", file);
         let pairs = [];
         for (let i = 0; i < Object.values(file).length; i++) {
             let start = file[i].start; //get start from file i
@@ -156,7 +151,18 @@ class Home extends React.Component {
             };
             pairs.push(p); //add object to pairs array
             console.log("Pushing pair: ", p); //log to console
-        }
+        }*/
+		let Ids = [];
+		for (let i = 0; i < file.destinations.length; i++) {
+			let id = file.destinations[i];
+			console.log("ID = " + id);
+			Ids.push(id);
+		}
+		console.log(Ids);
+		this.setState({
+			ids: Ids
+		});
+		console.log("Load state: "+this.state.ids);
     }
 
     // This function sends `input` to the server and updates the state with whatever is returned
@@ -209,37 +215,42 @@ class Home extends React.Component {
     }
 
    async fetchItinerary(type, input){
+	   console.log("Fetch itin. called")
         let itineraryRequest;
 
         itineraryRequest = {
             request: "itinerary",
-            description: input
+			idList: input
         };
 
         try{
             console.log(itineraryRequest);
 
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
-           let jsonReturned = await fetchItinerary(serverUrl,
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2526/search";
+			console.log(serverUrl);
+           let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
-                   body: JSON.stringify(clientRequest)
+                   body: JSON.stringify(itineraryRequest)
                });
 
            // Wait for server to return and convert it to json.
            let ret = await jsonReturned.json();
            let returnedJson = JSON.parse(ret);
 
+			console.log("Fetch itin. Returned JSON: ");
+			console.log(returnedJson);
+
             this.setState({
                 allPairs: returnedJson.legs,
                 svgResults: returnedJson.svg
             });
 
-            console.log("Second query ", allPairs);
+            //console.log("Second query ", allPairs);
 
 
         } catch (e) {
-            console.log("Broken");
+            console.log("Fetch itin. error:"+e);
         }
     }
 }export default Home;
