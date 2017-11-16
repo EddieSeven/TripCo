@@ -14,6 +14,7 @@ public class ServerResponse {
     private String svg;
     private int svgHeight;
     private int svgWidth;
+    private ArrayList<String> ids = new ArrayList<>();
 
     public ServerResponse(ArrayList locations, String svg, int svgHeight, int svgWidth) {
         this.locations = locations;
@@ -27,8 +28,16 @@ public class ServerResponse {
 		locations = null;
 		svg ="";
 		svgHeight = svgWidth = 0;
+		toIDList();
 	}
 
+    private void toIDList(){
+	ArrayList<Point> temp = new ArrayList<>(Arrays.asList(this.points));
+
+	for(int i = 0; i < temp.size(); i++){
+		this.ids.add(temp.get(i).attributes[0]);
+	}
+    }
     @Override
     public String toString() {
         return "ServerResponse{" +
@@ -37,6 +46,7 @@ public class ServerResponse {
                 ", svgHeight=" + svgHeight + '\'' +
                 ", svgWidth=" + svgWidth + '\'' +
                 ", locations=" + locations + '\'' +
+		", ids=" + ids + '\'' +
                 '}';
     }
 }

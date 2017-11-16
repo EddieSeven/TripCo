@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
-
+import InlineSVG from 'svg-inline-react';
 
 class Home extends React.Component {
     constructor(props){
@@ -75,7 +75,7 @@ class Home extends React.Component {
             console.log("The IDs are: ", this.state.queryResults.ids);
             // this.setArray(tempIds);
 
-
+	    }
             if(this.state.svgResults){
                 svg = this.state.svgResults;
                 renderedSvg = <InlineSVG src={svg}></InlineSVG>;
@@ -86,8 +86,7 @@ class Home extends React.Component {
             console.log("Map created.");
 
 
-            // Send locs to QueryResults.jsx
-        }
+            // Send locs to QueryResults.js
 
         return (
         <div className="header-wrapper">
@@ -203,8 +202,7 @@ class Home extends React.Component {
            // if the response field of the returned json is "queryA", that means the server responded to the SQL query request
            if (clientRequest.request === "select") {
                this.setState({
-                   queryResults: returnedJson.points,
-                   svgResults: returnedJson.svg
+                   queryResults: returnedJson.points
                });
             }
             console.log(this.state.queryResults);
@@ -220,13 +218,15 @@ class Home extends React.Component {
 
         itineraryRequest = {
             request: "itinerary",
-			idList: input
+	    idList: input,
+	    optimization: 2,
+	    miles: true
         };
 
         try{
             console.log(itineraryRequest);
 
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2526/search";
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
 			console.log(serverUrl);
            let jsonReturned = await fetch(serverUrl,
                {
