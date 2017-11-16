@@ -13,6 +13,7 @@ class Home extends React.Component {
             this.fetch = this.fetch.bind(this);
             this.fetchItinerary = this.fetchItinerary.bind(this);
 			this.handleInputChange = this.handleInputChange.bind(this);
+			this.handleOptChange = this.handleOptChange.bind(this);
             this.state = {
                 ids: [],
                 searchQuery: '',
@@ -21,9 +22,18 @@ class Home extends React.Component {
                 input: "",
                 allPairs: [],
                 sysFile: [],
-				miles: true
+				miles: true,
+				opt: 2
             };
     }
+
+	handleOptChange(event) {
+		let name = event.target.value;
+		let Opt = parseInt(name);
+		this.setState({
+			opt: Opt
+		});
+	}
 
 	handleInputChange(event) {
 		let name = event.target.value;
@@ -139,6 +149,19 @@ class Home extends React.Component {
 							</tr>
                         </table>
                     </span>
+					<span className="opt-select">
+						<table>
+                            <tr>
+                                <td><label> No optimization <input type="radio" name="opt" value="0" defaultChecked onClick={this.handleOptChange} /></label></td>
+                            </tr>
+                            <tr>
+                                <td><label> Nearest Neighbor <input type="radio" name="opt" value="1" onClick={this.handleOptChange} /></label></td>
+							</tr>
+							<tr>
+                                <td><label> 2-Opt <input type="radio" name="opt" value="2" onClick={this.handleOptChange} /></label></td>
+							</tr>
+                        </table>
+					</span>
                 </div>
             </div>
 
@@ -241,7 +264,7 @@ class Home extends React.Component {
         itineraryRequest = {
             request: "itinerary",
 	    idList: input,
-	    optimization: 2,
+	    optimization: this.state.opt,
 	    miles: this.state.miles
         };
 
