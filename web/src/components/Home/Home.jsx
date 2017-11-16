@@ -218,7 +218,9 @@ class Home extends React.Component {
 
         itineraryRequest = {
             request: "itinerary",
-			idList: input
+	    idList: input,
+	    optimization: 2,
+	    miles: true
         };
 
         try{
@@ -241,9 +243,7 @@ class Home extends React.Component {
 
             this.setState({
                 allPairs: returnedJson.legs,
-                svgResults: returnedJson.svg,
-		optimization: 2,
-		miles: true
+                svgResults: returnedJson.svg
             });
 
             //console.log("Second query ", allPairs);
