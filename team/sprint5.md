@@ -1,4 +1,4 @@
-# Sprint 5 - *your team number* - *your team name*
+# Sprint 5 - T25 - NO NAME GROUP
 
 ## Goal
 
@@ -30,23 +30,28 @@
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *value*   | *value* 
-Story Points |  *value*  | *value* 
+Tasks |  21  | *value* 
+Story Points |  67  | *value* 
 
 
 Statistic | Start | End
 --- | ---: | ---:
-Overall Test Coverage | *value* | *value* 
-Smells | *value* | *value* 
-Duplication | *value* | *value* 
-Technical Debt Ratio | *value* | *value* 
+Overall Test Coverage | 36% | *value* 
+Smells | 14 | *value* 
+Duplication | 27 | *value* 
+Technical Debt Ratio | 16% | *value* 
 
 ## Plan
 
 Epics planned for this release.
 
-* *## title*
-*
+* Test coverage(Does not include travis database testing)
+* clean code
+* map with zoom and pan
+* optimization selection
+* Trip destinations
+* select a starting location 
+* fix sprint 4 issues
 
 ## Daily Scrums
 
