@@ -132,7 +132,7 @@ class Home extends React.Component {
                     <span className="toggle">
                         <table>
                             <tr>
-                                <td><label> Miles <input type="radio" name="metric" values="miles" defaultChecked onClick={this.handleInputChange} /></label></td>
+                                <td><label> Miles <input type="radio" name="metric" value="miles" defaultChecked onClick={this.handleInputChange} /></label></td>
                             </tr>
                             <tr>
                                 <td><label> Kilometers <input type="radio" name="metric" value="km" onClick={this.handleInputChange} /></label></td>
