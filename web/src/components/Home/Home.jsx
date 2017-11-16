@@ -12,6 +12,7 @@ class Home extends React.Component {
 			this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
             this.fetch = this.fetch.bind(this);
             this.fetchItinerary = this.fetchItinerary.bind(this);
+			this.handleInputChange = this.handleInputChange.bind(this);
             this.state = {
                 ids: [],
                 searchQuery: '',
@@ -19,9 +20,23 @@ class Home extends React.Component {
                 svgResults: "",
                 input: "",
                 allPairs: [],
-                sysFile: []
+                sysFile: [],
+				miles: true
             };
     }
+
+	handleInputChange(event) {
+		let name = event.target.value;
+		let isM = true;
+		if (name === "miles") {
+			isM = true;
+		} else {
+			isM = false;
+		}
+		this.setState({
+			miles: isM
+		});
+	}
 
     handleData(data){
         //this.setState({
@@ -117,10 +132,10 @@ class Home extends React.Component {
                     <span className="toggle">
                         <table>
                             <tr>
-                                <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
+                                <td><label> Miles <input type="radio" name="metric" values="miles" defaultChecked onClick={this.handleInputChange} /></label></td>
                             </tr>
                             <tr>
-                                <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
+                                <td><label> Kilometers <input type="radio" name="metric" value="km" onClick={this.handleInputChange} /></label></td>
 							</tr>
                         </table>
                     </span>
@@ -220,7 +235,7 @@ class Home extends React.Component {
             request: "itinerary",
 	    idList: input,
 	    optimization: 2,
-	    miles: true
+	    miles: this.state.miles
         };
 
         try{
