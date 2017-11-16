@@ -5,24 +5,6 @@ import Dropzone from 'react-dropzone';
 class QueryResults extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            queryResults: [],
-            svgResults: "",
-            input: "",
-            allPairs: [],
-            sysFile: []
-        };
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-        var query = this.query.value;
-        // var image = this.svg;
-        console.log("Searched for:");
-        console.log(query);
-        // console.log(image);
-        this.fetch("queryA", query);
-        // this.fetch("svg", image);
     }
 
     render() {
@@ -32,18 +14,17 @@ class QueryResults extends React.Component {
         // TODO: Replace localhost with URL of remote server
         let svg = "http://localhost:2526/svg";
         let renderedSvg;
-        let pairs = this.state.allPairs;
-        let ps = pairs.map((pp) => {
-            return <Pair {...pp}/>;
-        });
+        //let pairs = this.state.allPairs;
+        //let ps = pairs.map((pp) => {
+        //    return <Pair {...pp}/>;
+        //});
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
+        if (this.props.results) {
             // set local variable to results of sent query
-            serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
+            serverLocations = this.props.results;
 
-            // console.log(serverLocations);
+
+            console.log("come on", this.props.results);
 
             /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
             * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
@@ -56,34 +37,34 @@ class QueryResults extends React.Component {
                 console.log(location.start.name);
                     return <li key={location.start.id}>
                         <table className="results-table">
-                        <thead>
-                            <tr>
-                                <th> Name </th>
+                            <thead>
+                                <tr>
+                                    <th> Name </th>
 
-                                <th> Latitude </th>
+                                    <th> Latitude </th>
 
-                                <th> Longitude </th>
+                                    <th> Longitude </th>
 
-                                <th> Distance </th>
+                                    <th> Distance </th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {location.start.name}
-                                </td>
-                                <td>
-                                    {location.start.latitude}
-                                </td>
-                                <td>
-                                    {location.start.longitude}
-                                </td>
-                                <td>
-                                    {location.distance}
-                                </td>
-                            </tr>
-                        </tbody>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {location.start.name}
+                                    </td>
+                                    <td>
+                                        {location.start.latitude}
+                                    </td>
+                                    <td>
+                                        {location.start.longitude}
+                                    </td>
+                                    <td>
+                                        {location.distance}
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
 
                     </li>;

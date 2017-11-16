@@ -4,14 +4,10 @@ import Itinerary from './Itinerary/Itinerary.jsx';
 
 class Results extends React.Component {
     render() {
+        console.log("In Results.jsx ", this.props);
         return <div className="results-wrapper">
-            <div className="results-list">
-            //     <ul>{locs}</ul>
-                <QueryResults />
-            </div>
-            <div className="itinerary-list">
-                <Itinerary />
-            </div>
+            <QueryResults results={this.props.sLocs} />
+            <Itinerary />
         </div>
     }
 }export default Results;

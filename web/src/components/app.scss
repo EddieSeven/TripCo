@@ -1,14 +1,13 @@
 @import "Home/Home";
-@import "Home/SearchBar/SearchBar";
-@import "Home/Table/Table";
-@import "Home/Pair/Pair";
+@import "Home/Header/Head";
+@import "Home/Header/Search/Search";
+@import "Home/Header/Search/LoadsaveDropzone/LoadsaveDropzone";
+@import "Home/Results/Results";
+@import "Home/Results/QueryResults/QueryResults";
+@import "Home/Results/Itinerary/Itinerary";
 
 .app-container {
     height: 700px;
-    display: inline;
     overflow: hidden;
-}
-
-.header{
-    text-align: center;
+    display: inline;
 }

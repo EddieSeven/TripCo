@@ -6,24 +6,31 @@ import LoadsaveDropzone from './Search/LoadsaveDropzone/LoadsaveDropzone.jsx';
 class Head extends React.Component {
     constructor(props){
             super(props);
-            this.state = {
-                queryResults: [],
-                svgResults: "",
-                input: "",
-                allPairs: [],
-                sysFile: []
-            }
-        };
+            //this.handleData = this.handleData.bind(this);
+            //this.onSubmit = this.onSubmit.bind(this);
+            //this.fetch = this.fetch.bind(this);
+            //this.props.state = {
+            //    searchQuery: '',
+            //    queryResults: [],
+            //    svgResults: "",
+            //    input: "",
+            //    allPairs: [],
+            //    sysFile: []
+            //};
+    }
+
+    handleData(data){
+        console.log("Test 1 " + data);
+        this.setState({
+            searchQuery: data
+        });
+        // this.onSubmit(data);
+    }
 
     onSubmit(e) {
-        e.preventDefault();
-        var query = this.query.value;
-        // var image = this.svg;
         console.log("Searched for:");
-        console.log(query);
-        // console.log(image);
-        this.fetch("queryA", query);
-        // this.fetch("svg", image);
+        console.log(e);
+        this.fetch("queryA", e);
     }
 
     onSave(e){
@@ -35,146 +42,59 @@ class Head extends React.Component {
     onRemoveAll(){
     }
 
+    getQuery(searchQuery) {
+        console.log("This shit don't work dog!");
+        console.log(searchQuery);
+        // this.onSubmit.bind(searchQuery);
+    }
+
     render() {
-        let serverLocations;
-        let locs;
-        // TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2526/svg";
+        let svg;
         let renderedSvg;
-        let pairs = this.state.allPairs;
-        let ps = pairs.map((pp) => {
-            return <Pair {...pp}/>;
-        });
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
-            // set local variable to results of sent query
-            serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
-
-            // console.log(serverLocations);
-
-            /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
-            * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
-            * through a function and returns a new array with the mapped elements.
-            * In this case f: location -> <li>location.name</li>, so the array will look like:
-            * [<li>[name1]</li>,<li>[name2]</li>...]
-            */
-
-            locs = serverLocations.map((location) => {
-                console.log(location.start.name);
-                    return <li key={location.start.id}>
-                        <table className="results-table">
-                        <thead>
-                            <tr>
-                                <th> Name </th>
-
-                                <th> ID </th>
-
-                                <th> Latitude </th>
-
-                                <th> Longitude </th>
-
-                                <th> Municipality </th>
-
-                                <th> Type </th>
-
-                                <th> Wiki Link </th>
-
-                                <th> Home Link </th>
-
-                                <th> Distance </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {location.start.name}
-                                </td>
-                                <td>
-                                    {location.start.id}
-                                </td>
-                                <td>
-                                    {location.start.latitude}
-                                </td>
-                                <td>
-                                    {location.start.longitude}
-                                </td>
-                                <td>
-                                    {location.start.municipality}
-                                </td>
-                                <td>
-                                    {location.start.type}
-                                </td>
-                                <td>
-                                    {location.start.wikipedia_link}
-                                </td>
-                                <td>
-                                    {location.start.home_link}
-                                </td>
-                                <td>
-                                    {location.distance}
-                                </td>
-                            </tr>
-                        </tbody>
-                        </table>
-
-                    </li>;
-            });
-
-            if(this.state.svgResults){
-                svg = this.state.svgResults;
-                renderedSvg = <InlineSVG src={svg.contents}></InlineSVG>;
-            }
-            console.log(svg);
-            console.log(renderedSvg);
-            console.log(this.state.svgResults);
-            console.log("Map created.");
-
-
-            // Send locs to QueryResults.jsx
+        if(this.props.svgResults){
+            svg = this.props.state.svgResults;
+            renderedSvg = <InlineSVG src={svg}></InlineSVG>;
         }
-
+        console.log("hwyyyyy");
+        console.log(this);
         return (
         <div className="header-wrapper">
-        <h1>Anything!!</h1>
-            <span className="header">
+            <div className="header">
                 <div className="logo">
-                    <div className="spacer"></div>
-                    <img src="../../images/tripco-logo-color-small.png" />
+                    <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-                <Search />
+                <Search handlerFromParent={this.props.handlerFromParent.bind(this)}/>
 
                 <div className="buttons-container">
-                    <ul>
-                        <li>
-                            <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
-                        </li>
-                        <li>
-                            <LoadsaveDropzone
-                                browseFile={this.browseFile.bind(this)}
-                                pairs = {ps}
-                            />
-                        </li>
-                        <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
-                        <li><button type="submit" onClick={this.onRemoveAll()}>Delete</button></li>
-                    </ul>
-                    <span>
+                    <span className="buttons">
+                        <ul>
+                            <li>
+                                <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
+                            </li>
+                            <li>
+                                <button type="submit" onClick={this.onSave.bind(this)}>Load</button>
+                            </li>
+                            <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
+                            <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
+                        </ul>
+                    </span>
+                    <span className="toggle">
                         <table>
                             <tr>
-                                <form>
-                                    <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
-                                    <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
-                                </form>
+                                <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
+                            </tr>
+                            <tr>
+                                <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
+
                             </tr>
                         </table>
                     </span>
                 </div>
-            </span>
+            </div>
 
-            <span className="svg-container">{renderedSvg}</span>
+            <div className="svg-container"><img src="../images/world.svg" />{this.renderedSvg}</div>
 
         </div>
         );
@@ -218,7 +138,7 @@ class Head extends React.Component {
            // Notice how the end of the url below matches what the server is listening on (found in java code)
            // By default, Spark uses port 4567
             //TODO: Replace localhost with name of remote server
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":4567/search";
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
@@ -251,8 +171,8 @@ class Head extends React.Component {
            // Print on console what was returned
            // Update the state so we can see it on the web
        } catch (e) {
-           console.error("Error talking to server");
-           console.error(e);
+           console.log("Error talking to server");
+           // console.error(e);
        }
     }
 }export default Head;
