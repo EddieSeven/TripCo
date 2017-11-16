@@ -18,8 +18,7 @@ class Home extends React.Component {
                 queryResults: [],
                 svgResults: "",
                 input: "",
-                allPairs: [],
-                sysFile: []
+                allPairs: []
             };
     }
 
@@ -30,6 +29,19 @@ class Home extends React.Component {
         console.log("Test 1 " + data);
         this.onSubmit(data);
     }
+
+    	handleInputChange(event) {
+		let name = event.target.value;
+		let isM = true;
+		if (name === "miles") {
+			isM = true;
+		} else {
+			isM = false;
+		}
+		this.setState({
+			miles: isM
+		});
+	}
 
     onSubmit(e) {
         console.log("Searched for:");
@@ -117,17 +129,17 @@ class Home extends React.Component {
                     <span className="toggle">
                         <table>
                             <tr>
-                                <td><label> Miles <input type="radio" name="miles-radio" defaultChecked onClick={this.handleInputChange} /></label></td>
+                                <td><label> Miles <input type="radio" name="metric" values="miles" defaultChecked onClick={this.handleInputChange} /></label></td>
                             </tr>
                             <tr>
-                                <td><label> Kilometers <input type="radio" name="km-radio" onClick={this.handleInputChange} /></label></td>
-							</tr>
+                                <td><label> Kilometers <input type="radio" name="metric" value="km" onClick={this.handleInputChange} /></label></td>
+			    </tr>
                         </table>
                     </span>
                 </div>
             </div>
 
-            <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
+            <div className="svg-container">{renderedSvg}</div>
 
 
             <Results sLocs={this.state.queryResults} />
@@ -220,7 +232,7 @@ class Home extends React.Component {
             request: "itinerary",
 	    idList: input,
 	    optimization: 2,
-	    miles: true
+	    miles: this.state.miles
         };
 
         try{
