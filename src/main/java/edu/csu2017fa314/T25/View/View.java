@@ -149,11 +149,7 @@ public class View {
         outputSVG += coordinates;
         outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
 
-        File file = new File("./web/src/images/output.svg");
-        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(outputSVG);
-        bw.close();
+
         return outputSVG;
     }
 
