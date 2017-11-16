@@ -7,7 +7,7 @@ class Results extends React.Component {
         console.log("In Results.jsx ", this.props);
         return <div className="results-wrapper">
             <QueryResults results={this.props.sLocs} />
-            <Itinerary />
+            <Itinerary itin={this.props.itin} />
         </div>
     }
 }export default Results;

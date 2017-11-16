@@ -9,7 +9,7 @@ class Home extends React.Component {
             super(props);
             this.handleData = this.handleData.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
-			this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
+	    this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
             this.fetch = this.fetch.bind(this);
             this.fetchItinerary = this.fetchItinerary.bind(this);
             this.state = {
@@ -18,7 +18,8 @@ class Home extends React.Component {
                 queryResults: [],
                 svgResults: "",
                 input: "",
-                allPairs: []
+                allPairs: [],
+		miles: true
             };
     }
 
@@ -142,27 +143,13 @@ class Home extends React.Component {
             <div className="svg-container">{renderedSvg}</div>
 
 
-            <Results sLocs={this.state.queryResults} />
+            <Results sLocs={this.state.queryResults} itin={this.state.allPairs} />
 
         </div>
         );
     }
 
     async browseFile(file) {
-        /*console.log("Got file: ", file);
-        let pairs = [];
-        for (let i = 0; i < Object.values(file).length; i++) {
-            let start = file[i].start; //get start from file i
-            let end = file[i].end; //get end from file i
-            let dist = file[i].distance;
-            let p = { //create object with start, end, and dist variable
-                start: start,
-                end: end,
-                dist: dist
-            };
-            pairs.push(p); //add object to pairs array
-            console.log("Pushing pair: ", p); //log to console
-        }*/
 		let Ids = [];
 		for (let i = 0; i < file.destinations.length; i++) {
 			let id = file.destinations[i];
@@ -217,6 +204,13 @@ class Home extends React.Component {
                    queryResults: returnedJson.points
                });
             }
+	    itin = [];
+	    for(let i=0; i < returnedJson.points.length; i++){
+		itin.push(returnedJson.points[i].attributes[0]);
+	    }
+	    this.setState({
+		ids: itin
+	    });
             console.log(this.state.queryResults);
        } catch (e) {
            console.log("Error talking to server");
@@ -234,6 +228,8 @@ class Home extends React.Component {
 	    optimization: 2,
 	    miles: this.state.miles
         };
+
+	
 
         try{
             console.log(itineraryRequest);
@@ -254,7 +250,7 @@ class Home extends React.Component {
 			console.log(returnedJson);
 
             this.setState({
-                allPairs: returnedJson.legs,
+                allPairs: returnedJson.locations,
                 svgResults: returnedJson.svg
             });
 

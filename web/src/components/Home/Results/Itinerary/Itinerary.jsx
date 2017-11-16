@@ -4,29 +4,27 @@ import React, {Component} from 'react';
 class Itinerary extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            queryResults: [],
-            svgResults: "",
-            input: "",
-            allPairs: [],
-            sysFile: []
-        };
     }
 
     render() {
-        let serverLocations;
-        let locs;
-        let total = 0;
+		let pairs;
+		let total = 0;
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
-            // set local variable to results of sent query
-            serverLocations = this.state.queryResults;
-            console.log("State Loaded.");
-            console.log(this.state);
-
-
-            console.log("Map created.");
-
+        if (this.props.itin.length > 0) {
+			console.log("Adding pairs");
+			pairs = this.props.itin.map((pair) => {
+				total += pair.distance;
+				console.log("Adding new distance: " + total);
+				return <tbody>
+						<tr>
+							<td> {pair.start.attributes[2]}</td>
+							<td> {pair.end.attributes[2]}</td>
+							<td> {pair.distance}</td>
+							
+							<td> {total}</td>
+						</tr>
+					</tbody>
+			});	
         }
 
         return  (
@@ -40,6 +38,19 @@ class Itinerary extends React.Component {
                     <label> Airport Website <input type="checkbox" name="dest-id" defaultChecked onChange={this.handleInputChange} /></label>
                     <label> Airport Wiki <input type="checkbox" name="dest-lat" defaultChecked onChange={this.handleInputChange} /></label><br/>
             </div>
+
+			<table>
+				<thead>
+					<tr>
+						<td> Start </td>
+						<td> End </td>
+						<td> Distance Between </td>
+						<td> Cumulative Distance </td>
+					</tr>
+				</thead>
+				{pairs}
+			</table>
+
 
             <br />
 
