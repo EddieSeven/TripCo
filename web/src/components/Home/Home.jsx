@@ -10,7 +10,9 @@ class Home extends React.Component {
             this.handleData = this.handleData.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
             this.fetch = this.fetch.bind(this);
+            this.fetchItinerary = this.fetchItinerary.bind(this);
             this.state = {
+                ids: [],
                 searchQuery: '',
                 queryResults: [],
                 svgResults: "",
@@ -31,7 +33,18 @@ class Home extends React.Component {
     onSubmit(e) {
         console.log("Searched for:");
         console.log(e);
-        this.fetch("queryA", e);
+        this.fetch("select", e);
+    }
+
+    onSubmitItinerary(e) {
+        this.fetchItinerary("itinerary", e);
+    }
+
+    setArray(tempArray){
+        console.log("Passed in ", tempArray);
+        this.setState({
+            ids: tempArray
+        });
     }
 
     onSave(e){
@@ -46,6 +59,7 @@ class Home extends React.Component {
     render() {
         let serverLocations;
         let locs;
+        let tempIds = [];
         // TODO: Replace localhost with URL of remote server
         let svg = "http://localhost:2526/svg";
         let renderedSvg;
@@ -54,7 +68,16 @@ class Home extends React.Component {
             return <Pair {...pp}/>;
         });
 
-        if (this.state.queryResults) { // if this.state.serverReturned is not null
+        if (this.state.queryResults.length > 0) { // if this.state.serverReturned is not null
+            console.log("First Checkpoint", this.state.queryResults);
+            //for(let i=0;i<this.state.queryResults.length;i++){
+            //    console.log(this.state.queryResults[i]);
+            //    tempIds.push(this.state.queryResults[i].attributes[0]);
+            //}
+            // this.state.ids = this.state.queryResults.attributes.slice();
+            console.log("The IDs are: ", this.state.queryResults.ids);
+            // this.setArray(tempIds);
+
 
             if(this.state.svgResults){
                 svg = this.state.svgResults;
@@ -92,7 +115,7 @@ class Home extends React.Component {
                                     pairs = {ps}
                                 />
                             </li>
-                            <li><button type="submit" onClick={this.onAddAll()}>Add</button></li>
+                            <li><button type="submit" onClick={this.onSubmitItinerary(this.state.queryResults.ids)}>Plan</button></li>
                             <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
                         </ul>
                     </span>
@@ -146,7 +169,7 @@ class Home extends React.Component {
        let clientRequest;
 
        clientRequest = {
-           request: "queryA",
+           request: "select",
            description: input
        };
 
@@ -169,12 +192,12 @@ class Home extends React.Component {
            let returnedJson = JSON.parse(ret);
 
            // Log the received JSON to the browser console
-           console.log("Got back ", returnedJson);
+           console.log("Got back ", returnedJson.points);
 
            // if the response field of the returned json is "queryA", that means the server responded to the SQL query request
-           if (clientRequest.request === "queryA") {
+           if (clientRequest.request === "select") {
                this.setState({
-                   queryResults: returnedJson.locations,
+                   queryResults: returnedJson.points,
                    svgResults: returnedJson.svg
                });
             }
@@ -182,5 +205,41 @@ class Home extends React.Component {
        } catch (e) {
            console.log("Error talking to server");
        }
+
+    }
+
+   async fetchItinerary(type, input){
+        let itineraryRequest;
+
+        itineraryRequest = {
+            request: "itinerary",
+            description: input
+        };
+
+        try{
+            console.log(itineraryRequest);
+
+           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
+           let jsonReturned = await fetchItinerary(serverUrl,
+               {
+                   method: "POST",
+                   body: JSON.stringify(clientRequest)
+               });
+
+           // Wait for server to return and convert it to json.
+           let ret = await jsonReturned.json();
+           let returnedJson = JSON.parse(ret);
+
+            this.setState({
+                allPairs: returnedJson.legs,
+                svgResults: returnedJson.svg
+            });
+
+            console.log("Second query ", allPairs);
+
+
+        } catch (e) {
+            console.log("Broken");
+        }
     }
 }export default Home;
