@@ -34,8 +34,8 @@ class QueryResults extends React.Component {
             */
 
             locs = serverLocations.map((location) => {
-                console.log(location.start.name);
-                    return <li key={location.start.id}>
+                console.log(location.attributes[0]);
+                    return <li key={location.attributes[0]}>
                         <table className="results-table">
                             <thead>
                                 <tr>
@@ -45,23 +45,18 @@ class QueryResults extends React.Component {
 
                                     <th> Longitude </th>
 
-                                    <th> Distance </th>
-
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        {location.start.name}
+                                        {location.attributes[2]}
                                     </td>
                                     <td>
-                                        {location.start.latitude}
+                                        {location.attributes[3]}
                                     </td>
                                     <td>
-                                        {location.start.longitude}
-                                    </td>
-                                    <td>
-                                        {location.distance}
+                                        {location.attributes[4]}
                                     </td>
                                 </tr>
                             </tbody>
