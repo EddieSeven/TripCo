@@ -145,7 +145,7 @@ class Home extends React.Component {
             <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
 
 
-            <Results sLocs={this.state.queryResults} />
+            <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
 
         </div>
         );
@@ -257,7 +257,7 @@ class Home extends React.Component {
 			console.log(returnedJson);
 
             this.setState({
-                allPairs: returnedJson.legs,
+                allPairs: returnedJson.locations,
                 svgResults: returnedJson.svg
             });
 
