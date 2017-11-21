@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import edu.csu2017fa314.T25.Model.NearestNeighbor;
 import edu.csu2017fa314.T25.Model.Result;
 import edu.csu2017fa314.T25.Model.TripLeg;
-import edu.csu2017fa314.T25.Model.DatabaseDriver;
+import edu.csu2017fa314.T25.Model.Database;
 import edu.csu2017fa314.T25.Model.Point;
 
 import spark.Request;
@@ -19,13 +19,13 @@ import static spark.Spark.port;
 
 public class Server {
 	Gson g;
-	DatabaseDriver dbDriver;
+	Database dbDriver;
 	View v = new View();
 	boolean updateSVG;
 	String svg;
 	ArrayList<TripLeg> latestItinerary;
 
-	public Server(DatabaseDriver dbd) {
+	public Server(Database dbd) {
 		g = new Gson();
 		dbDriver = dbd;
 		

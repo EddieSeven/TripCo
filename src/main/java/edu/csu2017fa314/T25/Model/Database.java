@@ -3,7 +3,7 @@ package edu.csu2017fa314.T25.Model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseDriver {
+public class Database {
     private final int MAX_QUERY_SIZE = 100;
     private final int NUMBER_OF_ATTRIBUTES = 11;
     private String userName;
@@ -15,9 +15,9 @@ public class DatabaseDriver {
     private Connection connection;
     private Statement statement;
 
-    public DatabaseDriver(){}
+    public Database(){}
 
-    public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
+    public Database(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
         this.url = url;

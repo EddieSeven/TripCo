@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 
-public class TestDatabaseDriver {
-    private DatabaseDriver test;
+public class TestDatabase {
+    private Database test;
     private boolean isTravis = false;
     final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
@@ -17,9 +17,9 @@ public class TestDatabaseDriver {
             isTravis = true;
 
         if (isTravis) {
-            test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+            test = new Database("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
         } else if (atMichaels) {
-                test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
+                test = new Database("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
         }
     }
 
