@@ -81,7 +81,6 @@ public class Database {
         return select + from + where + orderBy + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-
     public Result queryAlgorithm(ArrayList<String> id) {
         String idList = toList(id);
         Point points[] = null;
