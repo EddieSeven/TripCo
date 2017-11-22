@@ -3,7 +3,7 @@ package edu.csu2017fa314.T25.Model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseDriver {
+public class Database {
     private final int MAX_QUERY_SIZE = 100;
     private final int NUMBER_OF_ATTRIBUTES = 11;
     private String userName;
@@ -15,9 +15,9 @@ public class DatabaseDriver {
     private Connection connection;
     private Statement statement;
 
-    public DatabaseDriver(){}
+    public Database(){}
 
-    public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
+    public Database(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
         this.url = url;
@@ -81,7 +81,6 @@ public class DatabaseDriver {
         return select + from + where + orderBy + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-
     public Result queryAlgorithm(ArrayList<String> id) {
         String idList = toList(id);
         Point points[] = null;
@@ -110,7 +109,7 @@ public class DatabaseDriver {
 
         String where = "WHERE airports.code IN " + idList;
 
-        return select + from + where + " LIMIT " + MAX_QUERY_SIZE + ";";
+        return select + from + where + ";";
     }
 
     private Point[] constructResult(ResultSet resultSet, int total) throws SQLException {
@@ -118,25 +117,29 @@ public class DatabaseDriver {
 
         int counter = 0;
         while (resultSet.next() && counter < total) {
-            String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
-            attributes[0] = resultSet.getString("airports.code");
-            attributes[1] = resultSet.getString("airports.type");
-            attributes[2] = resultSet.getString("airports.name");
-            attributes[3] = resultSet.getString("latitude");
-            attributes[4] = resultSet.getString("longitude");
-            attributes[5] = resultSet.getString("elevation");
-            attributes[6] = resultSet.getString("municipality");
-            attributes[7] = resultSet.getString("countries.name");
-            attributes[8] = resultSet.getString("regions.name");
-            attributes[9] = resultSet.getString("home_link");
-            attributes[10] = resultSet.getString("airports.wikipedia_link");
-
-            Point newPoint = new Point(attributes);
+            Point newPoint = setAttributes(resultSet);
             points[counter] = newPoint;
             counter++;
         }
 
         return points;
+    }
+
+    private Point setAttributes(ResultSet resultSet) throws SQLException {
+        String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
+        attributes[0] = resultSet.getString("airports.code");
+        attributes[1] = resultSet.getString("airports.type");
+        attributes[2] = resultSet.getString("airports.name");
+        attributes[3] = resultSet.getString("latitude");
+        attributes[4] = resultSet.getString("longitude");
+        attributes[5] = resultSet.getString("elevation");
+        attributes[6] = resultSet.getString("municipality");
+        attributes[7] = resultSet.getString("countries.name");
+        attributes[8] = resultSet.getString("regions.name");
+        attributes[9] = resultSet.getString("home_link");
+        attributes[10] = resultSet.getString("airports.wikipedia_link");
+
+        return new Point(attributes);
     }
 
     private int getTotal(String searchString) throws SQLException {

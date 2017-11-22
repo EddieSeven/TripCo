@@ -1,15 +1,9 @@
 package edu.csu2017fa314.T25;
 
-import edu.csu2017fa314.T25.Model.DatabaseDriver;
-import edu.csu2017fa314.T25.Model.TripLeg;
-import edu.csu2017fa314.T25.View.View;
+import edu.csu2017fa314.T25.Model.Database;
 import edu.csu2017fa314.T25.View.Server;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import static spark.Spark.*;
 
 public class TripCo {
 
@@ -22,11 +16,11 @@ public class TripCo {
         System.out.println("Welcome to TripCo");
 
         if (isTest) {
-            DatabaseDriver db = new DatabaseDriver("", "", "");
+            Database db = new Database("", "", "");
             Server s = new Server(db);
             s.serveTest();
         } else {
-            DatabaseDriver db = new DatabaseDriver("cedward", "829875838", "jdbc:mysql://faure.cs.colostate.edu/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
+            Database db = new Database("cedward", "829875838", "jdbc:mysql://faure.cs.colostate.edu/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
             Server s = new Server(db);
             s.serve();
         }
