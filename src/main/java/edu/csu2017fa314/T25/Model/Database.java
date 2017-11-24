@@ -82,9 +82,17 @@ public class Database {
     }
 
     public Result queryAlgorithm(ArrayList<String> id) {
-        String idList = toList(id);
-        Point points[] = null;
         int total = id.size();
+        Point points[] = new Point[total];
+        Result result = new Result(points, total);
+        int partitions = (total / 100);
+
+        for (int i = 0; i < partitions - 1; i++){
+            String partition;
+        }
+        String idList = toList(id);
+
+
 
         String query = formAlgorithmQuery(idList);
         try {
@@ -96,7 +104,6 @@ public class Database {
             e.printStackTrace();
         }
 
-        Result result = new Result(points, total);
         return result;
     }
 
