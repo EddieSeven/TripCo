@@ -3,6 +3,9 @@ import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
 import InlineSVG from 'svg-inline-react';
+import GoogleMapReact from 'google-map-react';
+
+
 
 class Home extends React.Component {
     constructor(props){
@@ -167,6 +170,16 @@ class Home extends React.Component {
 
             <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
 
+            <GoogleMapReact
+                defaultCenter={this.props.center}
+                defaultZoom={this.props.zoom}
+            >
+                <AnyReactComponent
+                    lat={40.5853}
+                    lng={105.0844}
+                    text={'FOCO'}
+                />
+            </GoogleMapReact>
 
             <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
 
