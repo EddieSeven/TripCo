@@ -2,8 +2,14 @@ package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 public class TestDatabase {
@@ -29,7 +35,10 @@ public class TestDatabase {
             Result result = test.queryPage("Urb");
             assertEquals(true, result.points[0].attributes[2].equals("Urbino"));
         } else if (atMichaels) {
-            Result result = test.queryPage("london");
+            ArrayList<String> codes = new ArrayList<>();
+            codes = readCodeList("M:\\Michael\\Documents\\Development\\IntelliJ\\projects\\T25\\data\\worldmedium4.txt");
+            Result result = test.queryAlgorithm(codes);
+
         }
     }
 
@@ -73,4 +82,27 @@ public class TestDatabase {
             assertEquals(0, result.size);
         }
     }
+
+    public ArrayList<String> readCodeList(String path){
+        ArrayList<String> codes = new ArrayList<>();
+        JsonParser jsonParser = new JsonParser();
+        FileReader file = null;
+
+        try {
+            file = new FileReader(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Object obj = jsonParser.parse(file);
+        JsonObject jObj = (JsonObject) obj;
+        JsonArray destinations = (JsonArray) jObj.get("destinations");
+
+        for (Object code: destinations){
+            String parsedCode =  code.toString().replace("\"", "");
+            codes.add(parsedCode);
+        }
+
+        return codes;
+    }
+
 }
