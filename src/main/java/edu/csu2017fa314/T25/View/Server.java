@@ -127,14 +127,14 @@ public class Server {
 		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sreq.getOptimization()).getLegs();
 
 		try {
-			System.out.println("Appending path to SVG: " + latestItinerary);
-			svg = v.insertSVG(latestItinerary);
+			System.out.println("Appending path to SVG: " + legs);
+			svg = v.insertSVG(legs);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return new ServerResponse(legs, svg, 120, 100);
-	}	
+	}
 
 	private ServerResponse handleSelectionQuery(ServerRequest sreq) {
 		Result result = dbDriver.queryPage(sreq.getDescription());
