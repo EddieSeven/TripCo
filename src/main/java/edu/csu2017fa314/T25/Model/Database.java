@@ -2,6 +2,7 @@ package edu.csu2017fa314.T25.Model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     private final int MAX_QUERY_SIZE = 100;
@@ -81,30 +82,48 @@ public class Database {
         return select + from + where + orderBy + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
-    public Result queryAlgorithm(ArrayList<String> id) {
-        int total = id.size();
+    public Result queryAlgorithm(ArrayList<String> codes){
+        int total = codes.size();
         Point points[] = new Point[total];
         Result result = new Result(points, total);
         int partitions = (total / 100);
+        ArrayList<String> queries = new ArrayList<>();
 
-        for (int i = 0; i < partitions - 1; i++){
-            String partition;
-        }
-        String idList = toList(id);
+        dividePartitions(codes, partitions, queries);
 
-
-
-        String query = formAlgorithmQuery(idList);
         try {
-            if (idList != null) {
-                ResultSet resultSet = statement.executeQuery(query);
-                points = constructResult(resultSet, id.size());
-            }
+            runQueries(queries, result);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        result.removeNull();
+
         return result;
+    }
+
+    private void dividePartitions(ArrayList<String> codes, int partitions, ArrayList<String> queries) {
+        for (int i = 0; i < partitions; i++){
+            int start = i * 100;
+            int end = start + 100;
+            List partition = codes.subList(start, end);
+            String codeList = toList(partition);
+            queries.add(formAlgorithmQuery(codeList));
+        }
+
+        List lastPartition = codes.subList(partitions * 100, codes.size());
+        String lastCodeList = toList(lastPartition);
+        queries.add(formAlgorithmQuery(lastCodeList));
+    }
+
+    private void runQueries(ArrayList<String> queries, Result result) throws SQLException {
+        for (int i = 0; i < queries.size(); i++){
+            ResultSet resultSet = statement.executeQuery(queries.get(i));
+            while (resultSet.next()){
+                Point newPoint = setAttributes(resultSet);
+                result.add(newPoint);
+            }
+        }
     }
 
     private String formAlgorithmQuery(String idList) {
@@ -167,7 +186,7 @@ public class Database {
         return total;
     }
 
-    private String toList(ArrayList<String> id) {
+    private String toList(List<String> id) {
         String idList = "(";
         for (int i = 0; i < id.size(); i++) {
             idList += "'" + id.get(i) + "', ";

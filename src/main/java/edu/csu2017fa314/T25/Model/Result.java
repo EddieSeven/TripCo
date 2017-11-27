@@ -14,4 +14,25 @@ public class Result {
 		points[index] = point;
 		index++;
 	}
+
+	public void removeNull(){
+		int newSize = 0;
+
+		for (Point p: points){
+		    if (p != null)
+		        newSize++;
+        }
+
+        Point newPoints[] = new Point[newSize];
+        int index = 0;
+
+        for (Point p: points){
+            if (p != null)
+                newPoints[index] = p;
+            index++;
+        }
+
+        this.points = newPoints;
+        this.size = newSize;
+	}
 }

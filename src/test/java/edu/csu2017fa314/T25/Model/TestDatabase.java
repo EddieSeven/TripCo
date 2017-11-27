@@ -29,7 +29,16 @@ public class TestDatabase {
             Result result = test.queryPage("Urb");
             assertEquals(true, result.points[0].attributes[2].equals("Urbino"));
         } else if (atMichaels) {
-            Result result = test.queryPage("london");
+            // todo debug delete
+
+            ArrayList<String> codes = new ArrayList<>();
+
+            for (int i = 0; i < 56; i++){
+                codes.add("a" + i);
+            }
+
+
+            Result result = test.queryAlgorithm(codes);
         }
     }
 
