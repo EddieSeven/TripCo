@@ -1,0 +1,52 @@
+.itinerary-wrapper{
+    h5{
+        color: white;
+    }
+
+    text-align: center;
+    color: white;
+    width: 93%;
+    overflow: scroll;
+
+    .p{
+        color: #444;
+    }
+
+    .checkboxes{
+        padding: 5px;
+        margin: 2px 10%;
+    }
+
+    .itinerary-table{
+        padding: 20px;
+        margin: 15px auto;
+        color: #dddddd;
+        border: 1px solid white;
+        border-radius: 5px;
+        text-align: center;
+        width: 98%;
+        height: 400px;
+        overflow: scroll;
+    }
+
+    .itinerary-table td {
+        text-align: center;
+        padding: 5px;
+        margin: 5px 10px;
+    }
+
+    .itinerary-table ul{
+        list-style-type: none;
+        text-align: center;
+        padding: 3px;
+    }
+
+    .itinerary-table li{
+        font-size: 1.3em;
+        padding: 2px;
+        margin: 5px 10%;
+        height: 140px;
+        background: rgba(77,77,77,0.7);
+        border-radius: 5px;
+    }
+}
