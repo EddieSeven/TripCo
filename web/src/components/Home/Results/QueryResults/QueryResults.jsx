@@ -36,7 +36,7 @@ class QueryResults extends React.Component {
             locs = serverLocations.map((location) => {
                 console.log(location.attributes[0]);
                     return <li key={location.attributes[0]}>
-                        <table className="results-table">
+                        <table className="single-result-table">
                             <thead>
                                 <tr>
                                     <th> Name </th>
@@ -67,26 +67,23 @@ class QueryResults extends React.Component {
         }
 
         return  (
-        <div className="table-container">
-
-            <div className = "results-wrapper">
-                <table className="results-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <h5>Results:</h5>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <ul>{locs}</ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div className = "results-wrapper">
+            <table className="results-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <h5>Results:</h5>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul>{locs}</ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         );
     }
