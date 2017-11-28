@@ -27,7 +27,7 @@ class Itinerary extends React.Component {
         }
 
         return  (
-        <div className = "itinerary-table">
+        <div className = "itinerary-wrapper">
 
             <div className="checkboxes">
                     <label> Airport Code <input type="checkbox" name="airport-code" defaultChecked onChange={this.handleInputChange} /></label>
@@ -38,7 +38,7 @@ class Itinerary extends React.Component {
                     <label> Airport Wiki <input type="checkbox" name="dest-lat" defaultChecked onChange={this.handleInputChange} /></label><br/>
             </div>
 
-			<table>
+			<table className="itinerary-table">
 				<thead>
 					<tr>
 						<td> Start </td>

@@ -2,8 +2,9 @@ package edu.csu2017fa314.T25.Model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class DatabaseDriver {
+public class Database {
     private final int MAX_QUERY_SIZE = 100;
     private final int NUMBER_OF_ATTRIBUTES = 11;
     private String userName;
@@ -15,9 +16,9 @@ public class DatabaseDriver {
     private Connection connection;
     private Statement statement;
 
-    public DatabaseDriver(){}
+    public Database(){}
 
-    public DatabaseDriver(String userName, String password, String url) throws ClassNotFoundException {
+    public Database(String userName, String password, String url) throws ClassNotFoundException {
         this.userName = userName;
         this.password = password;
         this.url = url;
@@ -81,24 +82,48 @@ public class DatabaseDriver {
         return select + from + where + orderBy + "LIMIT " + MAX_QUERY_SIZE + ";";
     }
 
+    public Result queryAlgorithm(ArrayList<String> codes){
+        int total = codes.size();
+        Point points[] = new Point[total];
+        Result result = new Result(points, total);
+        int partitions = (total / 100);
+        ArrayList<String> queries = new ArrayList<>();
 
-    public Result queryAlgorithm(ArrayList<String> id) {
-        String idList = toList(id);
-        Point points[] = null;
-        int total = id.size();
+        dividePartitions(codes, partitions, queries);
 
-        String query = formAlgorithmQuery(idList);
         try {
-            if (idList != null) {
-                ResultSet resultSet = statement.executeQuery(query);
-                points = constructResult(resultSet, id.size());
-            }
+            runQueries(queries, result);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        Result result = new Result(points, total);
+        result.removeNull();
+
         return result;
+    }
+
+    private void dividePartitions(ArrayList<String> codes, int partitions, ArrayList<String> queries) {
+        for (int i = 0; i < partitions; i++){
+            int start = i * 100;
+            int end = start + 100;
+            List partition = codes.subList(start, end);
+            String codeList = toList(partition);
+            queries.add(formAlgorithmQuery(codeList));
+        }
+
+        List lastPartition = codes.subList(partitions * 100, codes.size());
+        String lastCodeList = toList(lastPartition);
+        queries.add(formAlgorithmQuery(lastCodeList));
+    }
+
+    private void runQueries(ArrayList<String> queries, Result result) throws SQLException {
+        for (int i = 0; i < queries.size(); i++){
+            ResultSet resultSet = statement.executeQuery(queries.get(i));
+            while (resultSet.next()){
+                Point newPoint = setAttributes(resultSet);
+                result.add(newPoint);
+            }
+        }
     }
 
     private String formAlgorithmQuery(String idList) {
@@ -110,7 +135,7 @@ public class DatabaseDriver {
 
         String where = "WHERE airports.code IN " + idList;
 
-        return select + from + where + " LIMIT " + MAX_QUERY_SIZE + ";";
+        return select + from + where + ";";
     }
 
     private Point[] constructResult(ResultSet resultSet, int total) throws SQLException {
@@ -118,25 +143,29 @@ public class DatabaseDriver {
 
         int counter = 0;
         while (resultSet.next() && counter < total) {
-            String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
-            attributes[0] = resultSet.getString("airports.code");
-            attributes[1] = resultSet.getString("airports.type");
-            attributes[2] = resultSet.getString("airports.name");
-            attributes[3] = resultSet.getString("latitude");
-            attributes[4] = resultSet.getString("longitude");
-            attributes[5] = resultSet.getString("elevation");
-            attributes[6] = resultSet.getString("municipality");
-            attributes[7] = resultSet.getString("countries.name");
-            attributes[8] = resultSet.getString("regions.name");
-            attributes[9] = resultSet.getString("home_link");
-            attributes[10] = resultSet.getString("airports.wikipedia_link");
-
-            Point newPoint = new Point(attributes);
+            Point newPoint = setAttributes(resultSet);
             points[counter] = newPoint;
             counter++;
         }
 
         return points;
+    }
+
+    private Point setAttributes(ResultSet resultSet) throws SQLException {
+        String attributes[] = new String[NUMBER_OF_ATTRIBUTES];
+        attributes[0] = resultSet.getString("airports.code");
+        attributes[1] = resultSet.getString("airports.type");
+        attributes[2] = resultSet.getString("airports.name");
+        attributes[3] = resultSet.getString("latitude");
+        attributes[4] = resultSet.getString("longitude");
+        attributes[5] = resultSet.getString("elevation");
+        attributes[6] = resultSet.getString("municipality");
+        attributes[7] = resultSet.getString("countries.name");
+        attributes[8] = resultSet.getString("regions.name");
+        attributes[9] = resultSet.getString("home_link");
+        attributes[10] = resultSet.getString("airports.wikipedia_link");
+
+        return new Point(attributes);
     }
 
     private int getTotal(String searchString) throws SQLException {
@@ -157,7 +186,7 @@ public class DatabaseDriver {
         return total;
     }
 
-    private String toList(ArrayList<String> id) {
+    private String toList(List<String> id) {
         String idList = "(";
         for (int i = 0; i < id.size(); i++) {
             idList += "'" + id.get(i) + "', ";

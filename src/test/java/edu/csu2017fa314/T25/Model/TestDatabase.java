@@ -2,12 +2,18 @@ package edu.csu2017fa314.T25.Model;
 
 import static org.junit.Assert.*;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
-public class TestDatabaseDriver {
-    private DatabaseDriver test;
+public class TestDatabase {
+    private Database test;
     private boolean isTravis = false;
     final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
@@ -17,9 +23,9 @@ public class TestDatabaseDriver {
             isTravis = true;
 
         if (isTravis) {
-            test = new DatabaseDriver("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
+            test = new Database("travis", "", "jdbc:mysql://localhost/TripCoTestDB");
         } else if (atMichaels) {
-                test = new DatabaseDriver("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
+                test = new Database("mlyonsru", "830721900", "jdbc:mysql://localhost:8080/cs314?useLegacyDatetimeCode=false&serverTimezone=UTC");
         }
     }
 
@@ -29,7 +35,10 @@ public class TestDatabaseDriver {
             Result result = test.queryPage("Urb");
             assertEquals(true, result.points[0].attributes[2].equals("Urbino"));
         } else if (atMichaels) {
-            Result result = test.queryPage("london");
+            ArrayList<String> codes = new ArrayList<>();
+            codes = readCodeList("M:\\Michael\\Documents\\Development\\IntelliJ\\projects\\T25\\data\\worldmedium4.txt");
+            Result result = test.queryAlgorithm(codes);
+
         }
     }
 
@@ -73,4 +82,27 @@ public class TestDatabaseDriver {
             assertEquals(0, result.size);
         }
     }
+
+    public ArrayList<String> readCodeList(String path){
+        ArrayList<String> codes = new ArrayList<>();
+        JsonParser jsonParser = new JsonParser();
+        FileReader file = null;
+
+        try {
+            file = new FileReader(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Object obj = jsonParser.parse(file);
+        JsonObject jObj = (JsonObject) obj;
+        JsonArray destinations = (JsonArray) jObj.get("destinations");
+
+        for (Object code: destinations){
+            String parsedCode =  code.toString().replace("\"", "");
+            codes.add(parsedCode);
+        }
+
+        return codes;
+    }
+
 }

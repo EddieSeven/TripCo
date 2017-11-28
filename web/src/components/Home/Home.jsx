@@ -168,7 +168,7 @@ class Home extends React.Component {
                 </div>
             </div>
 
-            <div className="svg-container"><img src="../images/world.svg" /><br />{renderedSvg}</div>
+            <div className="svg-container">{renderedSvg}</div>
 
             <GoogleMapReact
                 defaultCenter={this.props.center}
