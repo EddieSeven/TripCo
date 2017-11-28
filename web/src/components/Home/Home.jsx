@@ -3,7 +3,7 @@ import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
 import InlineSVG from 'svg-inline-react';
-import GoogleMapReact from 'google-map-react';
+import Map from "./Map/Map.jsx"
 
 
 
@@ -119,8 +119,12 @@ class Home extends React.Component {
         return (
         <div className="header-wrapper">
             <div className="header">
+                <Map
+                    containerElement={<div style={{ height: `100%` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                />
                 <div className="logo">
-                    <img src="../images/tripco-logo-color-small.png" />
+                    <img src="../../images/tripco-logo-color-small.png" />
                 </div>
 
 
@@ -165,21 +169,13 @@ class Home extends React.Component {
 							</tr>
                         </table>
 					</span>
+
                 </div>
             </div>
 
             <div className="svg-container">{renderedSvg}</div>
 
-            <GoogleMapReact
-                defaultCenter={this.props.center}
-                defaultZoom={this.props.zoom}
-            >
-                <AnyReactComponent
-                    lat={40.5853}
-                    lng={105.0844}
-                    text={'FOCO'}
-                />
-            </GoogleMapReact>
+
 
             <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
 
