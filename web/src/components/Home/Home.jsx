@@ -76,10 +76,10 @@ class Home extends React.Component {
     onSave(e){
     }
 
-    onAddAll(){
+    onAddClick(){
     }
 
-    onRemoveAll(){
+    onRemoveClick(){
     }
 
     render() {
@@ -97,7 +97,7 @@ class Home extends React.Component {
             //    tempIds.push(this.state.queryResults[i].attributes[0]);
             //}
             // this.state.ids = this.state.queryResults.attributes.slice();
-            console.log("The IDs are: ", this.state.queryResults.ids);
+            // console.log("The IDs are: ", this.state.queryResults.ids);
             // this.setArray(tempIds);
 
 	    }
@@ -120,9 +120,7 @@ class Home extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-
                 <Search handlerFromParent={this.handleData.bind(this)}/>
-
 
                 <div className="buttons-container">
                     <span className="buttons">
@@ -136,7 +134,7 @@ class Home extends React.Component {
                                 />
                             </li>
                             <li><button type="submit" onClick={this.onSubmitItinerary}>Plan</button></li>
-                            <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
+                            <li><button type="submit" onClick={this.onRemoveClick()}>Delete </button></li>
                         </ul>
                     </span>
                     <span className="toggle">
@@ -167,7 +165,6 @@ class Home extends React.Component {
 
             <div className="svg-container">{renderedSvg}</div>
 
-
             <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
 
         </div>
@@ -175,20 +172,6 @@ class Home extends React.Component {
     }
 
     async browseFile(file) {
-        /*console.log("Got file: ", file);
-        let pairs = [];
-        for (let i = 0; i < Object.values(file).length; i++) {
-            let start = file[i].start; //get start from file i
-            let end = file[i].end; //get end from file i
-            let dist = file[i].distance;
-            let p = { //create object with start, end, and dist variable
-                start: start,
-                end: end,
-                dist: dist
-            };
-            pairs.push(p); //add object to pairs array
-            console.log("Pushing pair: ", p); //log to console
-        }*/
 		let Ids = [];
 		for (let i = 0; i < file.destinations.length; i++) {
 			let id = file.destinations[i];

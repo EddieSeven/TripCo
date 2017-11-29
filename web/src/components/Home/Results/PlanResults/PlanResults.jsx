@@ -1,42 +1,25 @@
 import React, {Component} from 'react';
-import Dropzone from 'react-dropzone';
 
-
-class QueryResults extends React.Component {
+class PlanResults extends React.Component {
     constructor(props){
         super(props);
     }
 
     render() {
-        let total = 0;
-        let serverLocations;
+        let planLocations;
         let locs;
-        // TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2526/svg";
-        let renderedSvg;
-        //let pairs = this.state.allPairs;
-        //let ps = pairs.map((pp) => {
-        //    return <Pair {...pp}/>;
-        //});
 
         if (this.props.results) {
-            // set local variable to results of sent query
-            serverLocations = this.props.results;
+            // set local variable to results
+            planLocations = this.props.results;
 
+            console.log("In new component", planLocations);
 
-            console.log("come on", this.props.results);
-
-            /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
-            * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
-            * through a function and returns a new array with the mapped elements.
-            * In this case f: location -> <li>location.name</li>, so the array will look like:
-            * [<li>[name1]</li>,<li>[name2]</li>...]
-            */
-
-            locs = serverLocations.map((location) => {
+            // Put the onClick on the li element
+            locs = planLocations.map((location) => {
                 console.log(location.attributes[0]);
                     return <li key={location.attributes[0]}>
-                        <table className="single-result-table">
+                        <table className="single-destination-table">
                             <thead>
                                 <tr>
                                     <th> Name </th>
@@ -80,5 +63,12 @@ class QueryResults extends React.Component {
         </div>
         );
     }
+
+    /*async GetInitialState(element){
+        this.setState({
+            plan: element
+        });
+        console.log("This is the plan: ", this.state.plan);
+    }*/
 }
-export default QueryResults;
+export default PlanResults;
