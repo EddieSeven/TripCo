@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TestDatabase {
     private Database test;
     private boolean isTravis = false;
-    final private boolean atMichaels = false; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
+    final private boolean atMichaels = true; // todo SET TO FALSE WHEN DONE WITH LOCAL TESTING
 
     @Before
     public void setup() throws ClassNotFoundException {
@@ -36,7 +36,7 @@ public class TestDatabase {
             assertEquals(true, result.points[0].attributes[2].equals("Urbino"));
         } else if (atMichaels) {
             ArrayList<String> codes = new ArrayList<>();
-            codes = readCodeList("M:\\Michael\\Documents\\Development\\IntelliJ\\projects\\T25\\data\\worldmedium4.txt");
+            // codes = readCodeList("M:\\Michael\\Documents\\Development\\IntelliJ\\projects\\T25\\data\\worldmedium4.txt");
             Result result = test.queryAlgorithm(codes);
 
         }
