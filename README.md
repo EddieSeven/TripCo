@@ -12,5 +12,5 @@ Sprint # | Model - Data | Model - Itinerary | View - Server | View - Client
 2 | Charles | Michael | Will | Leif 
 3 | Michael | Leif | Will | Charles 
 4 | All | All | All | All
-5 |  |  |  |  
+5 | All | All | All | All 
 
