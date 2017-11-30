@@ -63,6 +63,17 @@ class Home extends React.Component {
     }
 
     onSubmitItinerary(e) {
+        if(this.state.queryResults.length > 0){
+            console.log("Testing temp list: ", this.state.queryResults);
+            let temp = []
+            for(let k = 0; k < this.state.queryResults.length; k++){
+                temp.push(this.state.queryResults[k]);
+            }
+
+            this.setState({
+                ids: temp
+            });
+        }
         this.fetchItinerary("itinerary", this.state.ids);
     }
 
@@ -126,15 +137,15 @@ class Home extends React.Component {
                     <span className="buttons">
                         <ul>
                             <li>
-                                <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
+                                <button type="submit" onClick={this.onSave.bind(this)}> Save </button>
                             </li>
                             <li>
                                 <LoadsaveDropzone
                                     browseFile={this.browseFile.bind(this)}
                                 />
                             </li>
-                            <li><button type="submit" onClick={this.onSubmitItinerary}>Plan</button></li>
-                            <li><button type="submit" onClick={this.onRemoveClick()}>Delete </button></li>
+                            <li><button type="submit" onClick={this.onSubmitItinerary}> Plan </button></li>
+                            <li><button type="submit" onClick={this.onRemoveClick()}> Reset </button></li>
                         </ul>
                     </span>
                     <span className="toggle">
@@ -147,20 +158,19 @@ class Home extends React.Component {
 							</tr>
                         </table>
                     </span>
-					<span className="opt-select">
-						<table>
-                            <tr>
-                                <td><label> No optimization <input type="radio" name="opt" value="0" defaultChecked onClick={this.handleOptChange} /></label></td>
-                            </tr>
-                            <tr>
-                                <td><label> Nearest Neighbor <input type="radio" name="opt" value="1" onClick={this.handleOptChange} /></label></td>
-							</tr>
-							<tr>
-                                <td><label> 2-Opt <input type="radio" name="opt" value="2" onClick={this.handleOptChange} /></label></td>
-							</tr>
-                        </table>
-					</span>
                 </div>
+					<div className="opt-select">
+
+                                    <input type="radio" id="no-opt-radio" name="opt" value="0" onClick={this.handleOptChange} defaultChecked />
+                                    <label for="no-opt-radio"> No Opt </label>
+
+                                    <input type="radio" id="nearest-neighbor-radio" name="opt" value="1" onClick={this.handleOptChange} />
+                                    <label for="nearest-neighbor-radio"> Nearest Neighbor </label>
+
+                                    <input type="radio" id="two-opt-radio" name="opt" value="2" onClick={this.handleOptChange} />
+                                    <label for="two-opt-radio"> 2-Opt </label>
+
+					</div>
             </div>
 
             <div className="svg-container">{renderedSvg}</div>
@@ -198,6 +208,8 @@ class Home extends React.Component {
            request: "select",
            description: input
        };
+
+        console.log("Client Request: ", clientRequest);
 
        try {
             console.log(clientRequest);
@@ -252,10 +264,10 @@ class Home extends React.Component {
         };
 
         try{
-            console.log(itineraryRequest);
+            console.log("Itinerary request: ", itineraryRequest);
 
            let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
-			console.log(serverUrl);
+		    console.log(serverUrl);
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
