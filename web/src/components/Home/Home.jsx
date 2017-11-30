@@ -119,10 +119,9 @@ class Home extends React.Component {
         return (
         <div className="header-wrapper">
             <div className="header">
-                <Map
-                    containerElement={<div style={{ height: `100%` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                />
+
+
+
                 <div className="logo">
                     <img src="../../images/tripco-logo-color-small.png" />
                 </div>
@@ -173,7 +172,14 @@ class Home extends React.Component {
                 </div>
             </div>
 
-            <div className="svg-container">{renderedSvg}</div>
+            <div className="svg-container">
+                <Map
+                containerElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+                lats = {this.state.allPairs.latitude}
+                longs = {this.state.allPairs.longitude}
+                />
+            </div>
 
 
 
