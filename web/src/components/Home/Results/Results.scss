@@ -2,3 +2,15 @@
     width: auto;
     clear: both;
 }
+
+.full-results-wrapper div{
+    display: inline-block;
+    color: #dddddd;
+    padding: 5px;
+}
+
+.full-results-wrapper h5, h6{
+    color: #dddddd;
+    padding: 2px;
+    line-height: 0.7;
+}

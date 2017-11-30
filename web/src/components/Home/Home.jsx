@@ -63,6 +63,17 @@ class Home extends React.Component {
     }
 
     onSubmitItinerary(e) {
+        if(this.state.queryResults.length > 0){
+            console.log("Testing temp list: ", this.state.queryResults);
+            let temp = []
+            for(let k = 0; k < this.state.queryResults.length; k++){
+                temp.push(this.state.queryResults[k]);
+            }
+
+            this.setState({
+                ids: temp
+            });
+        }
         this.fetchItinerary("itinerary", this.state.ids);
     }
 
@@ -76,10 +87,10 @@ class Home extends React.Component {
     onSave(e){
     }
 
-    onAddAll(){
+    onAddClick(){
     }
 
-    onRemoveAll(){
+    onRemoveClick(){
     }
 
     render() {
@@ -97,7 +108,7 @@ class Home extends React.Component {
             //    tempIds.push(this.state.queryResults[i].attributes[0]);
             //}
             // this.state.ids = this.state.queryResults.attributes.slice();
-            console.log("The IDs are: ", this.state.queryResults.ids);
+            // console.log("The IDs are: ", this.state.queryResults.ids);
             // this.setArray(tempIds);
 
 	    }
@@ -120,23 +131,21 @@ class Home extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-
                 <Search handlerFromParent={this.handleData.bind(this)}/>
-
 
                 <div className="buttons-container">
                     <span className="buttons">
                         <ul>
                             <li>
-                                <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
+                                <button type="submit" onClick={this.onSave.bind(this)}> Save </button>
                             </li>
                             <li>
                                 <LoadsaveDropzone
                                     browseFile={this.browseFile.bind(this)}
                                 />
                             </li>
-                            <li><button type="submit" onClick={this.onSubmitItinerary}>Plan</button></li>
-                            <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
+                            <li><button type="submit" onClick={this.onSubmitItinerary}> Plan </button></li>
+                            <li><button type="submit" onClick={this.onRemoveClick()}> Reset </button></li>
                         </ul>
                     </span>
                     <span className="toggle">
@@ -149,46 +158,30 @@ class Home extends React.Component {
 							</tr>
                         </table>
                     </span>
-					<span className="opt-select">
-						<table>
-                            <tr>
-                                <td><label> No optimization <input type="radio" name="opt" value="0" defaultChecked onClick={this.handleOptChange} /></label></td>
-                            </tr>
-                            <tr>
-                                <td><label> Nearest Neighbor <input type="radio" name="opt" value="1" onClick={this.handleOptChange} /></label></td>
-							</tr>
-							<tr>
-                                <td><label> 2-Opt <input type="radio" name="opt" value="2" onClick={this.handleOptChange} /></label></td>
-							</tr>
-                        </table>
-					</span>
                 </div>
+					<div className="opt-select">
+
+                                    <input type="radio" id="no-opt-radio" name="opt" value="0" onClick={this.handleOptChange} checked="checked" />
+                                    <label for="no-opt-radio"> No Opt </label>
+
+                                    <input type="radio" id="nearest-neighbor-radio" name="opt" value="1" onClick={this.handleOptChange} />
+                                    <label for="nearest-neighbor-radio"> Nearest Neighbor </label>
+
+                                    <input type="radio" id="two-opt-radio" name="opt" value="2" onClick={this.handleOptChange} />
+                                    <label for="two-opt-radio"> 2-Opt </label>
+
+					</div>
             </div>
 
             <div className="svg-container">{renderedSvg}</div>
 
-
-            <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
+            <Results sLocs={this.state.queryResults} ids={this.state.ids} itin={this.state.allPairs}/>
 
         </div>
         );
     }
 
     async browseFile(file) {
-        /*console.log("Got file: ", file);
-        let pairs = [];
-        for (let i = 0; i < Object.values(file).length; i++) {
-            let start = file[i].start; //get start from file i
-            let end = file[i].end; //get end from file i
-            let dist = file[i].distance;
-            let p = { //create object with start, end, and dist variable
-                start: start,
-                end: end,
-                dist: dist
-            };
-            pairs.push(p); //add object to pairs array
-            console.log("Pushing pair: ", p); //log to console
-        }*/
 		let Ids = [];
 		for (let i = 0; i < file.destinations.length; i++) {
 			let id = file.destinations[i];
@@ -215,6 +208,8 @@ class Home extends React.Component {
            request: "select",
            description: input
        };
+
+        console.log("Client Request: ", clientRequest);
 
        try {
             console.log(clientRequest);
@@ -243,7 +238,7 @@ class Home extends React.Component {
                    queryResults: returnedJson.points
                });
             }
-		   	itin = [];
+		   	let itin = [];
 		   	for (let i = 0; i < returnedJson.points.length; i++) {
 				itin.push(returnedJson.points[i].attributes[0]);
 			}
@@ -269,10 +264,10 @@ class Home extends React.Component {
         };
 
         try{
-            console.log(itineraryRequest);
+            console.log("Itinerary request: ", itineraryRequest);
 
            let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
-			console.log(serverUrl);
+		    console.log(serverUrl);
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",

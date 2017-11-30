@@ -69,13 +69,6 @@ class QueryResults extends React.Component {
         return  (
         <div className = "results-wrapper">
             <table className="results-table">
-                <thead>
-                    <tr>
-                        <th>
-                            <h5>Results:</h5>
-                        </th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>
