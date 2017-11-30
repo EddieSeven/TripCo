@@ -15,7 +15,7 @@ class Results extends React.Component {
             <div>
                 <h5>Plan: </h5>
                 <h6>Click on an element to remove it from your trip.</h6>
-                <PlanResults results={this.props.sLocs} />
+                <PlanResults results={this.props.ids} />
             </div>
             <div>
                 <Itinerary itin={this.props.itin}/>

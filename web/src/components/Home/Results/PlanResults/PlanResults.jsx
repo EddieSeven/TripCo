@@ -17,29 +17,19 @@ class PlanResults extends React.Component {
 
             // Put the onClick on the li element
             locs = planLocations.map((location) => {
-                console.log(location.attributes[0]);
-                    return <li key={location.attributes[0]}>
+                console.log(location);
+                    return <li key={location}>
                         <table className="single-destination-table">
                             <thead>
                                 <tr>
-                                    <th> Name </th>
-
-                                    <th> Latitude </th>
-
-                                    <th> Longitude </th>
+                                    <th> Airport ID </th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        {location.attributes[2]}
-                                    </td>
-                                    <td>
-                                        {location.attributes[3]}
-                                    </td>
-                                    <td>
-                                        {location.attributes[4]}
+                                        {location}
                                     </td>
                                 </tr>
                             </tbody>

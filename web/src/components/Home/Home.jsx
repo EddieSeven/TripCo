@@ -161,7 +161,7 @@ class Home extends React.Component {
                 </div>
 					<div className="opt-select">
 
-                                    <input type="radio" id="no-opt-radio" name="opt" value="0" onClick={this.handleOptChange} defaultChecked />
+                                    <input type="radio" id="no-opt-radio" name="opt" value="0" onClick={this.handleOptChange} checked="checked" />
                                     <label for="no-opt-radio"> No Opt </label>
 
                                     <input type="radio" id="nearest-neighbor-radio" name="opt" value="1" onClick={this.handleOptChange} />
@@ -175,7 +175,7 @@ class Home extends React.Component {
 
             <div className="svg-container">{renderedSvg}</div>
 
-            <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
+            <Results sLocs={this.state.queryResults} ids={this.state.ids} itin={this.state.allPairs}/>
 
         </div>
         );
@@ -238,7 +238,7 @@ class Home extends React.Component {
                    queryResults: returnedJson.points
                });
             }
-		   	itin = [];
+		   	let itin = [];
 		   	for (let i = 0; i < returnedJson.points.length; i++) {
 				itin.push(returnedJson.points[i].attributes[0]);
 			}

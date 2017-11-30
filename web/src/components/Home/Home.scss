@@ -39,7 +39,7 @@
     color: #dddddd;
 }
 
-.opt-select input{
+.opt-select input[type="radio"]{
     position: absolute;
     height: 0px;
     width: 0px;
@@ -68,7 +68,8 @@
     cursor: pointer;
 }
 
-.opt-select input:checked + label {
+.opt-select input[type="radio"]:checked + label,
+.Checked + label {
     background-color: #A5DC86;
     box-shadow: none;
 }
