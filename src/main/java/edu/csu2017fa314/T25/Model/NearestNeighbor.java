@@ -166,8 +166,8 @@ public class NearestNeighbor {
 			for (int i = 0; i <= N-5; i++) {
 				for (int j = i+1; j <= N-3; j++) {
 					for (int k = j+1; k <= N-1; k++) {
-						int curDist = threeOptDistance(path, i,i+1,j,j+1,k,k+1);
-						int caseNum = threeOptCase(path, i, j, k);
+						int curDist = threeOptDistance(route, i,i+1,j,j+1,k,k+1);
+						int caseNum = threeOptCase(route,curDist, i, j, k);
 
 						if (caseNum != 0) {
 							improvement = true;
@@ -196,7 +196,46 @@ public class NearestNeighbor {
 	}
 
 	public int threeOptCase(Path route, int curDist, int i, int j, int k) {
-		return 1;
+		int ret = 0;
+
+		int comp = threeOptDistance(route, i, j, i+1, j+1, k, k+1);
+		if (comp < curDist) {
+			ret = 1;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, i+1,j,k,j+1,k+1);
+		if (comp < curDist) {
+			ret = 2;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, k, j+1, j, i+1, k+1);
+		if (comp < curDist) {
+			ret = 3;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, j, i+1, k, j+1, k+1);
+		if (comp < curDist) {
+			ret = 4;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, k, j+1, i+1,j, k+1);
+		if (comp < curDist) {
+			ret = 5;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, j+1, k, j, i+1, k+1);
+		if (comp < curDist) {
+			ret = 6;
+			curDist = comp;
+		}
+
+		comp = threeOptDistance(route, i, j+1, k,i+1, j, k+1);
+		if (comp < curDist) {
+			ret = 7;
+			curDist = comp;
+		}
+
+		return ret;
 	}
 
 	public int threeOptDistance(Path route, int s1, int f1, int s2, int f2, int s3, int f3) {
