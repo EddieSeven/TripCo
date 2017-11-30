@@ -17,7 +17,7 @@ class Map extends React.Component {
     // Render method of the Map component
     render() {
 
-        testcoordinates = lats.concat(longs).unique();
+        testcoordinates = this.state.lats.concat(this.state.longs).unique();
 
         coordinates = [
             {lat: 37.772, lng: -122.214},
