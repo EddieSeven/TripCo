@@ -3,6 +3,7 @@ import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
 import InlineSVG from 'svg-inline-react';
+import Map from "./Map/Map.jsx";
 
 class Home extends React.Component {
     constructor(props){
@@ -173,7 +174,15 @@ class Home extends React.Component {
 					</div>
             </div>
 
-            <div className="svg-container">{renderedSvg}</div>
+            <div className="svg-container">
+                <Map
+                    containerElement={<div style={{ height: `100%` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                    lats = {this.state.allPairs.latitude}
+                    longs = {this.state.allPairs.longitude}
+                />
+            </div>
+
 
             <Results sLocs={this.state.queryResults} ids={this.state.ids} itin={this.state.allPairs}/>
 
