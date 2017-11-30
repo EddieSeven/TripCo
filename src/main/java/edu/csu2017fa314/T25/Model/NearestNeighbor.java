@@ -158,4 +158,52 @@ public class NearestNeighbor {
             }
         }
     }
+
+	public void threeOpt(Path route) {
+		boolean improvement = true;
+		while (improvement) {
+			improvement = false;
+			for (int i = 0; i <= N-5; i++) {
+				for (int j = i+1; j <= N-3; j++) {
+					for (int k = j+1; k <= N-1; k++) {
+						int curDist = threeOptDistance(path, i,i+1,j,j+1,k,k+1);
+						int caseNum = threeOptCase(path, i, j, k);
+
+						if (caseNum != 0) {
+							improvement = true;
+						}
+
+						switch (caseNum) {
+							case 1:
+								break;
+							case 2:
+								break;
+							case 3:
+								break;
+							case 4:
+								break;
+							case 5:
+								break;
+							case 6:
+								break;
+							case 7:
+								break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public int threeOptCase(Path route, int curDist, int i, int j, int k) {
+		return 1;
+	}
+
+	public int threeOptDistance(Path route, int s1, int f1, int s2, int f2, int s3, int f3) {
+		int sum = 0;
+		sum += getDistance(route.path[s1], route.path[f1]);
+		sum += getDistance(route.path[s2], route.path[f2]);
+		sum += getDistance(route.path[s3], route.path[f3]);
+		return sum;
+	}
 }

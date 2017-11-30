@@ -26,7 +26,7 @@ public class TestThreeOpt {
 		ideal = new Path(test, 6);
 		ideal.returnHome();
 	}
-//	@Test
+	@Test
 	public void testThreeOptCase0() {
 		Point [] test = {a,b,c,d,e,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -38,7 +38,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(0,c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt0() {
 		Point [] test = {a,b,c,d,e,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -48,7 +48,8 @@ public class TestThreeOpt {
 		nn.threeOpt(route);
 		assertTrue(route.equals(ideal));
 	}
-	//@Test
+
+	@Test
 	public void testThreeOptCase1() {
 		Point [] test = {a,c,b,d,e,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -60,7 +61,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(1,c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt1() {
 		Point [] test = {a,c,b,d,e,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -70,7 +71,7 @@ public class TestThreeOpt {
 		nn.threeOpt(route);
 		assertTrue(route.equals(ideal));
 	}
-	//@Test
+	@Test
 	public void testThreeOptCase2() {
 		Point [] test = {a,b,c,e,d,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -82,7 +83,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(2, c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt2() {
 		Point [] test = {a,b,c,e,d,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -92,7 +93,7 @@ public class TestThreeOpt {
 		nn.threeOpt(route);
 		assertTrue(route.equals(ideal));
 	}
-	//@Test
+	@Test
 	public void testThreeOptCase3() {
 		Point [] test = {a,e,d,c,b,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -104,7 +105,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(3,c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt3() {
 		Point [] test = {a,e,d,c,b,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -115,7 +116,7 @@ public class TestThreeOpt {
 		assertTrue(route.equals(ideal));
 	}
 
-	//@Test
+	@Test
 	public void testThreeOptCase4() {
 		Point [] test = {a,c,b,e,d,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -127,7 +128,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(4, c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt4() {
 		Point [] test = {a,c,b,e,d,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -137,7 +138,7 @@ public class TestThreeOpt {
 		nn.threeOpt(route);
 		assertTrue(route.equals(ideal));
 	}
-	//@Test
+	@Test
 	public void testThreeOptCase5() {
 		Point [] test = {a,d,e,c,b,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -149,7 +150,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(5, c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt5() {
 		Point [] test = {a,d,e,c,b,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -159,7 +160,7 @@ public class TestThreeOpt {
 		nn.threeOpt(route);
 		assertTrue(route.equals(ideal));
 	}
-	//@Test
+	@Test
 	public void testThreeOptCase6() {
 		Point [] test = {a,e,d,b,c,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -171,7 +172,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(6,c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt6() {
 		Point [] test = {a,e,d,b,c,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -181,7 +182,7 @@ public class TestThreeOpt {
 		nn.threeOpt(route);
 		assertTrue(route.equals(ideal));
 	}
-	//@Test
+	@Test
 	public void testThreeOptCase7() {
 		Point [] test = {a,d,e,b,c,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -193,7 +194,7 @@ public class TestThreeOpt {
 		int c = nn.threeOptCase(route, cost, 0,2,4);
 		assertEquals(7,c);
 	}
-	//@Test
+	@Test
 	public void testThreeOpt7() {
 		Point [] test = {a,d,e,b,c,f};
 		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
@@ -204,7 +205,7 @@ public class TestThreeOpt {
 		assertTrue(route.equals(ideal));
 	}
 
-	//@Test
+	@Test
 	public void threeOptBenchMark() throws Exception {
 		Point [] test = readCSV();
 		NearestNeighbor nn = new NearestNeighbor(test, test.length, false);
