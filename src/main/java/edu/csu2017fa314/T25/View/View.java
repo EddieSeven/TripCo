@@ -1,11 +1,8 @@
 package edu.csu2017fa314.T25.View;
 
-import com.google.gson.Gson;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,7 +28,7 @@ public class View {
       while(scanner.hasNextLine()) {
          String line = scanner.nextLine();
          if(line.contains("Antarctique")){ //end of SVG, insert path at this point
-            outputSVG += "id=\"Antarctique\" /></g>\n";
+            outputSVG += "id=\"Antarctique\" /></gson>\n";
             break;
          }
          outputSVG += line + "\n";
@@ -147,7 +144,7 @@ public class View {
         coordinates += startcoordinate;
         coordinates += " \" stroke=\"red\" stroke-width=\"3\" fill=\"none\"/>  ";
         outputSVG += coordinates;
-        outputSVG += "\n" + "\t\t</g>\n" + "\n" + "  </g>\n" + "\n" + "</svg>\n";
+        outputSVG += "\n" + "\t\t</gson>\n" + "\n" + "  </gson>\n" + "\n" + "</svg>\n";
 
 
         return outputSVG;
