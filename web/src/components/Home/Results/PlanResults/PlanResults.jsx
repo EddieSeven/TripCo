@@ -5,6 +5,13 @@ class PlanResults extends React.Component {
         super(props);
     }
 
+    // Removes index from ID list
+    removeHandler(e){
+        //e.preventDefault();
+        console.log("Remove Handler was reached, index is: ", e);
+        this.props.removeHandlerFromResult(e);
+    }
+
     render() {
         let planLocations;
         let locs;
@@ -16,14 +23,13 @@ class PlanResults extends React.Component {
             console.log("In new component", planLocations);
 
             // Put the onClick on the li element
-            locs = planLocations.map((location) => {
-                console.log(location);
-                    return <li key={location}>
+            locs = planLocations.map((location, index) => {
+                console.log("Airport ID in plan: ", location);
+                    return <li key={location} onClick={this.removeHandler.bind(this, index)}>
                         <table className="single-destination-table">
                             <thead>
                                 <tr>
                                     <th> Airport ID </th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,7 +40,6 @@ class PlanResults extends React.Component {
                                 </tr>
                             </tbody>
                         </table>
-
                     </li>;
             });
         }
@@ -53,12 +58,5 @@ class PlanResults extends React.Component {
         </div>
         );
     }
-
-    /*async GetInitialState(element){
-        this.setState({
-            plan: element
-        });
-        console.log("This is the plan: ", this.state.plan);
-    }*/
 }
 export default PlanResults;

@@ -10,12 +10,18 @@ class Results extends React.Component {
             <div>
                 <h5>Results: </h5>
                 <h6>Click on an element to add it to your trip.</h6>
-                <QueryResults results={this.props.sLocs} />
+                <QueryResults
+                    results={this.props.sLocs}
+                    addHandlerFromResult={this.props.addHandlerFromHome}
+                />
             </div>
             <div>
                 <h5>Plan: </h5>
                 <h6>Click on an element to remove it from your trip.</h6>
-                <PlanResults results={this.props.ids} />
+                <PlanResults
+                    results={this.props.ids}
+                    removeHandlerFromResult={this.props.removeHandlerFromHome}
+                />
             </div>
             <div>
                 <Itinerary itin={this.props.itin}/>
