@@ -6,25 +6,25 @@ import InlineSVG from 'svg-inline-react';
 
 class Home extends React.Component {
     constructor(props){
-            super(props);
-            this.handleData = this.handleData.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-			this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
-            this.fetch = this.fetch.bind(this);
-            this.fetchItinerary = this.fetchItinerary.bind(this);
-			this.handleInputChange = this.handleInputChange.bind(this);
-			this.handleOptChange = this.handleOptChange.bind(this);
-            this.state = {
-                ids: [],
-                searchQuery: '',
-                queryResults: [],
-                svgResults: "",
-                input: "",
-                allPairs: [],
-                sysFile: [],
-				miles: true,
-				opt: 2
-            };
+        super(props);
+        this.handleData = this.handleData.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
+        this.fetch = this.fetch.bind(this);
+        this.fetchItinerary = this.fetchItinerary.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleOptChange = this.handleOptChange.bind(this);
+        this.state = {
+            ids: [],
+            searchQuery: '',
+            queryResults: [],
+            svgResults: "",
+            input: "",
+            allPairs: [],
+            sysFile: [],
+            miles: true,
+            opt: 2
+        };
     }
 
 	handleOptChange(event) {
@@ -56,6 +56,28 @@ class Home extends React.Component {
         this.onSubmit(data);
     }
 
+    handleAdd(index){
+        if(index > -1){
+            console.log("Element to be added: ", this.state.queryResults[index].attributes[0]);
+            this.state.ids.push(this.state.queryResults[index].attributes[0]);
+            console.log("ID list after add: ", this.state.ids);
+            this.setState({
+                ids: this.state.ids
+            });
+        }
+    }
+
+    handleRemove(index){
+        if(index > -1){
+            console.log("Element to be removed: ", index);
+            this.state.ids.splice(index, 1);
+            console.log("ID list after remove: ", this.state.ids);
+            this.setState({
+                ids: this.state.ids
+            });
+        }
+    }
+
     onSubmit(e) {
         console.log("Searched for:");
         console.log(e);
@@ -63,6 +85,18 @@ class Home extends React.Component {
     }
 
     onSubmitItinerary(e) {
+        /*if(this.state.queryResults.length > 0){
+            console.log("Testing temp list: ", this.state.queryResults);
+            let temp = []
+            for(let k = 0; k < this.state.queryResults.length; k++){
+                temp.push(this.state.queryResults[k]);
+            }
+
+            this.setState({
+                ids: temp
+            });
+        } */
+        console.log("ID List to be sent to Plan: ", this.state.ids);
         this.fetchItinerary("itinerary", this.state.ids);
     }
 
@@ -76,10 +110,10 @@ class Home extends React.Component {
     onSave(e){
     }
 
-    onAddAll(){
+    onAddClick(){
     }
 
-    onRemoveAll(){
+    onRemoveClick(){
     }
 
     render() {
@@ -92,22 +126,14 @@ class Home extends React.Component {
 
         if (this.state.queryResults.length > 0) { // if this.state.serverReturned is not null
             console.log("First Checkpoint", this.state.queryResults);
-            //for(let i=0;i<this.state.queryResults.length;i++){
-            //    console.log(this.state.queryResults[i]);
-            //    tempIds.push(this.state.queryResults[i].attributes[0]);
-            //}
-            // this.state.ids = this.state.queryResults.attributes.slice();
-            console.log("The IDs are: ", this.state.queryResults.ids);
-            // this.setArray(tempIds);
 
 	    }
             if(this.state.svgResults){
                 svg = this.state.svgResults;
                 renderedSvg = <InlineSVG src={svg}></InlineSVG>;
             }
-            console.log(svg);
-            console.log(renderedSvg);
-            console.log(this.state.svgResults);
+            // console.log(svg);
+            // console.log(renderedSvg);
             console.log("Map created.");
 
 
@@ -120,23 +146,21 @@ class Home extends React.Component {
                     <img src="../images/tripco-logo-color-small.png" />
                 </div>
 
-
                 <Search handlerFromParent={this.handleData.bind(this)}/>
-
 
                 <div className="buttons-container">
                     <span className="buttons">
                         <ul>
                             <li>
-                                <button type="submit" onClick={this.onSave.bind(this)}>Save</button>
+                                <button type="submit" onClick={this.onSave.bind(this)}> Save </button>
                             </li>
                             <li>
                                 <LoadsaveDropzone
                                     browseFile={this.browseFile.bind(this)}
                                 />
                             </li>
-                            <li><button type="submit" onClick={this.onSubmitItinerary}>Plan</button></li>
-                            <li><button type="submit" onClick={this.onRemoveAll()}>Delete </button></li>
+                            <li><button type="submit" onClick={this.onSubmitItinerary}> Plan </button></li>
+                            <li><button type="submit" onClick={this.onRemoveClick()}> Reset </button></li>
                         </ul>
                     </span>
                     <span className="toggle">
@@ -149,46 +173,47 @@ class Home extends React.Component {
 							</tr>
                         </table>
                     </span>
-					<span className="opt-select">
-						<table>
-                            <tr>
-                                <td><label> No optimization <input type="radio" name="opt" value="0" defaultChecked onClick={this.handleOptChange} /></label></td>
-                            </tr>
-                            <tr>
-                                <td><label> Nearest Neighbor <input type="radio" name="opt" value="1" onClick={this.handleOptChange} /></label></td>
-							</tr>
-							<tr>
-                                <td><label> 2-Opt <input type="radio" name="opt" value="2" onClick={this.handleOptChange} /></label></td>
-							</tr>
-                        </table>
-					</span>
                 </div>
+
             </div>
 
-            <div className="svg-container">{renderedSvg}</div>
+            <div className="right-head-container">
 
+                <div className="svg-container">{renderedSvg}</div>
 
-            <Results sLocs={this.state.queryResults} itin={this.state.allPairs}/>
+                <div className="opt-select">
+                    <table>
+
+                        <tr>
+                            <td><label> No optimization <input type="radio" name="opt" value="0" defaultChecked onClick={this.handleOptChange} /></label></td>
+
+                            <td><label> Nearest Neighbor <input type="radio" name="opt" value="1" onClick={this.handleOptChange} /></label></td>
+
+                        </tr>
+                        <tr>
+                            <td><label> 2-Opt Algorithm <input type="radio" name="opt" value="2" onClick={this.handleOptChange} /></label></td>
+
+                            <td><label> 3-Opt Algorithm<input type="radio" name="opt" value="3" onClick={this.handleOptChange} /></label></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <Results
+                sLocs={this.state.queryResults}
+                ids={this.state.ids}
+                itin={this.state.allPairs}
+                addHandlerFromHome={this.handleAdd.bind(this)}
+                removeHandlerFromHome={this.handleRemove.bind(this)}
+            />
 
         </div>
         );
     }
 
     async browseFile(file) {
-        /*console.log("Got file: ", file);
-        let pairs = [];
-        for (let i = 0; i < Object.values(file).length; i++) {
-            let start = file[i].start; //get start from file i
-            let end = file[i].end; //get end from file i
-            let dist = file[i].distance;
-            let p = { //create object with start, end, and dist variable
-                start: start,
-                end: end,
-                dist: dist
-            };
-            pairs.push(p); //add object to pairs array
-            console.log("Pushing pair: ", p); //log to console
-        }*/
 		let Ids = [];
 		for (let i = 0; i < file.destinations.length; i++) {
 			let id = file.destinations[i];
@@ -215,6 +240,8 @@ class Home extends React.Component {
            request: "select",
            description: input
        };
+
+        console.log("Client Request: ", clientRequest);
 
        try {
             console.log(clientRequest);
@@ -243,14 +270,16 @@ class Home extends React.Component {
                    queryResults: returnedJson.points
                });
             }
-		   	itin = [];
-		   	for (let i = 0; i < returnedJson.points.length; i++) {
-				itin.push(returnedJson.points[i].attributes[0]);
-			}
-		   	this.setState({
-				ids: itin
-			});
-            console.log(this.state.queryResults);
+		   	//let itin = [];
+		   	//for (let i = 0; i < returnedJson.points.length; i++) {
+			//	itin.push(returnedJson.points[i].attributes[0]);
+			//}
+		   	//this.setState({
+			//	ids: itin
+			//});
+            console.log("queryResults populated with: ", this.state.queryResults);
+            console.log("IDs populated with: ", this.state.ids);
+
        } catch (e) {
            console.log("Error talking to server");
        }
@@ -258,7 +287,7 @@ class Home extends React.Component {
     }
 
    async fetchItinerary(type, input){
-	   console.log("Fetch itin. called")
+	   console.log("Fetch itin. called. Input is: ", input);
         let itineraryRequest;
 
         itineraryRequest = {
@@ -269,10 +298,10 @@ class Home extends React.Component {
         };
 
         try{
-            console.log(itineraryRequest);
+            console.log("Itinerary request: ", itineraryRequest);
 
            let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
-			console.log(serverUrl);
+		    console.log(serverUrl);
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
@@ -291,8 +320,7 @@ class Home extends React.Component {
                 svgResults: returnedJson.svg
             });
 
-            //console.log("Second query ", allPairs);
-
+            console.log("In fetchItinerary, allPairs holds:  ", allPairs);
 
         } catch (e) {
             console.log("Fetch itin. error:"+e);
