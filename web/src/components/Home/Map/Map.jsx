@@ -17,9 +17,16 @@ class Map extends React.Component {
 
     // Render method of the Map component
     render() {
+
+        console.log(this.state.latCoor);
+        console.log(this.state.longCoor);
+
         for(var i=0; i< this.state.latCoor.length; i++){
             this.state.googCoor.push({lat: this.state.latCoor[i],lng: this.state.longCoor[i] });
         }
+        this.state.googCoor.push({lat: this.state.latCoor[0],lng: this.state.longCoor[0]});
+
+        console.log(this.state.googCoor);
 
         const coordinates = [
             {lat: 37.772, lng: -122.214},
