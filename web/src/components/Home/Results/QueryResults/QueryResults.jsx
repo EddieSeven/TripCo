@@ -7,24 +7,26 @@ class QueryResults extends React.Component {
         super(props);
     }
 
+    // Adds index to ID list
+    addHandler(e){
+        //e.preventDefault();
+        console.log("Add Handler was reached, index is: ", e);
+        this.props.addHandlerFromResult(e);
+    }
+
     render() {
         let total = 0;
         let serverLocations;
         let locs;
-        // TODO: Replace localhost with URL of remote server
         let svg = "http://localhost:2526/svg";
         let renderedSvg;
-        //let pairs = this.state.allPairs;
-        //let ps = pairs.map((pp) => {
-        //    return <Pair {...pp}/>;
-        //});
 
         if (this.props.results) {
             // set local variable to results of sent query
             serverLocations = this.props.results;
 
 
-            console.log("come on", this.props.results);
+            console.log("serverLocations populated with: ", serverLocations);
 
             /* Create an array of HTML list items. The Array.map function in Javascript passes each individual element
             * of an array (in this case serverLocations is the array and "location" is the name chosen for the individual element)
@@ -33,30 +35,25 @@ class QueryResults extends React.Component {
             * [<li>[name1]</li>,<li>[name2]</li>...]
             */
 
-            locs = serverLocations.map((location) => {
-                console.log(location.attributes[0]);
-                    return <li key={location.attributes[0]}>
+            locs = serverLocations.map((location, index) => {
+                // console.log("Current ID: ", index);
+                    return <li key={location.attributes[0]} onClick={this.addHandler.bind(this, index)}>
                         <table className="single-result-table">
                             <thead>
                                 <tr>
-                                    <th> Name </th>
+                                    <th> Airport ID </th>
 
-                                    <th> Latitude </th>
-
-                                    <th> Longitude </th>
+                                    <th> Airport Name </th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
+                                        {location.attributes[0]}
+                                    </td>
+                                    <td>
                                         {location.attributes[2]}
-                                    </td>
-                                    <td>
-                                        {location.attributes[3]}
-                                    </td>
-                                    <td>
-                                        {location.attributes[4]}
                                     </td>
                                 </tr>
                             </tbody>
