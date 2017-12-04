@@ -9,17 +9,19 @@ class Map extends React.Component {
     constructor(){
         super();
         this.state = {
-            lats: [],
-            longs: []
+            latCoor: [],
+            longCoor: [],
+            googCoor: []
         };
     }
 
     // Render method of the Map component
     render() {
+        for(var i=0; i< this.state.latCoor.length; i++){
+            this.state.googCoor.push({lat: this.state.latCoor[i],lng: this.state.longCoor[i] });
+        }
 
-        testcoordinates = this.state.lats.concat(this.state.longs).unique();
-
-        coordinates = [
+        const coordinates = [
             {lat: 37.772, lng: -122.214},
             {lat: 21.291, lng: -157.821},
             {lat: -18.142, lng: 178.431},
@@ -39,7 +41,7 @@ class Map extends React.Component {
                 <Polyline
                     visible={true /*Make sure the map is visable on screen*/}
 
-                    path={testcoordinates}
+                    path={this.state.googCoor}
 
                     options={{
                         /* This is a list of optional things line line color and line weight this does not
