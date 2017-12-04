@@ -9,8 +9,8 @@ class Map extends React.Component {
     constructor(){
         super();
         this.state = {
-            latCoor: [],
-            longCoor: [],
+            // latCoor: [],
+            // longCoor: [],
             googCoor: []
         };
     }
@@ -18,13 +18,13 @@ class Map extends React.Component {
     // Render method of the Map component
     render() {
 
-        console.log(this.state.latCoor);
-        console.log(this.state.longCoor);
+        console.log(this.state.allPairs.latitude);
+        console.log(this.state.allPairs.longitude);
 
-        for(var i=0; i< this.state.latCoor.length; i++){
-            this.state.googCoor.push({lat: this.state.latCoor[i],lng: this.state.longCoor[i] });
+        for(var i=0; i< this.state.allPairs.longitude.length; i++){
+            this.state.googCoor.push({lat: this.state.allPairs.latitude[i],lng: this.state.allPairs.longitude[i] });
         }
-        this.state.googCoor.push({lat: this.state.latCoor[0],lng: this.state.longCoor[0]});
+        this.state.googCoor.push({lat: this.state.allPairs.latitude[0],lng: this.state.allPairs.longitude[0]});
 
         console.log(this.state.googCoor);
 

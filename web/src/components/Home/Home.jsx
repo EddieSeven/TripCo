@@ -206,6 +206,8 @@ class Home extends React.Component {
                 <Map
                     containerElement={<div style={{ height: `100%` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
+                    latCoor = {this.state.allPairs.latitude}
+                    longCoor = {this.state.allPairs.longitude}
                 />
             </div>
             
@@ -327,12 +329,13 @@ class Home extends React.Component {
                 allPairs: returnedJson.locations,
                 svgResults: returnedJson.svg
             });
-            this.setState({
-                latCoor:this.state.allPairs.latitude,
-                longCoor:this.state.allPairs.longitude
-            });
 
-            console.log("In fetchItinerary, allPairs holds:  ", allPairs);
+            // this.setState({
+            //     latCoor:this.state.allPairs.latitude,
+            //     longCoor:this.state.allPairs.longitude
+            // });
+
+            console.log("In fetchItinerary, allPairs holds:  ", this.state.allPairs);
 
 
         } catch (e) {
