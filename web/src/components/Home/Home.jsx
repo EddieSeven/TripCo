@@ -3,6 +3,7 @@ import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
 import InlineSVG from 'svg-inline-react';
+import Map from './Map/Map.jsx';
 
 class Home extends React.Component {
     constructor(props){
@@ -200,7 +201,14 @@ class Home extends React.Component {
                 </div>
 
             </div>
-
+            
+            <div className="svg-container">
+                <Map
+                    containerElement={<div style={{ height: `100%` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                />
+            </div>
+            
             <Results
                 sLocs={this.state.queryResults}
                 ids={this.state.ids}
@@ -319,8 +327,13 @@ class Home extends React.Component {
                 allPairs: returnedJson.locations,
                 svgResults: returnedJson.svg
             });
+            this.setState({
+                latCoor:this.state.allPairs.latitude,
+                longCoor:this.state.allPairs.longitude
+            });
 
             console.log("In fetchItinerary, allPairs holds:  ", allPairs);
+
 
         } catch (e) {
             console.log("Fetch itin. error:"+e);
