@@ -60,7 +60,6 @@ public class Server {
         ArrayList<TripLeg> legs = algorithm.computeShortestPath(serverRequest.getOptimization()).getLegs();
 
         try {
-            System.out.println("Appending path to SVG: " + legs);
             svg = view.insertSVG(legs);
         } catch (Exception e) {
             e.printStackTrace();
