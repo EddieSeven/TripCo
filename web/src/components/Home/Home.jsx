@@ -320,17 +320,13 @@ class Home extends React.Component {
            let returnedJson = JSON.parse(ret);
 
 			console.log("Fetch itin. Returned JSON: ");
-			//console.log(returnedJson);
+			console.log(returnedJson);
 
             this.setState({
                 allPairs: returnedJson.locations,
                 svgResults: returnedJson.svg
             });
 
-            // this.setState({
-            //     latCoor:this.state.allPairs.latitude,
-            //     longCoor:this.state.allPairs.longitude
-            // });
 
             console.log("In fetchItinerary, allPairs holds:  ", this.state.allPairs);
 

@@ -9,8 +9,6 @@ class Map extends React.Component {
     constructor(){
         super();
         this.state = {
-            // latCoor: [],
-            // longCoor: [],
             googCoor: []
         };
     }
@@ -23,7 +21,6 @@ class Map extends React.Component {
         if(this.props.allCoors.length > 1){
             for(var i=0; i< this.props.allCoors.length; i++){
 
-                //console.log(this.props.allCoors[i].start.latitude);
                 this.state.googCoor.push({lat: this.props.allCoors[i].start.latitude ,lng: this.props.allCoors[i].start.longitude});
             }
             this.state.googCoor.push({lat: this.props.allCoors[0].start.latitude ,lng: this.props.allCoors[0].start.longitude});
