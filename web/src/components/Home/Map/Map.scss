@@ -1,0 +1,24 @@
+.flex-container {
+  width: 80%;
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+header {
+  background-color: green;
+  flex-basis: auto;
+}
+main {
+  // flex-grow: 1;
+}
+#map-canvas{
+  height: 500px;
+  // width: 500px;
+  max-width: 100%;
+  border: 3px solid black;
+}
+footer {
+  background-color: blue;
+  flex-basis: auto;
+}

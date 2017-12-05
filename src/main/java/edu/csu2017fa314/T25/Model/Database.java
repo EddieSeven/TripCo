@@ -89,6 +89,10 @@ public class Database {
         int partitions = (total / 100);
         ArrayList<String> queries = new ArrayList<>();
 
+        if (total == 0){
+            return new Result(null, 0);
+        }
+
         dividePartitions(codes, partitions, queries);
 
         try {

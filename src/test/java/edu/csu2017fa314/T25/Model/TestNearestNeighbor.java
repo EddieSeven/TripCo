@@ -28,6 +28,32 @@ public class TestNearestNeighbor {
     }
 
     @Test
+    public void testComputeShortestPath1(){
+        Point a = new Point(37.34247, -108.58625, "a");
+        Point b = new Point(40.57191, -105.121777,"b");
+        Point c = new Point(28.729166, -81.14536, "c");
+        Point d = new Point(60.06519, -151.509611, "d");
+        Point e = new Point(35.131388, -119.181944, "e");
+
+        Path path = new Path(5);
+        boolean visited[] = new boolean[5];
+
+        path = testNN.computeShortestPath(0);
+        Path expected = new Path(5);
+        expected.addPoint(a);
+        expected.addPoint(b);
+        expected.addPoint(c);
+        expected.addPoint(d);
+        expected.addPoint(e);
+
+        assertEquals(expected.getPath()[0].attributes[0], path.getPath()[0].attributes[0]);
+        assertEquals(expected.getPath()[1].attributes[0], path.getPath()[1].attributes[0]);
+        assertEquals(expected.getPath()[2].attributes[0], path.getPath()[2].attributes[0]);
+        assertEquals(expected.getPath()[3].attributes[0], path.getPath()[3].attributes[0]);
+        assertEquals(expected.getPath()[4].attributes[0], path.getPath()[4].attributes[0]);
+    }
+
+    @Test
     public void testComputeNearestNeighbor1() {
         Path path = new Path(5);
         boolean visited[] = new boolean[5];
