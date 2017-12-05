@@ -17,23 +17,18 @@ class Map extends React.Component {
 
     // Render method of the Map component
     render() {
+        this.state.googCoor = [];
 
-        console.log(this.state.allPairs.latitude);
-        console.log(this.state.allPairs.longitude);
 
-        for(var i=0; i< this.state.allPairs.longitude.length; i++){
-            this.state.googCoor.push({lat: this.state.allPairs.latitude[i],lng: this.state.allPairs.longitude[i] });
+        if(this.props.allCoors.length > 1){
+            for(var i=0; i< this.props.allCoors.length; i++){
+
+                //console.log(this.props.allCoors[i].start.latitude);
+                this.state.googCoor.push({lat: this.props.allCoors[i].start.latitude ,lng: this.props.allCoors[i].start.longitude});
+            }
+            this.state.googCoor.push({lat: this.props.allCoors[0].start.latitude ,lng: this.props.allCoors[0].start.longitude});
         }
-        this.state.googCoor.push({lat: this.state.allPairs.latitude[0],lng: this.state.allPairs.longitude[0]});
 
-        console.log(this.state.googCoor);
-
-        const coordinates = [
-            {lat: 37.772, lng: -122.214},
-            {lat: 21.291, lng: -157.821},
-            {lat: -18.142, lng: 178.431},
-            {lat: -27.467, lng: 153.027}
-        ];
 
         // Return the stuff we actually want rendered on the page
         return (
