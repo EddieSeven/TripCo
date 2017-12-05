@@ -189,16 +189,14 @@ public class NearestNeighbor {
 								break;
 							case 5:
 								twoOptSwap(route, j+1, k);
-								twoOptSwap(route, i+1, k);
+								threeOptExchange(route, i+1, j+1, j+1, k+1);
 								break;
 							case 6:
 								twoOptSwap(route, i+1, j);
-								twoOptSwap(route, i+1, k);
+								threeOptExchange(route, i+1, j+1, j+1, k+1);
 								break;
 							case 7:
-								twoOptSwap(route, i+1, j);
-								twoOptSwap(route, j+1, k);
-								twoOptSwap(route, i+1, k);
+								threeOptExchange(route, i+1, j+1, j+1, k+1);
 								break;
 						}
 					}
