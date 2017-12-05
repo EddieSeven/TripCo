@@ -26,6 +26,17 @@ public class TestThreeOpt {
 		ideal = new Path(test, 6);
 		ideal.returnHome();
 	}
+
+	@Test
+	public void testThreeOptExchange() {
+		Point [] test = {a,b,e,c,d,f};
+		NearestNeighbor nn = new NearestNeighbor(test, 6, false);
+		Path route = new Path(test, 6);
+		route.returnHome();
+
+		nn.threeOptExchange(route,2,3,3,5);
+		assertTrue(route.equalsPath(ideal));
+	}
 	@Test
 	public void testThreeOptCase0() {
 		Point [] test = {a,b,c,d,e,f};
@@ -46,7 +57,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 
 	@Test
@@ -69,7 +80,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 	@Test
 	public void testThreeOptCase2() {
@@ -91,7 +102,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 	@Test
 	public void testThreeOptCase3() {
@@ -113,7 +124,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 
 	@Test
@@ -136,7 +147,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 	@Test
 	public void testThreeOptCase5() {
@@ -158,7 +169,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 	@Test
 	public void testThreeOptCase6() {
@@ -180,7 +191,7 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 	@Test
 	public void testThreeOptCase7() {
@@ -202,10 +213,10 @@ public class TestThreeOpt {
 		route.returnHome();
 
 		nn.threeOpt(route);
-		assertTrue(route.equals(ideal));
+		assertTrue(route.equalsPath(ideal));
 	}
 
-	@Test
+	/*@Test
 	public void threeOptBenchMark() throws Exception {
 		Point [] test = readCSV();
 		NearestNeighbor nn = new NearestNeighbor(test, test.length, false);
@@ -214,18 +225,19 @@ public class TestThreeOpt {
 		Path p = nn.computeShortestPath(3);
 		System.out.println("3-OPT Time: " + (System.currentTimeMillis()-start));
 	}
+	*/
 
 	public Point[] readCSV() throws Exception{
-		Point [] pts = new Point[294];
+		Point [] pts = new Point[60];
 		int i = 0;
 		
-		Scanner s = new Scanner(new File("data/airports.csv"));
+		Scanner s = new Scanner(new File("data/COgrid60.csv"));
 		s.useDelimiter("\n");
 		s.next();
 		while (s.hasNext()) {
 			String [] tokens = s.next().split(",");
-			double lat = Double.parseDouble(tokens[3]);
-			double lon = Double.parseDouble(tokens[4]);
+			double lat = Double.parseDouble(tokens[2]);
+			double lon = Double.parseDouble(tokens[3]);
 			pts[i] = new Point(lat, lon, tokens[0]);
 			i++;
 		}
