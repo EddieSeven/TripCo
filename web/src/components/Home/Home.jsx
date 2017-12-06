@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Search from './Search/Search.jsx';
 import Results from './Results/Results.jsx';
 import LoadsaveDropzone from './LoadsaveDropzone/LoadsaveDropzone.jsx';
-import InlineSVG from 'svg-inline-react';
 import Map from './Map/Map.jsx';
 
 class Home extends React.Component {
@@ -19,7 +18,6 @@ class Home extends React.Component {
             ids: [],
             searchQuery: '',
             queryResults: [],
-            svgResults: "",
             input: "",
             allPairs: [],
             sysFile: [],
@@ -121,24 +119,8 @@ class Home extends React.Component {
         let serverLocations;
         let locs;
         let tempIds = [];
-        // TODO: Replace localhost with URL of remote server
-        let svg = "http://localhost:2526/svg";
-        let renderedSvg;
 
-        if (this.state.queryResults.length > 0) { // if this.state.serverReturned is not null
-            console.log("First Checkpoint", this.state.queryResults);
-
-	    }
-            if(this.state.svgResults){
-                svg = this.state.svgResults;
-                //renderedSvg = <InlineSVG src={svg}></InlineSVG>;
-            }
-            // console.log(svg);
-            // console.log(renderedSvg);
-            console.log("Map created.");
-
-
-            // Send locs to QueryResults.js
+		// Send locs to QueryResults.js
 
         return (
         <div className="header-wrapper">
@@ -299,16 +281,16 @@ class Home extends React.Component {
 
         itineraryRequest = {
             request: "itinerary",
-	    idList: input,
-	    optimization: this.state.opt,
-	    miles: this.state.miles
+			idList: input,
+			optimization: this.state.opt,
+			miles: this.state.miles
         };
 
         try{
-            console.log("Itinerary request: ", itineraryRequest);
+       		console.log("Itinerary request: ", itineraryRequest);
 
-           let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
-		    console.log(serverUrl);
+			let serverUrl = window.location.href.substring(0, window.location.href.length - 6) + ":2530/search";
+		   console.log(serverUrl);
            let jsonReturned = await fetch(serverUrl,
                {
                    method: "POST",
@@ -324,7 +306,6 @@ class Home extends React.Component {
 
             this.setState({
                 allPairs: returnedJson.locations,
-                svgResults: returnedJson.svg
             });
 
 

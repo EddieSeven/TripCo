@@ -16,22 +16,15 @@ import static spark.Spark.port;
 public class Server {
     private Gson gson;
     private Database database;
-    private View view = new View();
-    private String svg;
 
     public Server(Database database) {
         gson = new Gson();
         this.database = database;
-        svg = view.getSVG();
     }
 
     public void serve() {
         port(2530);
         post("/search", this::serveSearch, gson::toJson);
-    }
-
-    public String getSvg() {
-        return svg;
     }
 
     private Object serveSearch(Request request, Response response) {
@@ -59,13 +52,7 @@ public class Server {
         NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, serverRequest.getMiles());
         ArrayList<TripLeg> legs = algorithm.computeShortestPath(serverRequest.getOptimization()).getLegs();
 
-        try {
-            svg = view.insertSVG(legs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return new ServerResponse(legs, svg, 120, 100);
+        return new ServerResponse(legs);
     }
 
     private ServerResponse handleSelectionQuery(ServerRequest serverRequest) {
