@@ -131,7 +131,7 @@ class Home extends React.Component {
 	    }
             if(this.state.svgResults){
                 svg = this.state.svgResults;
-                renderedSvg = <InlineSVG src={svg}></InlineSVG>;
+                //renderedSvg = <InlineSVG src={svg}></InlineSVG>;
             }
             // console.log(svg);
             // console.log(renderedSvg);
@@ -180,7 +180,13 @@ class Home extends React.Component {
 
             <div className="right-head-container">
 
-                <div className="svg-container">{renderedSvg}</div>
+                <div className="svg-container">
+                    <Map
+                        containerElement={<div style={{ height: `100%` }} />}
+                        mapElement={<div style={{ height: `100%` }} />}
+                        allCoors = {this.state.allPairs}
+                    />
+                </div>
 
                 <div className="opt-select">
                     <table>
@@ -200,13 +206,6 @@ class Home extends React.Component {
 
                 </div>
 
-            </div>
-            
-            <div className="svg-container">
-                <Map
-                    containerElement={<div style={{ height: `100%` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                />
             </div>
             
             <Results
@@ -327,12 +326,9 @@ class Home extends React.Component {
                 allPairs: returnedJson.locations,
                 svgResults: returnedJson.svg
             });
-            this.setState({
-                latCoor:this.state.allPairs.latitude,
-                longCoor:this.state.allPairs.longitude
-            });
 
-            console.log("In fetchItinerary, allPairs holds:  ", allPairs);
+
+            console.log("In fetchItinerary, allPairs holds:  ", this.state.allPairs);
 
 
         } catch (e) {

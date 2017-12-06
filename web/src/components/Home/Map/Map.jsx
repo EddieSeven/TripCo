@@ -9,24 +9,23 @@ class Map extends React.Component {
     constructor(){
         super();
         this.state = {
-            latCoor: [],
-            longCoor: [],
             googCoor: []
         };
     }
 
     // Render method of the Map component
     render() {
-        for(var i=0; i< this.state.latCoor.length; i++){
-            this.state.googCoor.push({lat: this.state.latCoor[i],lng: this.state.longCoor[i] });
+        this.state.googCoor = [];
+
+
+        if(this.props.allCoors.length > 1){
+            for(var i=0; i< this.props.allCoors.length; i++){
+
+                this.state.googCoor.push({lat: this.props.allCoors[i].start.latitude ,lng: this.props.allCoors[i].start.longitude});
+            }
+            this.state.googCoor.push({lat: this.props.allCoors[0].start.latitude ,lng: this.props.allCoors[0].start.longitude});
         }
 
-        const coordinates = [
-            {lat: 37.772, lng: -122.214},
-            {lat: 21.291, lng: -157.821},
-            {lat: -18.142, lng: 178.431},
-            {lat: -27.467, lng: 153.027}
-        ];
 
         // Return the stuff we actually want rendered on the page
         return (
