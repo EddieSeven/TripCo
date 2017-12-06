@@ -5,19 +5,20 @@ import java.util.ArrayList;
 public class Path {
     public Point path[];
     private int totalCost = 0;
-    private int index = 0;
-    private int N;
+    private int index;
 
 	private static boolean miles = true;
 
     public Path(int N) {
-        this.N = N + 1;
-        path = new Point[this.N];
+        path = new Point[N+1];
+		index = 0;
     }
 
-	public Path(Point [] path, int N) {
-		this.N = N + 1;
-		this.path = path;
+	public Path(Point [] newPath, int n) {
+		path = new Point[n+1];
+		for (index = 0; index < newPath.length; index++){
+			path[index] = newPath[index];
+		}
 	}
 
     public Path() {
@@ -55,9 +56,15 @@ public class Path {
 
 	}
 
-	private void printPath() {
-		for (Point p : path) {
-			System.out.println(p.attributes[0]);
+	public void printPath() {
+		for (int i = 0; i < index; i++) {
+			Point p = path[i];
+			if (p != null) {
+				System.out.println(p.attributes[0]);
+			}
+			else {
+				System.out.println("NULL ID");
+			}
 		}
 	}
 
@@ -78,13 +85,26 @@ public class Path {
     }
 
     public int size() {
-        return N;
+        return index;
     }
 
     public void returnHome() {
         // todo hardcoded miles
-        int distance = NearestNeighbor.computeDistance(path[0], path[N - 2], miles);
-		add(path[0], distance);
+        //int distance = NearestNeighbor.computeDistance(path[0], path[N - 2], miles);
+		addPoint(path[0]);
     }
+
+	public boolean equalsPath(Path comp) {
+		if (size() != comp.size()) {
+			System.out.println("Unequal lengths");
+			return false;
+		}
+		for (int i = 0; i < size(); i++) {
+			if (!path[i].equals(comp.path[i])){
+				return false;
+			}
+		}
+		return true;
+	}
 
 }

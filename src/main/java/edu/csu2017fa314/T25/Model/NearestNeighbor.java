@@ -56,7 +56,7 @@ public class NearestNeighbor {
 					twoOpt(current);
 					break;
 				case 3:
-					//3opt
+					threeOpt(current);
 					break;
 			}
             if (current.getCost() < shortestPath.getCost()) {
@@ -158,4 +158,126 @@ public class NearestNeighbor {
             }
         }
     }
+
+	public void threeOpt(Path route) {
+		boolean improvement = true;
+		while (improvement) {
+			improvement = false;
+			for (int i = 0; i < N-5; i++) {
+				for (int j = i+2; j < N-3; j++) {
+					for (int k = j+2; k < N-1; k++) {
+						int curDist = threeOptDistance(route, i,i+1,j,j+1,k,k+1);
+						int caseNum = threeOptCase(route,curDist, i, j, k);
+
+						if (caseNum != 0) {
+							improvement = true;
+						}
+
+						switch (caseNum) {
+							case 1:
+								twoOptSwap(route, i+1, j);
+								break;
+							case 2:
+								twoOptSwap(route, j+1, k);
+								break;
+							case 3:
+								twoOptSwap(route, i+1,k);
+								break;
+							case 4:
+								twoOptSwap(route, i+1, j);
+								twoOptSwap(route, j+1, k);
+								break;
+							case 5:
+								twoOptSwap(route, j+1, k);
+								threeOptExchange(route, i+1, j+1, j+1, k+1);
+								break;
+							case 6:
+								twoOptSwap(route, i+1, j);
+								threeOptExchange(route, i+1, j+1, j+1, k+1);
+								break;
+							case 7:
+								threeOptExchange(route, i+1, j+1, j+1, k+1);
+								break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void threeOptExchange(Path route, int s1, int f1, int s2, int f2) {
+		Point [] newPath = new Point[route.path.length];
+		int index = 0;
+		for (int i = 0; i < s1; i++) {
+			newPath[index] = route.path[i];
+			index++;
+		}
+		for (int i = s2; i < f2; i++) {
+			newPath[index] = route.path[i];
+			index++;
+		}
+		for (int i = f1; i < s2; i++) {
+			newPath[index] = route.path[i];
+			index++;
+		}
+		for (int i = s1; i < f1; i++) {
+			newPath[index] = route.path[i];
+			index++;
+		}
+		for (int i = f2; i < newPath.length; i++) {
+			newPath[index] = route.path[i];
+			index++;
+		}
+		route.path = newPath;
+	}
+
+	public int threeOptCase(Path route, int curDist, int i, int j, int k) {
+		int ret = 0;
+
+		int comp = threeOptDistance(route, i, j, i+1, j+1, k, k+1);
+		if (comp < curDist) {
+			ret = 1;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, i+1,j,k,j+1,k+1);
+		if (comp < curDist) {
+			ret = 2;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, k, j+1, j, i+1, k+1);
+		if (comp < curDist) {
+			ret = 3;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, j, i+1, k, j+1, k+1);
+		if (comp < curDist) {
+			ret = 4;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, k, j+1, i+1,j, k+1);
+		if (comp < curDist) {
+			ret = 5;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, j+1, k, j, i+1, k+1);
+		if (comp < curDist) {
+			ret = 6;
+			curDist = comp;
+		}
+		comp = threeOptDistance(route, i, j+1, k,i+1, j, k+1);
+		if (comp < curDist) {
+			ret = 7;
+			curDist = comp;
+		}
+
+		return ret;
+	}
+
+	public int threeOptDistance(Path route, int s1, int f1, int s2, int f2, int s3, int f3) {
+		int sum = 0;
+		sum += getDistance(route.path[s1], route.path[f1]);
+		sum += getDistance(route.path[s2], route.path[f2]);
+		sum += getDistance(route.path[s3], route.path[f3]);
+		return sum;
+	}
 }
