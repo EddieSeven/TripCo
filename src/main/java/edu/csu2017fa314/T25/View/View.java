@@ -1,11 +1,8 @@
 package edu.csu2017fa314.T25.View;
 
-import com.google.gson.Gson;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -4,148 +4,79 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
-
 import edu.csu2017fa314.T25.Model.NearestNeighbor;
 import edu.csu2017fa314.T25.Model.Result;
 import edu.csu2017fa314.T25.Model.TripLeg;
 import edu.csu2017fa314.T25.Model.Database;
-import edu.csu2017fa314.T25.Model.Point;
-
 import spark.Request;
 import spark.Response;
 import static spark.Spark.post;
-import static spark.Spark.get;
 import static spark.Spark.port;
 
 public class Server {
-	Gson g;
-	Database dbDriver;
-	View v = new View();
-	boolean updateSVG;
-	String svg;
-	ArrayList<TripLeg> latestItinerary;
+    private Gson gson;
+    private Database database;
+    private View view = new View();
+    private String svg;
 
-	public Server(Database dbd) {
-		g = new Gson();
-		dbDriver = dbd;
-		
-		svg = v.getSVG();
-		latestItinerary = null;
-	}
-
-	public void serve() {
-		port(2530);
-
-		post("/search", this::serveSearch, g::toJson);
-		// get("/svg", this::serveSVG);
-	}
-	public void serveTest() {
-		port(2526);
-		post("/search", this::serveSearchTest, g::toJson);
-		// get("/svg", this::serveSVG);
-	}
-  
-	public String getSvg(){
-	    return svg;
+    public Server(Database database) {
+        gson = new Gson();
+        this.database = database;
+        svg = view.getSVG();
     }
 
-	// This is meant for testing to avoid having to connect to the database
-	private Object serveSearchTest(Request rec, Response resp) {
-		setHeaders(resp);
-		
-		JsonParser jp = new JsonParser();
-		JsonElement je = jp.parse(rec.body());
-	
-		ServerRequest sq = g.fromJson(je, ServerRequest.class);
-		System.out.println("Querying for " + sq.getDescription());
+    public void serve() {
+        port(2530);
+        post("/search", this::serveSearch, gson::toJson);
+    }
 
-		Point[] points = new Point[3];
+    public String getSvg() {
+        return svg;
+    }
 
-		String attributes[] = new String[5];
-		attributes[0] = "aa";
-		attributes[1] = "heliport";
-		attributes[2] = "Alfred Aytpe Heliport";
-		attributes[3] = "38.371";
-		attributes[4] = "-107.860";
-		points[0] = new Point(attributes);
+    private Object serveSearch(Request request, Response response) {
+        setHeaders(response);
 
-		attributes = new String[5];
-		attributes[0] = "cb";
-		attributes[1] = "airport";
-		attributes[2] = "Canton Bibel Airport";
-		attributes[3] = "39.052";
-		attributes[4] = "-105.631";
-		points[1] = new Point(attributes);
+        JsonParser parser = new JsonParser();
+        JsonElement jsonElement = parser.parse(request.body());
 
-		attributes = new String[5];
-		attributes[0] = "dj";
-		attributes[1] = "airport";
-		attributes[2] = "Don John Airport";
-		attributes[3] = "37.646";
-		attributes[4] = "-105.431";
-		points[2] = new Point(attributes);
+        ServerRequest serverRequest = gson.fromJson(jsonElement, ServerRequest.class);
+        System.out.println("Querying for " + serverRequest.getDescription());
 
-		NearestNeighbor algorithm = new NearestNeighbor(points, points.length, sq.getMiles());
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sq.getOptimization()).getLegs();
+        ServerResponse serverResponse;
+        String reqType = serverRequest.getRequest();
+        if (reqType.equals("select")) {
+            serverResponse = handleSelectionQuery(serverRequest);
+        } else {
+            serverResponse = handleItineraryQuery(serverRequest);
+        }
 
+        return gson.toJson(serverResponse, ServerResponse.class);
+    }
 
-		// Get itinerary from database
-		if (sq.getRequest().equals("select")) {
-			return g.toJson(new ServerResponse(points), ServerResponse.class);
-		}
-		else {
-			return g.toJson(new ServerResponse(legs, "populated", 120, 100), ServerResponse.class); 
-		}
-	}
+    private ServerResponse handleItineraryQuery(ServerRequest serverRequest) {
+        Result result = database.queryAlgorithm(serverRequest.getIDList());
+        NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, serverRequest.getMiles());
+        ArrayList<TripLeg> legs = algorithm.computeShortestPath(serverRequest.getOptimization()).getLegs();
 
-	private Object serveSearch(Request rec, Response resp) {
-		setHeaders(resp);
-		
-		JsonParser jp = new JsonParser();
-		JsonElement je = jp.parse(rec.body());
-	
-		ServerRequest sq = g.fromJson(je, ServerRequest.class);
-		System.out.println("Querying for " + sq.getDescription());
+        try {
+            svg = view.insertSVG(legs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		ServerResponse sres = null;
-		String reqType = sq.getRequest();
-		if (reqType.equals("select")) {
-			sres = handleSelectionQuery(sq);
-		}
-		else {
-			sres = handleItineraryQuery(sq);
-		}
+        return new ServerResponse(legs, svg, 120, 100);
+    }
 
-		return g.toJson(sres, ServerResponse.class);
-	}
+    private ServerResponse handleSelectionQuery(ServerRequest serverRequest) {
+        Result result = database.queryPage(serverRequest.getDescription());
+        return new ServerResponse(result.points);
+    }
 
-	private ServerResponse handleItineraryQuery(ServerRequest sreq) {
-		Result result = dbDriver.queryAlgorithm(sreq.getIDList());
+    private void setHeaders(Response response) {
+        response.header("Content-Type", "application/json");
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Headers", "*");
+    }
 
-
-		NearestNeighbor algorithm = new NearestNeighbor(result.points, result.size, sreq.getMiles());
-		ArrayList<TripLeg> legs = algorithm.computeShortestPath(sreq.getOptimization()).getLegs();
-
-		try {
-			System.out.println("Appending path to SVG: " + legs);
-			svg = v.insertSVG(legs);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return new ServerResponse(legs, svg, 120, 100);
-	}
-
-	private ServerResponse handleSelectionQuery(ServerRequest sreq) {
-		Result result = dbDriver.queryPage(sreq.getDescription());
-		return new ServerResponse(result.points);
-	}
-
-	private void setHeaders(Response resp) {
-		resp.header("Content-Type", "application/json");
-		
-		resp.header("Access-Control-Allow-Origin", "*");
-		resp.header("Access-Control-Allow-Headers", "*");
-	}
-	
 }
