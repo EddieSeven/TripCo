@@ -8,7 +8,6 @@ class Home extends React.Component {
     constructor(props){
         super(props);
         this.handleData = this.handleData.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.onSubmitItinerary = this.onSubmitItinerary.bind(this);
         this.fetch = this.fetch.bind(this);
         this.fetchItinerary = this.fetchItinerary.bind(this);
@@ -30,7 +29,8 @@ class Home extends React.Component {
 		let name = event.target.value;
 		let Opt = parseInt(name);
 		this.setState({
-			opt: Opt
+			opt: Opt,
+			searchQuery: this.state.searchQuery
 		});
 	}
 
@@ -48,11 +48,8 @@ class Home extends React.Component {
 	}
 
     handleData(data){
-        //this.setState({
-        //    searchQuery: data
-        //});
-        console.log("Test 1 " + data);
-        this.onSubmit(data);
+        console.log("Searched For: " + data);
+        this.fetch("select", data);
     }
 
     handleAdd(index){
@@ -77,42 +74,9 @@ class Home extends React.Component {
         }
     }
 
-    onSubmit(e) {
-        console.log("Searched for:");
-        console.log(e);
-        this.fetch("select", e);
-    }
-
     onSubmitItinerary(e) {
-        /*if(this.state.queryResults.length > 0){
-            console.log("Testing temp list: ", this.state.queryResults);
-            let temp = []
-            for(let k = 0; k < this.state.queryResults.length; k++){
-                temp.push(this.state.queryResults[k]);
-            }
-
-            this.setState({
-                ids: temp
-            });
-        } */
         console.log("ID List to be sent to Plan: ", this.state.ids);
         this.fetchItinerary("itinerary", this.state.ids);
-    }
-
-    setArray(tempArray){
-        console.log("Passed in ", tempArray);
-        this.setState({
-            ids: tempArray
-        });
-    }
-
-    onSave(e){
-    }
-
-    onAddClick(){
-    }
-
-    onRemoveClick(){
     }
 
     render() {
@@ -135,7 +99,7 @@ class Home extends React.Component {
                     <span className="buttons">
                         <ul>
                             <li>
-                                <button type="submit" onClick={this.onSave.bind(this)}> Save </button>
+                                <button type="submit"> Save </button>
                             </li>
                             <li>
                                 <LoadsaveDropzone
@@ -143,7 +107,7 @@ class Home extends React.Component {
                                 />
                             </li>
                             <li><button type="submit" onClick={this.onSubmitItinerary}> Plan </button></li>
-                            <li><button type="submit" onClick={this.onRemoveClick()}> Reset </button></li>
+                            <li><button type="submit"> Reset </button></li>
                         </ul>
                     </span>
                     <span className="toggle">
@@ -174,13 +138,13 @@ class Home extends React.Component {
                     <table>
 
                         <tr>
-                            <td><label> No optimization <input type="radio" name="opt" value="0" defaultChecked onClick={this.handleOptChange} /></label></td>
+                            <td><label> No optimization <input type="radio" name="opt" value="0" onClick={this.handleOptChange} /></label></td>
 
                             <td><label> Nearest Neighbor <input type="radio" name="opt" value="1" onClick={this.handleOptChange} /></label></td>
 
                         </tr>
                         <tr>
-                            <td><label> 2-Opt Algorithm <input type="radio" name="opt" value="2" onClick={this.handleOptChange} /></label></td>
+                            <td><label> 2-Opt Algorithm <input type="radio" name="opt" value="2" defaultChecked onClick={this.handleOptChange} /></label></td>
 
                             <td><label> 3-Opt Algorithm<input type="radio" name="opt" value="3" onClick={this.handleOptChange} /></label></td>
                         </tr>
