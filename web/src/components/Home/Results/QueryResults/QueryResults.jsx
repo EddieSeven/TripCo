@@ -44,6 +44,10 @@ class QueryResults extends React.Component {
                                     <th> Airport ID </th>
 
                                     <th> Airport Name </th>
+                                    
+                                    <th> Region </th>
+
+                                    <th> USA </th>
 
                                 </tr>
                             </thead>
@@ -55,10 +59,15 @@ class QueryResults extends React.Component {
                                     <td>
                                         {location.attributes[2]}
                                     </td>
+                                    <td>
+                                        {location.attributes[7]}
+                                    </td>
+                                    <td>
+                                        {location.attributes[8]}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-
                     </li>;
             });
         }
