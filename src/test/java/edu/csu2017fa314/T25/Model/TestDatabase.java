@@ -35,6 +35,10 @@ public class TestDatabase {
             Result result = test.queryPage("Urb");
             assertEquals(true, result.points[0].attributes[2].equals("Urbino"));
         } else if (atMichaels) {
+            Result result1 = test.queryPage("sweden");
+
+
+
             ArrayList<String> codes = new ArrayList<>();
             codes = readCodeList("M:\\Michael\\Documents\\Development\\IntelliJ\\projects\\T25\\data\\worldmedium4.txt");
             Result result = test.queryAlgorithm(codes);
