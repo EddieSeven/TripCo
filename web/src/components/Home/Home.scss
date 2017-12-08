@@ -14,9 +14,9 @@
     width: 340px;
     overflow-x: hidden;
     text-align: center;
-    float: left;
     color: #dddddd;
     display: inline-block;
+    margin-top: 20%;
 }
 
 .header img{
@@ -37,7 +37,7 @@
     text-align: center;
     font-size: 17px;
     float: left;
-    margin: 0 9%;
+    margin: 0 22%;
 }
 
 opt-select table, td, tr{
@@ -149,9 +149,14 @@ opt-select table, td, tr{
 
 }
 
+.right-head-container{
+    display:inline-block;
+    width: 500px;
+}
+
 .svg-container{
-    width: 400px;
-    height: 200px;
+    width: 450px;
+    height: 300px;
     border: 2px solid #dddddd;
     border-radius: 5px;
     white-space: nowrap;

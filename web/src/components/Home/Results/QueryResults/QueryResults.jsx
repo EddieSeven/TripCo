@@ -47,7 +47,7 @@ class QueryResults extends React.Component {
                                     
                                     <th> Region </th>
 
-                                    <th> USA </th>
+                                    <th> Country </th>
 
                                 </tr>
                             </thead>
@@ -60,10 +60,10 @@ class QueryResults extends React.Component {
                                         {location.attributes[2]}
                                     </td>
                                     <td>
-                                        {location.attributes[7]}
+                                        {location.attributes[8]}
                                     </td>
                                     <td>
-                                        {location.attributes[8]}
+                                        {location.attributes[7]}
                                     </td>
                                 </tr>
                             </tbody>
