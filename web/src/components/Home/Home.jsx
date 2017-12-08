@@ -99,7 +99,7 @@ class Home extends React.Component {
                     <span className="buttons">
                         <ul>
                             <li>
-                                <button type="submit"> Save </button>
+                                <button type="submit" onClick={this.saveButtonClicked.bind(this)}> Save </button>
                             </li>
                             <li>
                                 <LoadsaveDropzone
@@ -164,6 +164,45 @@ class Home extends React.Component {
 
         </div>
         );
+    }
+
+    saveButtonClicked(event) {
+        this.getFile();
+    }
+
+// download a file of the array a query returns
+    async getFile() {
+         // assign all the airport codes of the displayed locations to an array
+         let locs = this.state.ids.map((location) => {
+            return location;
+        });
+
+        // create an object in the format of the download file:
+        let locationFile = {
+            title : "selection",
+            destinations: locs
+        };
+
+        // stringify the object
+        let asJSONString = JSON.stringify(locationFile);
+
+        // Javascript code to create an <a> element with a link to the file
+        let pom = document.createElement('a');
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(asJSONString));
+        // Download the file instead of opening it:
+        pom.setAttribute('download', "TripCo-Plan.json");
+
+        // Javascript to click the hidden link we created, causing the file to download
+        if (document.createEvent) {
+            let event = document.createEvent('MouseEvents');
+            event.initEvent('click', true, true);
+            pom.dispatchEvent(event);
+        } else {
+            pom.click();
+        }
+
+        // remove hidden link from page
+        pom.parentNode.removeChild(pom);
     }
 
     async browseFile(file) {

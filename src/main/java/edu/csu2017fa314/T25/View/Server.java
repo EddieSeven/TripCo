@@ -38,11 +38,13 @@ public class Server {
 
         ServerResponse serverResponse;
         String reqType = serverRequest.getRequest();
+	System.out.println("reqType holds: " + reqType);
         if (reqType.equals("select")) {
             serverResponse = handleSelectionQuery(serverRequest);
         } else {
             serverResponse = handleItineraryQuery(serverRequest);
         }
+	System.out.println("serverResponse returned is: " + serverResponse);
 
         return gson.toJson(serverResponse, ServerResponse.class);
     }
