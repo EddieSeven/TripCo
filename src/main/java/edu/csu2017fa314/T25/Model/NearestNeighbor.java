@@ -68,7 +68,9 @@ public class NearestNeighbor {
     }
 
 	public Path computeNonOptPath() {
-		return new Path(points, N);
+		Path ret = new Path(points, N);
+                ret.returnHome();
+                return ret;
 	}
 
     public Path computeNNPath(int startIndex) {
