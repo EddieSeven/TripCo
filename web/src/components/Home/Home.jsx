@@ -107,7 +107,7 @@ class Home extends React.Component {
                                 />
                             </li>
                             <li><button type="submit" onClick={this.onSubmitItinerary}> Plan </button></li>
-                            <li><button type="submit"> Reset </button></li>
+                            <li><button type="submit" onClick={this.resetButtonClicked.bind(this)}> Reset </button></li>
                         </ul>
                     </span>
                     <span className="toggle">
@@ -168,6 +168,12 @@ class Home extends React.Component {
 
     saveButtonClicked(event) {
         this.getFile();
+    }
+
+    resetButtonClicked(event) {
+        this.setState({
+            ids: []
+        });
     }
 
 // download a file of the array a query returns
