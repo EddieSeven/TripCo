@@ -9,6 +9,14 @@
     padding: 5px;
 }
 
+.full-results-wrapper {
+    .query-wrapper, .plan-wrapper{
+        background: rgba(22,22,22,0.7);
+        border-radius: 3px;
+        margin: 10px;
+    }
+}
+
 .full-results-wrapper h5, h6{
     color: #dddddd;
     padding: 2px;

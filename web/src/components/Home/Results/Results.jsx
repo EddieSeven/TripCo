@@ -7,7 +7,7 @@ class Results extends React.Component {
     render() {
         console.log("In Results.jsx ", this.props);
         return <div className="full-results-wrapper">
-            <div>
+            <div className="query-wrapper">
                 <h5>Results: </h5>
                 <h6>Click on an element to add it to your trip.</h6>
                 <QueryResults
@@ -15,7 +15,7 @@ class Results extends React.Component {
                     addHandlerFromResult={this.props.addHandlerFromHome}
                 />
             </div>
-            <div>
+            <div className="plan-wrapper">
                 <h5>Plan: </h5>
                 <h6>Click on an element to remove it from your trip.</h6>
                 <PlanResults
