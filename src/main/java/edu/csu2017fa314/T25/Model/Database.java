@@ -173,10 +173,28 @@ public class Database {
     }
 
     private int getTotal(String searchString) throws SQLException {
-        String query = "SELECT COUNT(*) FROM airports WHERE type LIKE '%" +
-                searchString + "%' OR name LIKE '%" +
-                searchString + "%' OR municipality LIKE '%" +
-                searchString + "%';";
+        String select = "SELECT COUNT(*) "; // Columns we want in the result set
+
+        String from = "FROM airports INNER JOIN continents ON airports.continent = continents.code " +
+                "INNER JOIN countries ON airports.iso_country = countries.code " +
+                "INNER JOIN regions ON airports.iso_region = regions.code ";
+
+        String where = "WHERE continents.name like '%" + searchString + "%' OR " +
+                "continents.name like '%" + searchString + "%' OR " +
+                "continents.code like '%" + searchString + "%' OR " +
+                "countries.name like '%" + searchString + "%' OR " +
+                "countries.code like '%" + searchString + "%' OR " +
+                "countries.keywords like '%" + searchString + "%' OR " +
+                "regions.name like '%" + searchString + "%' OR " +
+                "regions.keywords like '%" + searchString + "%' OR " +
+                "regions.code like '%" + searchString + "%' OR " +
+                "airports.name like '%" + searchString + "%' OR " +
+                "airports.code like '%" + searchString + "%' OR " +
+                "airports.type like '%" + searchString + "%' OR " +
+                "airports.municipality like '%" + searchString + "%' OR " +
+                "airports.keywords like '%" + searchString + "%' ";
+
+        String query = select + from + where + ";";
 
         ResultSet result = statement.executeQuery(query);
 
