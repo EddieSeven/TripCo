@@ -89,7 +89,6 @@ Date | Tasks done now | Tasks done next | Impediments | Coverage | Smells | Dupl
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-<<<<<<< HEAD
 What we will change this time | N/A | N/A | N/A
 What we did well | Communicated effectively, worked together and tackled issues as a team | Problem solved methodically | Utilized multiple machines to work together on different tasks 
 What we need to work on | Making larger contributions throughout the sprint | Streamlining the testing process | Making sure everyone has the tools to test coverage, and the remote server
