@@ -88,7 +88,7 @@ Date | Tasks done now | Tasks done next | Impediments | Coverage | Smells | Dupl
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time | N/A | N/A | N/A
-What we did well | Communicated effectively, worked together and tackled issues as a team | Problem solved methodically | Utilized multiple machines to work together on different tasks 
+What we will change this time |  |  | 
+What we did well | Communicated effectively, worked together and tackled issues as a team. | Problem solved methodically. | Utilized multiple machines to work together on different tasks. 
 What we need to work on |  |  |
-What we will change next time | N/A | N/A | N/A
+What we will change next time | Help each other if bugs or issues arise. | Use paired programming to bounce ideas and write quality code . | Write more scripts to help automate testing.
