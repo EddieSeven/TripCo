@@ -67,20 +67,22 @@ Date | Tasks done now | Tasks done next | Impediments | Coverage | Smells | Dupl
 ## Review
 
 #### Completed user stories (epics) in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* Test Coverage: Increased overall coverage
+* Clean Code
+* Trip Destinations
+* Optimization Selection
+* Map with zoom and pan
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* *user story*: *Explanation...*
-*
+* Select a starting location: Ended up not having enough time
+* Add Reorder: Same as above
 
 #### What went well
-* *something*
-*
+* No huge roadblocks, steady development
+
 
 #### Problems encountered and resolutions
-* *something*
-*
+* Hidden bugs, which were solved once we got everything together
 
 ## Retrospective
 
